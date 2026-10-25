@@ -1,0 +1,13 @@
+GATE RECALL — START HERE
+
+1. Extract this ENTIRE ZIP to a folder.
+2. Open index.html with Chrome, Edge, Firefox or Safari on a computer.
+3. Keep all files and folders together. Bookmark the page.
+4. Choose a subject, topic and subtopic. Recall, read and practise.
+5. Export progress regularly from Offline & backup.
+
+Everything needed for local study is included. No ChatGPT account, subscription or internet is needed. External reference and community solution links require internet. Progress is stored in your browser; use Export/Import to move it.
+
+For phones, use a hosted HTTPS copy, download study material from Offline & backup, and add it to your home screen. Check readiness before disconnecting.
+
+See README.md for accuracy notes and GitHub Pages instructions.

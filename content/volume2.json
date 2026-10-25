@@ -1,0 +1,2848 @@
+[
+  {
+    "id": "v2-1.1",
+    "title": "Algorithm Design",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "Asked whether a procedure always returns the required result.",
+    "theory": [
+      "Separate correctness, termination and resource use. A fast procedure can still be incorrect.",
+      "For a loop proof, establish the invariant initially, preserve it for one iteration, and combine it with termination."
+    ],
+    "recall": {
+      "q": "What are the three stages of a loop-invariant proof?",
+      "a": "Initialization, maintenance, termination."
+    },
+    "pitfall": "Testing a few examples can disprove correctness, but cannot prove correctness for every input.",
+    "originalNotes": {
+      "startPage": 7,
+      "endPage": 8
+    }
+  },
+  {
+    "id": "v2-1.2",
+    "title": "Algorithm Design Techniques",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "Asked which design technique suits a problem.",
+    "theory": [
+      "Divide and conquer solves smaller instances and combines results; dynamic programming stores answers to overlapping states.",
+      "A greedy choice needs a correctness argument, often an exchange argument or a cut property."
+    ],
+    "recall": {
+      "q": "What distinguishes dynamic programming from ordinary divide and conquer?",
+      "a": "DP reuses overlapping subproblem results; ordinary divide and conquer generally has independent subproblems."
+    },
+    "pitfall": "Optimal substructure alone does not justify a greedy algorithm.",
+    "originalNotes": {
+      "startPage": 7,
+      "endPage": 8
+    }
+  },
+  {
+    "id": "v2-1.3",
+    "title": "Asymptotic Notation",
+    "subject": "Algorithms",
+    "group": "Complexity and Recurrences",
+    "scope": "syllabus",
+    "cue": "Compare growth rates, bounds or nested logarithms.",
+    "theory": [
+      "O(g) is an asymptotic upper bound; Ω(g) is a lower bound; Θ(g) means both bounds hold.",
+      "For positive functions, a finite nonzero limit of f(n)/g(n) establishes Θ; limit zero establishes little-o."
+    ],
+    "recall": {
+      "q": "Does f(n)=O(n²) mean f must take quadratic time?",
+      "a": "No. Linear and constant functions are also O(n²); Θ is the tight-growth claim."
+    },
+    "pitfall": "Big-O does not itself mean worst case; it can bound any specified cost function.",
+    "originalNotes": {
+      "startPage": 7,
+      "endPage": 8
+    }
+  },
+  {
+    "id": "v2-1.4",
+    "title": "Bellman–Ford",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Shortest paths with negative edge weights.",
+    "theory": [
+      "Bellman–Ford repeatedly relaxes all edges; after k full passes, paths using at most k edges are accounted for.",
+      "With no reachable negative cycle, V−1 passes suffice. A further improvement signals a reachable negative cycle."
+    ],
+    "recall": {
+      "q": "What is Bellman–Ford’s standard running time?",
+      "a": "O(VE)."
+    },
+    "pitfall": "A negative cycle outside the source’s reachable region does not invalidate source distances.",
+    "originalNotes": {
+      "startPage": 8,
+      "endPage": 9
+    }
+  },
+  {
+    "id": "v2-1.5",
+    "title": "Binary Heap",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Priority-based selection or heap operations.",
+    "theory": [
+      "A binary heap is complete and obeys parent–child heap order; unrelated siblings need not be sorted.",
+      "Bottom-up construction is Θ(n); inserting or extracting a root is O(log n)."
+    ],
+    "recall": {
+      "q": "Why is building a heap not necessarily Θ(n log n)?",
+      "a": "Most nodes are near the leaves and need little or no downward work; summing work by height gives Θ(n)."
+    },
+    "pitfall": "A heap is not a binary search tree.",
+    "originalNotes": {
+      "startPage": 8,
+      "endPage": 9
+    }
+  },
+  {
+    "id": "v2-1.6",
+    "title": "Binary Search",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Sorted input or a monotone yes/no condition.",
+    "theory": [
+      "Binary search maintains an interval that contains the target and discards about half each step.",
+      "On an indexed sorted array, comparisons are O(log n); choose consistent inclusive or half-open bounds."
+    ],
+    "recall": {
+      "q": "What condition makes binary search on an answer possible?",
+      "a": "A monotone feasibility predicate, so all infeasible and feasible candidates form ordered regions."
+    },
+    "pitfall": "Searching a linked list does not provide constant-time access to its middle.",
+    "originalNotes": {
+      "startPage": 9,
+      "endPage": 10
+    }
+  },
+  {
+    "id": "v2-1.7",
+    "title": "Binary Search Trees",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Search paths or order queries in a BST.",
+    "theory": [
+      "For distinct keys, left-subtree keys are smaller and right-subtree keys are larger than the node key.",
+      "Search, insert and delete cost O(h), where h is tree height; h can be n−1 in an unbalanced BST."
+    ],
+    "recall": {
+      "q": "What order does inorder traversal of a BST produce?",
+      "a": "Sorted key order."
+    },
+    "pitfall": "O(log n) requires a height guarantee or an average-case assumption.",
+    "originalNotes": {
+      "startPage": 9,
+      "endPage": 10
+    }
+  },
+  {
+    "id": "v2-1.8",
+    "title": "Binary Trees",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Tree shapes, leaf counts or height bounds.",
+    "theory": [
+      "With root depth 0, a binary tree has at most 2ᵈ nodes at depth d and at most 2ʰ⁺¹−1 nodes through height h.",
+      "For a nonempty binary tree, the number of leaves equals the number of two-child nodes plus one."
+    ],
+    "recall": {
+      "q": "Does a binary tree require every node to have two children?",
+      "a": "No; each node has at most two children. A full/proper binary tree requires zero or two."
+    },
+    "pitfall": "Complete, full and perfect are different tree properties.",
+    "originalNotes": {
+      "startPage": 10,
+      "endPage": 11
+    }
+  },
+  {
+    "id": "v2-1.9",
+    "title": "Breadth-First Search",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Minimum number of edges from a source.",
+    "theory": [
+      "BFS uses a queue and discovers vertices in nondecreasing distance from the source.",
+      "With adjacency lists it takes O(V+E); predecessor edges give a shortest-path tree in an unweighted graph."
+    ],
+    "recall": {
+      "q": "When is BFS a shortest-path algorithm?",
+      "a": "When edges are unweighted or all have the same weight."
+    },
+    "pitfall": "Different adjacency orders may give different valid BFS trees.",
+    "originalNotes": {
+      "startPage": 10,
+      "endPage": 11
+    }
+  },
+  {
+    "id": "v2-1.10",
+    "title": "Bubble Sort",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Repeated adjacent comparisons and swaps.",
+    "theory": [
+      "Bubble sort swaps adjacent out-of-order elements; each pass can place a largest remaining key.",
+      "Worst-case time is Θ(n²). An early-exit flag gives Θ(n) best case on already sorted input."
+    ],
+    "recall": {
+      "q": "What does the number of adjacent swaps equal when sorting distinct keys?",
+      "a": "The initial inversion count."
+    },
+    "pitfall": "Without early termination, even sorted input can take quadratic comparisons.",
+    "originalNotes": {
+      "startPage": 10,
+      "endPage": 11
+    }
+  },
+  {
+    "id": "v2-1.11",
+    "title": "Master Theorem: Additional Practice",
+    "subject": "Algorithms",
+    "group": "Complexity and Recurrences",
+    "scope": "syllabus",
+    "cue": "A recurrence has the form aT(n/b)+f(n).",
+    "theory": [
+      "Compare f(n) with n^(log_b a). For f(n)=Θ(n^(log_b a)), the basic theorem gives Θ(n^(log_b a) log n).",
+      "The polynomial-gap cases require their stated conditions; the large-f case also needs a regularity condition. Use a recursion tree when the theorem does not apply."
+    ],
+    "recall": {
+      "q": "What is T(n)=2T(n/2)+n, with constant-size base cases?",
+      "a": "Θ(n log n)."
+    },
+    "pitfall": "The source item is labeled GATE CS Practice, not an actual exam PYQ. Its “Computer Science” label is too broad.",
+    "originalNotes": {
+      "startPage": 11,
+      "endPage": 12
+    },
+    "correction": {
+      "sourcePage": 36,
+      "original": "The source category is labeled “Computer Science”.",
+      "corrected": "The single item is Master-theorem practice and should be labeled separately from exam PYQs.",
+      "reason": "Its heading explicitly says GATE CS Practice: The Master Theorem and gives no exam year/question number."
+    }
+  },
+  {
+    "id": "v2-1.12",
+    "title": "Depth-First Search",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "DFS times, back edges, cycles or finishing order.",
+    "theory": [
+      "DFS follows one path deeply before backtracking. A visited set prevents repeated expansion.",
+      "With adjacency lists, DFS costs O(V+E); reverse finish order gives a topological order in a DAG."
+    ],
+    "recall": {
+      "q": "What does a back edge indicate in directed DFS?",
+      "a": "A directed cycle."
+    },
+    "pitfall": "Do not apply directed-edge classifications to undirected graphs without accounting for the parent edge.",
+    "originalNotes": {
+      "startPage": 11,
+      "endPage": 12
+    }
+  },
+  {
+    "id": "v2-1.13",
+    "title": "Dijkstra’s Algorithm",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Weighted shortest paths with nonnegative edges.",
+    "theory": [
+      "Dijkstra repeatedly finalizes an unsettled vertex with smallest tentative distance and relaxes its outgoing edges.",
+      "A binary heap with adjacency lists gives O((V+E) log V); a simple array implementation can take O(V²)."
+    ],
+    "recall": {
+      "q": "Why do negative edges threaten Dijkstra’s greedy step?",
+      "a": "A later path through an unsettled vertex may reduce a distance already finalized."
+    },
+    "pitfall": "Dijkstra constructs shortest paths, not a minimum spanning tree.",
+    "originalNotes": {
+      "startPage": 11,
+      "endPage": 12
+    }
+  },
+  {
+    "id": "v2-1.14",
+    "title": "Directed Acyclic Graphs",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Dependencies, topological orders or paths in an acyclic digraph.",
+    "theory": [
+      "A directed graph has a topological ordering exactly when it has no directed cycle.",
+      "Process a DAG in topological order to relax edges for shortest or longest paths, including negative weights."
+    ],
+    "recall": {
+      "q": "Can a DAG have negative-weight edges?",
+      "a": "Yes; it has no cycles, so no negative cycles."
+    },
+    "pitfall": "A topological ordering need not be unique.",
+    "originalNotes": {
+      "startPage": 11,
+      "endPage": 12
+    }
+  },
+  {
+    "id": "v2-1.15",
+    "title": "Double Hashing",
+    "subject": "Algorithms",
+    "group": "Hashing",
+    "scope": "syllabus",
+    "cue": "An open-address probe sequence uses two hashes.",
+    "theory": [
+      "Double hashing probes (h₁(k)+i·h₂(k)) mod m for i=0,1,….",
+      "The step h₂(k) must be nonzero and coprime to m to visit every slot."
+    ],
+    "recall": {
+      "q": "For prime table size m, which step sizes visit all slots?",
+      "a": "Any integer from 1 to m−1."
+    },
+    "pitfall": "A zero step or a common factor with m can trap probing in a subset of slots.",
+    "originalNotes": {
+      "startPage": 12,
+      "endPage": 13
+    }
+  },
+  {
+    "id": "v2-1.16",
+    "title": "Dynamic Programming",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "Repeated subproblems and an optimum over choices.",
+    "theory": [
+      "Define a state by all information needed for future decisions, then a recurrence and base cases.",
+      "Memoization is top-down caching; tabulation is bottom-up evaluation in dependency order."
+    ],
+    "recall": {
+      "q": "How do you estimate DP running time?",
+      "a": "Number of reachable states × work per state, including the transitions examined."
+    },
+    "pitfall": "A recurrence without clear state meaning is easy to index incorrectly.",
+    "originalNotes": {
+      "startPage": 12,
+      "endPage": 13
+    }
+  },
+  {
+    "id": "v2-1.17",
+    "title": "Graph Algorithms",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Choose an algorithm from graph constraints.",
+    "theory": [
+      "BFS handles unweighted distances; Dijkstra handles nonnegative weights; Bellman–Ford handles negative edges.",
+      "DFS/BFS test reachability; Kruskal/Prim connect an undirected graph with minimum total tree weight."
+    ],
+    "recall": {
+      "q": "What separates a shortest-path tree from an MST?",
+      "a": "A shortest-path tree minimizes source-to-vertex distances; an MST minimizes total selected edge weight."
+    },
+    "pitfall": "Check directed versus undirected and weighted versus unweighted before choosing a method.",
+    "originalNotes": {
+      "startPage": 12,
+      "endPage": 13
+    }
+  },
+  {
+    "id": "v2-1.18",
+    "title": "Graph Traversal and Search",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Possible traversal orders or graph-search forests.",
+    "theory": [
+      "A graph traversal may need a new start vertex after each disconnected component.",
+      "BFS uses a queue; iterative DFS uses a stack; recursive DFS uses the call stack."
+    ],
+    "recall": {
+      "q": "Why might one source fail to visit every vertex?",
+      "a": "The graph can have disconnected or unreachable vertices."
+    },
+    "pitfall": "A traversal tree contains discovery edges, not every original graph edge.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 14
+    }
+  },
+  {
+    "id": "v2-1.19",
+    "title": "Greedy Algorithms",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "Choose the locally best remaining option.",
+    "theory": [
+      "A greedy algorithm commits to a choice without revisiting it. Prove that some optimal solution can include that choice.",
+      "For interval scheduling by maximum count, earliest finishing time is a correct greedy rule."
+    ],
+    "recall": {
+      "q": "What should follow a proposed greedy rule?",
+      "a": "A proof such as an exchange argument, or a counterexample showing it fails."
+    },
+    "pitfall": "A rule that works for fractional knapsack need not work for 0/1 knapsack.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 14
+    }
+  },
+  {
+    "id": "v2-1.20",
+    "title": "Hashing",
+    "subject": "Algorithms",
+    "group": "Hashing",
+    "scope": "syllabus",
+    "cue": "Collisions, load factor or expected probes.",
+    "theory": [
+      "Load factor α=n/m is stored keys divided by table slots. Separate chaining may have α>1; open addressing requires free slots.",
+      "Expected O(1) operations require suitable hashing and controlled load, not merely the presence of a hash function."
+    ],
+    "recall": {
+      "q": "What is a collision?",
+      "a": "Two different keys obtain the same initial table index."
+    },
+    "pitfall": "Hashing does not guarantee O(1) worst-case lookup.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 14
+    }
+  },
+  {
+    "id": "v2-1.21",
+    "title": "Heapsort",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "In-place sorting through repeated maximum removal.",
+    "theory": [
+      "Build a max-heap, swap its root to the end, shrink the heap, and restore heap order.",
+      "Standard heapsort is O(n log n) worst case with O(1) auxiliary array space, and is generally unstable."
+    ],
+    "recall": {
+      "q": "Which heap is used for increasing-order heapsort?",
+      "a": "A max-heap."
+    },
+    "pitfall": "Heap order alone does not mean the array is fully sorted.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 14
+    }
+  },
+  {
+    "id": "v2-1.22",
+    "title": "Huffman Coding",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "Minimum weighted code length for symbol frequencies.",
+    "theory": [
+      "Huffman coding repeatedly merges the two smallest weights; merged nodes become an internal tree node.",
+      "Weighted code length is Σ fᵢ·lᵢ, also equal to the sum of all merge weights."
+    ],
+    "recall": {
+      "q": "Why can a prefix code be decoded unambiguously?",
+      "a": "No codeword is the prefix of another, so reaching a leaf determines a symbol."
+    },
+    "pitfall": "Ties can yield different optimal codes with the same total cost.",
+    "originalNotes": {
+      "startPage": 14,
+      "endPage": 15
+    }
+  },
+  {
+    "id": "v2-1.23",
+    "title": "Identify a Function from Code",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "A code fragment asks “what function does this compute?”",
+    "theory": [
+      "Trace several small inputs, identify what each variable means, and infer a loop or recursion invariant.",
+      "Write a mathematical expression for the returned value; separately account for mutation and output side effects."
+    ],
+    "recall": {
+      "q": "What is the first move when identifying an unfamiliar recursive function?",
+      "a": "Check base cases, then express its result in terms of smaller calls."
+    },
+    "pitfall": "The source label “Identify Function” means infer code behavior, not the identity function f(x)=x.",
+    "originalNotes": {
+      "startPage": 14,
+      "endPage": 15
+    },
+    "correction": {
+      "sourcePage": 14,
+      "original": "The note treats “Identify Function” as an identity function.",
+      "corrected": "This source category asks readers to infer what supplied program code computes.",
+      "reason": "The actual questions on pages 56–68 ask for outputs and mathematical behavior of code, not properties of f(x)=x."
+    }
+  },
+  {
+    "id": "v2-1.24",
+    "title": "Insertion Sort",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Sorted prefix grows one inserted key at a time.",
+    "theory": [
+      "Insertion sort places each next key within the already sorted prefix.",
+      "Standard insertion sort is stable and in-place; best case Θ(n), worst case Θ(n²), with work tied to inversions."
+    ],
+    "recall": {
+      "q": "Why is insertion sort useful on nearly sorted data?",
+      "a": "There are few inversions, so few shifts are required."
+    },
+    "pitfall": "Binary-searching the insertion position reduces comparisons, but array shifts can still be quadratic.",
+    "originalNotes": {
+      "startPage": 14,
+      "endPage": 15
+    }
+  },
+  {
+    "id": "v2-1.25",
+    "title": "Inversions",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Count pairs out of sorted order.",
+    "theory": [
+      "An inversion is a pair i<j with A[i]>A[j]. Distinct reverse-sorted keys have n(n−1)/2 inversions.",
+      "Count cross-half inversions while merging to obtain an O(n log n) algorithm."
+    ],
+    "recall": {
+      "q": "How many inversions does one adjacent out-of-order swap remove?",
+      "a": "Exactly one."
+    },
+    "pitfall": "Equal keys are not inversions under the strict greater-than definition.",
+    "originalNotes": {
+      "startPage": 15,
+      "endPage": 16
+    }
+  },
+  {
+    "id": "v2-1.26",
+    "title": "Linear Probing",
+    "subject": "Algorithms",
+    "group": "Hashing",
+    "scope": "syllabus",
+    "cue": "Collisions resolved by checking consecutive slots.",
+    "theory": [
+      "Linear probing uses (h(k)+i) mod m. Contiguous occupied blocks cause primary clustering.",
+      "Search follows the insertion probe sequence; deletion needs a tombstone or rehashing to preserve search paths."
+    ],
+    "recall": {
+      "q": "Why can clearing a deleted slot break lookup?",
+      "a": "A later key in the same probe chain may become unreachable when lookup stops at the cleared slot."
+    },
+    "pitfall": "Wrap from the final table index back to zero.",
+    "originalNotes": {
+      "startPage": 15,
+      "endPage": 16
+    }
+  },
+  {
+    "id": "v2-1.27",
+    "title": "Matrix-Chain Multiplication",
+    "subject": "Algorithms",
+    "group": "Algorithm Design",
+    "scope": "syllabus",
+    "cue": "Choose parenthesization of a matrix product.",
+    "theory": [
+      "For dimensions p₀×p₁,…,pₙ₋₁×pₙ, m[i,j]=minₖ(m[i,k]+m[k+1,j]+pᵢ₋₁pₖpⱼ).",
+      "Set m[i,i]=0 and fill by increasing chain length; the standard DP uses O(n³) time and O(n²) space."
+    ],
+    "recall": {
+      "q": "Does matrix-chain ordering change the order of the matrices?",
+      "a": "No; it changes parenthesization only."
+    },
+    "pitfall": "The merge cost uses the outer dimensions of the two product matrices.",
+    "originalNotes": {
+      "startPage": 15,
+      "endPage": 16
+    }
+  },
+  {
+    "id": "v2-1.28",
+    "title": "Minimum and Maximum",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Minimum comparisons to find both extremes.",
+    "theory": [
+      "Finding one extreme among n distinct numbers requires n−1 comparisons in the comparison model.",
+      "Pairing elements first finds both minimum and maximum in ⌈3n/2⌉−2 comparisons for n≥2."
+    ],
+    "recall": {
+      "q": "Why pair numbers before finding min and max?",
+      "a": "Only pair winners compete for maximum and pair losers for minimum."
+    },
+    "pitfall": "Do not assume independently finding both extremes is optimal.",
+    "originalNotes": {
+      "startPage": 16,
+      "endPage": 17
+    }
+  },
+  {
+    "id": "v2-1.29",
+    "title": "Merge Sort",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Recursively sort halves, then merge.",
+    "theory": [
+      "Merge sort satisfies T(n)=2T(n/2)+Θ(n), hence Θ(n log n).",
+      "Standard array merge sort uses Θ(n) auxiliary storage and is stable if ties are taken from the left run first."
+    ],
+    "recall": {
+      "q": "What is the maximum number of comparisons to merge sizes a and b?",
+      "a": "a+b−1 when both are nonempty."
+    },
+    "pitfall": "Time and auxiliary space are separate quantities.",
+    "originalNotes": {
+      "startPage": 16,
+      "endPage": 17
+    }
+  },
+  {
+    "id": "v2-1.30",
+    "title": "Merging Sorted Sequences",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Combine sorted sequences or choose merge order.",
+    "theory": [
+      "Two sorted arrays of lengths a and b can be merged in Θ(a+b) time.",
+      "For minimum total binary-merge cost, repeatedly merging the two smallest file sizes is the optimal-merge pattern."
+    ],
+    "recall": {
+      "q": "What determines the cost of one full merge?",
+      "a": "The combined lengths of the input runs."
+    },
+    "pitfall": "Concatenating two sorted lists does not generally produce a sorted list.",
+    "originalNotes": {
+      "startPage": 16,
+      "endPage": 17
+    }
+  },
+  {
+    "id": "v2-1.31",
+    "title": "Minimum Spanning Trees",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Connect every vertex with minimum total edge weight.",
+    "theory": [
+      "An MST of a connected undirected graph has V−1 edges. A minimum edge across any cut is safe for some MST.",
+      "An edge strictly heavier than every other edge on a cycle cannot belong to an MST."
+    ],
+    "recall": {
+      "q": "Do distinct edge weights imply a unique MST?",
+      "a": "Yes. The converse is not required: some graphs with repeated weights also have a unique MST."
+    },
+    "pitfall": "A light edge tied with others is not necessarily in every MST.",
+    "originalNotes": {
+      "startPage": 17,
+      "endPage": 18
+    }
+  },
+  {
+    "id": "v2-1.32",
+    "title": "Counting Swaps",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Minimum swaps to sort an arrangement.",
+    "theory": [
+      "For distinct keys, unrestricted swaps to sort a permutation equal n minus its number of cycles, including fixed points.",
+      "If only adjacent swaps are allowed, the minimum is the inversion count."
+    ],
+    "recall": {
+      "q": "What information must you check before applying a swap formula?",
+      "a": "Whether swaps may exchange arbitrary positions or only adjacent positions."
+    },
+    "pitfall": "Repeated keys can require choosing a target matching; the distinct-key cycle formula needs care.",
+    "originalNotes": {
+      "startPage": 17,
+      "endPage": 18
+    }
+  },
+  {
+    "id": "v2-1.33",
+    "title": "Prim’s Algorithm",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Grow one minimum-cost tree across a cut.",
+    "theory": [
+      "Prim repeatedly adds a lightest edge from the current tree to a vertex outside it.",
+      "It accepts negative edge weights; a heap-based adjacency-list implementation takes O(E log V)."
+    ],
+    "recall": {
+      "q": "What does Prim’s key for a vertex represent?",
+      "a": "The weight of its lightest known edge connecting it to the current tree."
+    },
+    "pitfall": "Prim’s key is not the total path distance from the starting vertex.",
+    "originalNotes": {
+      "startPage": 17,
+      "endPage": 18
+    }
+  },
+  {
+    "id": "v2-1.34",
+    "title": "Quicksort",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Partition around a pivot.",
+    "theory": [
+      "Quicksort recursively sorts the partitions. Balanced splits give Θ(n log n); consistently extreme pivots can give Θ(n²).",
+      "Random pivots give expected Θ(n log n); recursive stack space depends on partition balance and implementation."
+    ],
+    "recall": {
+      "q": "What recurrence describes repeated one-versus-n−1 splits?",
+      "a": "T(n)=T(n−1)+Θ(n), giving Θ(n²)."
+    },
+    "pitfall": "Expected good performance is not a worst-case guarantee.",
+    "originalNotes": {
+      "startPage": 18,
+      "endPage": 19
+    }
+  },
+  {
+    "id": "v2-1.35",
+    "title": "Recurrence Relations",
+    "subject": "Algorithms",
+    "group": "Complexity and Recurrences",
+    "scope": "syllabus",
+    "cue": "Recursive running-time equation.",
+    "theory": [
+      "For T(n)=aT(n/b)+f(n), compare f(n) with n^(log_b a) and check the applicable Master-theorem conditions.",
+      "Use substitution, a recursion tree or telescoping when the recurrence does not fit the theorem."
+    ],
+    "recall": {
+      "q": "Why can’t the basic Master theorem directly solve T(n)=T(n−1)+n?",
+      "a": "Its subproblem must shrink by a constant factor n/b, not by subtraction."
+    },
+    "pitfall": "Include the number of recursive calls and the nonrecursive work.",
+    "originalNotes": {
+      "startPage": 18,
+      "endPage": 19
+    }
+  },
+  {
+    "id": "v2-1.36",
+    "title": "Recursion",
+    "subject": "Algorithms",
+    "group": "Complexity and Recurrences",
+    "scope": "syllabus",
+    "cue": "Count calls, depth or work of recursive code.",
+    "theory": [
+      "Recursion depth measures the longest active call chain; total calls count every node in the call tree.",
+      "Stack space is based on simultaneously active frames, not the total number of calls."
+    ],
+    "recall": {
+      "q": "Can exponential total calls use only linear stack depth?",
+      "a": "Yes, a binary recursion of depth n can have exponentially many calls but O(n) active frames."
+    },
+    "pitfall": "Separate call count, work per call and maximum depth.",
+    "originalNotes": {
+      "startPage": 18,
+      "endPage": 19
+    }
+  },
+  {
+    "id": "v2-1.37",
+    "title": "Searching",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Locate a key under given storage constraints.",
+    "theory": [
+      "Linear search needs O(n) comparisons in the worst case and does not require ordering.",
+      "Binary search needs sorted, efficiently indexed data and takes O(log n) comparisons."
+    ],
+    "recall": {
+      "q": "What extra structure enables binary search?",
+      "a": "A sorted or monotone search space and efficient access to chosen middle positions."
+    },
+    "pitfall": "A cost for sorting the input cannot be ignored unless it is already sorted.",
+    "originalNotes": {
+      "startPage": 19,
+      "endPage": 20
+    }
+  },
+  {
+    "id": "v2-1.38",
+    "title": "Selection Sort",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Repeatedly select the smallest remaining key.",
+    "theory": [
+      "Selection sort performs n(n−1)/2 key comparisons in its standard form regardless of initial order.",
+      "It uses O(1) auxiliary array space and O(n) swaps, but the usual swap-based form is not stable."
+    ],
+    "recall": {
+      "q": "Does sorted input reduce standard selection-sort comparisons?",
+      "a": "No; it still searches the remaining suffix each pass."
+    },
+    "pitfall": "Few swaps do not imply few comparisons.",
+    "originalNotes": {
+      "startPage": 19,
+      "endPage": 20
+    }
+  },
+  {
+    "id": "v2-1.39",
+    "title": "Shortest Paths",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Minimum path cost between vertices.",
+    "theory": [
+      "A shortest-path problem minimizes total weight along a path, not the number of edges unless weights are equal.",
+      "A reachable negative cycle that can lead to a destination makes its shortest-walk cost unbounded below."
+    ],
+    "recall": {
+      "q": "Which algorithm handles all-pairs shortest paths in O(V³)?",
+      "a": "Floyd–Warshall."
+    },
+    "pitfall": "A negative edge is not the same as a negative cycle.",
+    "originalNotes": {
+      "startPage": 19,
+      "endPage": 20
+    }
+  },
+  {
+    "id": "v2-1.40",
+    "title": "Sorting",
+    "subject": "Algorithms",
+    "group": "Searching Sorting and Heaps",
+    "scope": "syllabus",
+    "cue": "Compare sorting guarantees, stability or lower bounds.",
+    "theory": [
+      "General comparison sorting requires Ω(n log n) comparisons in the worst case. Counting/radix sorts use assumptions beyond arbitrary comparison.",
+      "Stability preserves the original relative order of equal keys; in-place concerns auxiliary storage."
+    ],
+    "recall": {
+      "q": "Why does linear-time counting sort not contradict the comparison lower bound?",
+      "a": "It uses key values and a bounded range, not only comparisons."
+    },
+    "pitfall": "Check the range/base assumptions in noncomparison sorting.",
+    "originalNotes": {
+      "startPage": 19,
+      "endPage": 20
+    }
+  },
+  {
+    "id": "v2-1.41",
+    "title": "Space Complexity",
+    "subject": "Algorithms",
+    "group": "Complexity and Recurrences",
+    "scope": "syllabus",
+    "cue": "Memory used by variables, data structures or recursion.",
+    "theory": [
+      "Auxiliary space excludes the input unless the problem defines otherwise.",
+      "For recursive code, sum memory along the deepest simultaneously active call chain."
+    ],
+    "recall": {
+      "q": "What is the stack space of recursive binary search?",
+      "a": "O(log n); the iterative version can use O(1) auxiliary space."
+    },
+    "pitfall": "Total allocations over time are not necessarily peak live memory.",
+    "originalNotes": {
+      "startPage": 20,
+      "endPage": 21
+    }
+  },
+  {
+    "id": "v2-1.42",
+    "title": "Strongly Connected Components",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Mutual reachability in a directed graph.",
+    "theory": [
+      "An SCC is a maximal set in which every vertex reaches every other vertex.",
+      "Contracting SCCs produces a DAG; Kosaraju and Tarjan run in O(V+E) with adjacency lists."
+    ],
+    "recall": {
+      "q": "Can the condensation graph contain a directed cycle?",
+      "a": "No; a cycle of components would merge into one SCC."
+    },
+    "pitfall": "Weak connectivity ignores edge direction and is different.",
+    "originalNotes": {
+      "startPage": 20,
+      "endPage": 21
+    }
+  },
+  {
+    "id": "v2-1.43",
+    "title": "Time Complexity",
+    "subject": "Algorithms",
+    "group": "Complexity and Recurrences",
+    "scope": "syllabus",
+    "cue": "Count how many times an operation executes.",
+    "theory": [
+      "Translate dependent loop bounds into a sum; do not multiply maxima when inner work depends on the outer index.",
+      "A variable multiplied or divided by a fixed factor typically contributes logarithmic iterations."
+    ],
+    "recall": {
+      "q": "What is 1+2+…+n asymptotically?",
+      "a": "Θ(n²)."
+    },
+    "pitfall": "An apparent nesting of two loops does not always imply Θ(n²).",
+    "originalNotes": {
+      "startPage": 20,
+      "endPage": 21
+    }
+  },
+  {
+    "id": "v2-1.44",
+    "title": "Topological Sorting",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Order jobs subject to prerequisites.",
+    "theory": [
+      "A topological order places u before v for every directed edge u→v.",
+      "Kahn’s algorithm repeatedly removes zero-indegree vertices; failure to remove all vertices reveals a cycle."
+    ],
+    "recall": {
+      "q": "When is the topological order unique in Kahn’s method?",
+      "a": "When exactly one zero-indegree choice is available at every step."
+    },
+    "pitfall": "A disconnected DAG can have many valid interleavings.",
+    "originalNotes": {
+      "startPage": 21,
+      "endPage": 22
+    }
+  },
+  {
+    "id": "v2-1.45",
+    "title": "Tree Traversals",
+    "subject": "Algorithms",
+    "group": "Graph Algorithms",
+    "scope": "syllabus",
+    "cue": "Reconstruct or compare traversal sequences.",
+    "theory": [
+      "Preorder is node–left–right, inorder is left–node–right, postorder is left–right–node.",
+      "For distinct keys, inorder plus preorder or postorder uniquely identifies a binary tree."
+    ],
+    "recall": {
+      "q": "Do preorder and postorder always uniquely determine a binary tree?",
+      "a": "No; a single-child subtree can be ambiguous."
+    },
+    "pitfall": "A binary tree need not be a BST.",
+    "originalNotes": {
+      "startPage": 21,
+      "endPage": 22
+    }
+  },
+  {
+    "id": "v2-1.46",
+    "title": "Uniform Hashing",
+    "subject": "Algorithms",
+    "group": "Hashing",
+    "scope": "syllabus",
+    "cue": "Expected probes under an explicit random-hashing model.",
+    "theory": [
+      "Simple uniform hashing distributes keys evenly over buckets; open-address uniform hashing assumes probe permutations are equally likely.",
+      "For open addressing at load α<1, the classic unsuccessful-search bound is 1/(1−α)."
+    ],
+    "recall": {
+      "q": "What happens to expected open-address probes as α approaches 1?",
+      "a": "They rise sharply because few slots remain empty."
+    },
+    "pitfall": "Uniform hashing is a model assumption, not a property guaranteed by every hash function.",
+    "originalNotes": {
+      "startPage": 21,
+      "endPage": 22
+    }
+  },
+  {
+    "id": "v2-2.1",
+    "title": "Abstract Syntax Trees",
+    "subject": "Compiler Design",
+    "group": "Intermediate Code and Translation",
+    "scope": "syllabus",
+    "cue": "Represent expression structure without grammar scaffolding.",
+    "theory": [
+      "An AST keeps operators and meaningful operands while omitting syntactic details such as parentheses and many grammar nonterminals.",
+      "An expression DAG may share a node for an identical reusable subexpression; a tree represents each occurrence separately."
+    ],
+    "recall": {
+      "q": "How does an AST differ from a parse tree?",
+      "a": "The parse tree records grammar derivation; the AST keeps the essential program structure."
+    },
+    "pitfall": "An AST node count is not generally the parse-tree node count.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.2",
+    "title": "Grammar Ambiguity",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "A sentence has multiple possible structures.",
+    "theory": [
+      "A CFG is ambiguous if some string has two different parse trees, equivalently two distinct leftmost derivations.",
+      "Operator precedence and associativity can often be encoded by rewriting an expression grammar."
+    ],
+    "recall": {
+      "q": "Do two different arbitrary derivation orders prove ambiguity?",
+      "a": "No. Independent nonterminals may be expanded in different orders yet yield the same tree."
+    },
+    "pitfall": "An ambiguous grammar does not imply the language is inherently ambiguous.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.3",
+    "title": "Assemblers",
+    "subject": "Compiler Design",
+    "group": "Language Processing Tools",
+    "scope": "extra",
+    "cue": "Resolve symbolic labels into addresses in assembly code.",
+    "theory": [
+      "A two-pass assembler first assigns addresses and builds a symbol table, then emits code while resolving references.",
+      "Relocation adjusts address-dependent fields when code is placed at a different load address."
+    ],
+    "recall": {
+      "q": "Why is a second assembler pass useful?",
+      "a": "It resolves forward references whose label addresses were unknown at first use."
+    },
+    "pitfall": "An assembler translates assembly; it does not perform high-level parsing like a C compiler.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.4",
+    "title": "Backpatching",
+    "subject": "Compiler Design",
+    "group": "Intermediate Code and Translation",
+    "scope": "syllabus",
+    "cue": "Generate jumps before their targets are known.",
+    "theory": [
+      "Backpatching keeps lists of incomplete jump instructions and fills their target fields when the destination is known.",
+      "Short-circuit Boolean translation often uses truelist, falselist and nextlist."
+    ],
+    "recall": {
+      "q": "What does backpatch(list, target) do?",
+      "a": "It fills the missing target of every jump in the list with target."
+    },
+    "pitfall": "The list contains instruction positions needing targets, not the target labels themselves.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.5",
+    "title": "Basic Blocks and Flow Graphs",
+    "subject": "Compiler Design",
+    "group": "Optimization and Data Flow",
+    "scope": "syllabus",
+    "cue": "Split three-address code into straight-line regions.",
+    "theory": [
+      "A basic block has one entry and no branching except possibly its last instruction.",
+      "Leaders include the first instruction, jump targets, and the instruction immediately following a jump."
+    ],
+    "recall": {
+      "q": "Why is a jump target a basic-block leader?",
+      "a": "Execution may enter there without executing preceding instructions."
+    },
+    "pitfall": "A label that is a possible entry cannot lie in the middle of the same block.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.6",
+    "title": "Code Optimization",
+    "subject": "Compiler Design",
+    "group": "Optimization and Data Flow",
+    "scope": "syllabus",
+    "cue": "Eliminate redundant computation without changing meaning.",
+    "theory": [
+      "Constant folding evaluates constant expressions; constant propagation substitutes known constant values; dead-code elimination removes work with no observable effect.",
+      "Common-subexpression elimination reuses a value only if the operands have not changed and side effects permit reuse."
+    ],
+    "recall": {
+      "q": "When can x+y be reused later?",
+      "a": "When the relevant values of x and y are unchanged and the operation can safely be reused."
+    },
+    "pitfall": "Pointer aliases, function calls and volatile accesses can block apparently safe optimization.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.7",
+    "title": "Compilation Phases",
+    "subject": "Compiler Design",
+    "group": "Lexical Analysis and Compiler Structure",
+    "scope": "syllabus",
+    "cue": "Match an error or task with a compiler phase.",
+    "theory": [
+      "Lexical analysis forms tokens; parsing checks syntax; semantic analysis checks meaning such as types and declarations.",
+      "Intermediate code is optimized and translated to target code; symbol information can support several phases."
+    ],
+    "recall": {
+      "q": "Which phase distinguishes a token such as identifier from a sequence of characters?",
+      "a": "Lexical analysis."
+    },
+    "pitfall": "A pass is an implementation traversal; a phase is a conceptual task.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.8",
+    "title": "Tokenization",
+    "subject": "Compiler Design",
+    "group": "Lexical Analysis and Compiler Structure",
+    "scope": "syllabus",
+    "cue": "Count tokens in a source fragment.",
+    "theory": [
+      "A token has a category and optional attribute; its lexeme is the actual character sequence in the program.",
+      "Whitespace and comments usually separate tokens but are not ordinary parser tokens themselves."
+    ],
+    "recall": {
+      "q": "Are the identifier lexemes count and total the same token category?",
+      "a": "Yes; both are identifiers, with different attributes or lexemes."
+    },
+    "pitfall": "Multi-character operators such as <= are one token under the language’s lexical rules.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.9",
+    "title": "DAGs for Basic Blocks",
+    "subject": "Compiler Design",
+    "group": "Optimization and Data Flow",
+    "scope": "syllabus",
+    "cue": "Find shared computations inside a basic block.",
+    "theory": [
+      "A DAG for a basic block represents values and operations, sharing identical computations when operands refer to the same values.",
+      "After an assignment changes a variable, later uses may refer to a new value node."
+    ],
+    "recall": {
+      "q": "Can two textual occurrences of a+b always share a DAG node?",
+      "a": "No; a or b may have been redefined between them."
+    },
+    "pitfall": "Track values, not just variable spellings.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.10",
+    "title": "Expression Evaluation",
+    "subject": "Compiler Design",
+    "group": "Intermediate Code and Translation",
+    "scope": "syllabus",
+    "cue": "Evaluate expression trees or generated instructions.",
+    "theory": [
+      "A tree’s structure fixes which operands belong to each operator; precedence and associativity determine that structure.",
+      "For pure arithmetic, different evaluation orders may compute the same value but use different registers."
+    ],
+    "recall": {
+      "q": "Does left associativity force every operand to be evaluated left to right?",
+      "a": "No. Grouping and evaluation order are separate language rules."
+    },
+    "pitfall": "Side effects can make evaluation order observable.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.11",
+    "title": "FIRST and FOLLOW",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "Compute predictive-parsing entries or nullable sequences.",
+    "theory": [
+      "FIRST(α) contains terminals that can begin strings derived from α, and ε when α is nullable.",
+      "FOLLOW(A) contains terminals that may follow A; include end marker for the start symbol and propagate through nullable suffixes."
+    ],
+    "recall": {
+      "q": "When adding a production A→α to an LL(1) table, what if ε is in FIRST(α)?",
+      "a": "Add that production under symbols in FOLLOW(A), as well as its non-ε FIRST terminals."
+    },
+    "pitfall": "ε is not a member of a FOLLOW set.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.12",
+    "title": "Grammar Analysis",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "Derivations, grammar transformations or parse properties.",
+    "theory": [
+      "A CFG production replaces one nonterminal by a string of terminals and nonterminals.",
+      "Left factoring delays a choice; eliminating left recursion enables common top-down parsing constructions but need not remove ambiguity."
+    ],
+    "recall": {
+      "q": "Does eliminating left recursion guarantee LL(1)?",
+      "a": "No. FIRST/FIRST or FIRST/FOLLOW conflicts can remain."
+    },
+    "pitfall": "Grammar transformation may change parse-tree structure while preserving the language.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.13",
+    "title": "Intermediate Code",
+    "subject": "Compiler Design",
+    "group": "Intermediate Code and Translation",
+    "scope": "syllabus",
+    "cue": "Convert expressions or control flow into a low-level representation.",
+    "theory": [
+      "Three-address code breaks expressions into small operations using temporaries, assignments, branches and labels.",
+      "Quadruples record operator, two arguments and result; triples refer to instruction positions for intermediate results."
+    ],
+    "recall": {
+      "q": "Why introduce temporary variables in intermediate code?",
+      "a": "They make each step explicit and separate source syntax from target-machine details."
+    },
+    "pitfall": "A complex expression usually needs several three-address instructions.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.14",
+    "title": "LR SLR and LALR Parsing",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "LR items, lookaheads, conflicts or parser hierarchy.",
+    "theory": [
+      "LR parsing reads left to right and constructs a rightmost derivation in reverse by shift/reduce actions.",
+      "SLR uses FOLLOW sets for reductions; canonical LR(1) uses item-specific lookaheads; LALR merges LR(1) states with equal LR(0) cores."
+    ],
+    "recall": {
+      "q": "Can LALR merging introduce a reduce/reduce conflict?",
+      "a": "Yes, even when the canonical LR(1) table has none."
+    },
+    "pitfall": "LR(1) is a grammar property; a failed SLR table does not prove the grammar is not LR(1).",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.15",
+    "title": "Lexical Analysis",
+    "subject": "Compiler Design",
+    "group": "Lexical Analysis and Compiler Structure",
+    "scope": "syllabus",
+    "cue": "Recognize token patterns or resolve competing matches.",
+    "theory": [
+      "Regular expressions describe token patterns and finite automata implement recognition.",
+      "Common lexers choose the longest match, then rule priority for equal-length matches."
+    ],
+    "recall": {
+      "q": "Which wins between keyword if and identifier rules on the lexeme if?",
+      "a": "With equal length, the lexer’s rule priority decides; keyword rules are commonly prioritized."
+    },
+    "pitfall": "A lexer recognizes tokens; balanced nesting generally belongs to the parser.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.16",
+    "title": "Linking and Relocation",
+    "subject": "Compiler Design",
+    "group": "Language Processing Tools",
+    "scope": "extra",
+    "cue": "Combine object modules or resolve external symbols.",
+    "theory": [
+      "A linker combines object files, resolves external references and performs required relocation.",
+      "A loader maps the executable into memory; dynamic linking may defer some symbol resolution."
+    ],
+    "recall": {
+      "q": "Which tool resolves a function defined in another object module?",
+      "a": "The linker, or dynamic linker when resolution is deferred."
+    },
+    "pitfall": "Compile-time symbol tables and link-time external-symbol resolution are different stages.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.17",
+    "title": "Live Variable Analysis",
+    "subject": "Compiler Design",
+    "group": "Optimization and Data Flow",
+    "scope": "syllabus",
+    "cue": "Determine whether a current value may be used later.",
+    "theory": [
+      "A variable is live at a point if some path reaches a use of its current value before a redefinition.",
+      "Liveness is backward: OUT[B]=union of IN over successors; IN[B]=USE[B] ∪ (OUT[B]−DEF[B])."
+    ],
+    "recall": {
+      "q": "Why is union used over successor liveness sets?",
+      "a": "A use on any feasible successor path can make a value live."
+    },
+    "pitfall": "An assignment defines a new value; it does not necessarily make its old value live.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.18",
+    "title": "LL(1) Parsing",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "Top-down predictive parsing with one lookahead.",
+    "theory": [
+      "LL(1) reads left to right and produces a leftmost derivation using one lookahead token.",
+      "Alternatives for one nonterminal must have disjoint applicable prediction sets, accounting for ε and FOLLOW."
+    ],
+    "recall": {
+      "q": "What does a multiply filled LL(1) table cell show?",
+      "a": "The given grammar is not LL(1)."
+    },
+    "pitfall": "An equivalent rewritten grammar may be LL(1) even when the original is not.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.19",
+    "title": "Macros",
+    "subject": "Compiler Design",
+    "group": "Language Processing Tools",
+    "scope": "extra",
+    "cue": "Expansion substitutes text before later compilation.",
+    "theory": [
+      "A macro expands its definition at use sites; function-like macros can evaluate an argument multiple times.",
+      "Parenthesize substituted arguments and the whole expression to avoid precedence surprises."
+    ],
+    "recall": {
+      "q": "Why can a macro SQUARE(i++) be dangerous?",
+      "a": "A typical expansion repeats i++, causing repeated side effects and potentially undefined behavior."
+    },
+    "pitfall": "A macro is not a normal function call with one evaluation per argument.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.20",
+    "title": "Operator Precedence",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "Resolve which operator groups more tightly or reduce an operator-precedence handle.",
+    "theory": [
+      "Precedence controls grouping between different operators; associativity controls grouping among equal-precedence operators.",
+      "Traditional operator-precedence parsing requires an appropriate operator grammar and conflict-free precedence relations."
+    ],
+    "recall": {
+      "q": "How does left associativity group a−b−c?",
+      "a": "As (a−b)−c."
+    },
+    "pitfall": "Parentheses override precedence; grouping does not by itself specify evaluation order.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.21",
+    "title": "Parameter Passing",
+    "subject": "Compiler Design",
+    "group": "Runtime Environments",
+    "scope": "syllabus",
+    "cue": "Compare call-by-value, reference or name.",
+    "theory": [
+      "Call by value copies an argument value; call by reference binds the formal parameter to the caller’s variable.",
+      "Call by name reevaluates the argument expression in the caller’s environment when used, which can behave differently from reference."
+    ],
+    "recall": {
+      "q": "Does changing a value parameter change the caller’s variable?",
+      "a": "No, unless the copied value provides access to shared mutable storage, such as a pointer."
+    },
+    "pitfall": "Apply the passing mechanism stated in the question; C itself passes arguments by value.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.22",
+    "title": "Parsing",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "Trace stack/input actions or identify a handle.",
+    "theory": [
+      "Top-down parsing expands from the start symbol; bottom-up parsing reduces substrings toward it.",
+      "A handle is a production occurrence whose reduction is one step in reversing a rightmost derivation."
+    ],
+    "recall": {
+      "q": "What is a shift/reduce conflict?",
+      "a": "The parser table permits both shifting the next token and reducing a production in the same situation."
+    },
+    "pitfall": "Not every substring matching a production RHS is the correct handle.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.23",
+    "title": "Register Allocation",
+    "subject": "Compiler Design",
+    "group": "Optimization and Data Flow",
+    "scope": "syllabus",
+    "cue": "Assign simultaneously needed values to registers.",
+    "theory": [
+      "Construct an interference graph with edges between values that must coexist in registers.",
+      "A valid k-coloring assigns at most k registers; values that cannot fit may be spilled to memory."
+    ],
+    "recall": {
+      "q": "What does an interference edge mean?",
+      "a": "Its two values cannot share the same register at that time."
+    },
+    "pitfall": "The maximum number of live values is a lower bound; graph-coloring structure can require more registers.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.24",
+    "title": "Runtime Environments and Activation Records",
+    "subject": "Compiler Design",
+    "group": "Runtime Environments",
+    "scope": "syllabus",
+    "cue": "Activation records, recursion or access to nonlocals.",
+    "theory": [
+      "Each active call may have an activation record with parameters, locals, saved state and a return address.",
+      "A dynamic/control link points to the caller; a static/access link follows lexical nesting to reach nonlocal variables."
+    ],
+    "recall": {
+      "q": "Which link helps find a variable in a lexically enclosing function?",
+      "a": "The static/access link, or an equivalent display mechanism."
+    },
+    "pitfall": "The caller need not be the lexical parent.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.25",
+    "title": "Static Single Assignment",
+    "subject": "Compiler Design",
+    "group": "Intermediate Code and Translation",
+    "scope": "syllabus",
+    "cue": "Each variable name is assigned once.",
+    "theory": [
+      "SSA gives each definition a distinct name. A φ-function at a join selects the version corresponding to the incoming control-flow edge.",
+      "SSA makes def-use relationships explicit and supports propagation and optimization."
+    ],
+    "recall": {
+      "q": "Does a φ-function average or combine its inputs arithmetically?",
+      "a": "No; it selects the value from the predecessor path actually taken."
+    },
+    "pitfall": "A loop may need φ-functions despite a single assignment per SSA name.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.26",
+    "title": "Symbol Tables",
+    "subject": "Compiler Design",
+    "group": "Lexical Analysis and Compiler Structure",
+    "scope": "syllabus",
+    "cue": "Track identifiers, scopes, types or storage information.",
+    "theory": [
+      "A symbol table maps declared names to information such as type, scope and storage location.",
+      "Nested scopes require shadowing rules, often represented by scoped tables or a stack of environments."
+    ],
+    "recall": {
+      "q": "Can the same spelling have several symbol-table entries?",
+      "a": "Yes, when different declarations occur in different scopes."
+    },
+    "pitfall": "A symbol-table lookup is not limited to the lexical-analysis phase.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.27",
+    "title": "Syntax-Directed Translation",
+    "subject": "Compiler Design",
+    "group": "Intermediate Code and Translation",
+    "scope": "syllabus",
+    "cue": "Attach semantic computations to grammar productions.",
+    "theory": [
+      "Synthesized attributes flow from children toward a parent; inherited attributes receive context from parents or permitted siblings.",
+      "S-attributed definitions use only synthesized attributes. L-attributed definitions constrain inherited dependencies to support left-to-right evaluation."
+    ],
+    "recall": {
+      "q": "How can you check whether attributes have a valid evaluation order?",
+      "a": "Build their dependency graph and find a topological order; a cycle indicates a dependency problem."
+    },
+    "pitfall": "“Inherited” does not mean every sibling dependency is allowed.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.28",
+    "title": "Variable Scope",
+    "subject": "Compiler Design",
+    "group": "Runtime Environments",
+    "scope": "syllabus",
+    "cue": "Determine which declaration a name denotes.",
+    "theory": [
+      "Static scope resolves a name through lexical program nesting; dynamic scope resolves through active caller environments.",
+      "Scope describes where a name can be used; lifetime describes when its object exists."
+    ],
+    "recall": {
+      "q": "Can an object outlive the local scope of a name referring to it?",
+      "a": "Yes, for example dynamically allocated storage or a static object."
+    },
+    "pitfall": "Do not confuse static scoping with static storage duration.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-2.29",
+    "title": "Viable Prefixes",
+    "subject": "Compiler Design",
+    "group": "Parsing",
+    "scope": "syllabus",
+    "cue": "What may appear on a shift-reduce parser’s stack?",
+    "theory": [
+      "A viable prefix is a prefix of a right-sentential form that does not extend beyond the right end of its handle.",
+      "The LR item automaton recognizes viable prefixes; goto transitions describe extending the stack’s recognized prefix."
+    ],
+    "recall": {
+      "q": "Why is “prefix of any sentence” too broad for viable prefix?",
+      "a": "A viable prefix is tied to a right-sentential form and must not pass the handle’s right end."
+    },
+    "pitfall": "A viable prefix may contain nonterminals, not only terminal input.",
+    "originalNotes": {
+      "startPage": 117,
+      "endPage": 120
+    }
+  },
+  {
+    "id": "v2-3.1",
+    "title": "AVL Trees",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "A BST must remain height-balanced after updates.",
+    "theory": [
+      "An AVL tree maintains a height difference of at most one between the two subtrees of every node.",
+      "LL/RR imbalance uses a single rotation; LR/RL uses a double rotation. Operations are O(log n)."
+    ],
+    "recall": {
+      "q": "What information determines the rotation type?",
+      "a": "The unbalanced node and whether the heavy path turns left or right at its next step."
+    },
+    "pitfall": "A rotation must preserve inorder key order.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.2",
+    "title": "Abstract Data Types",
+    "subject": "Programming and Data Structures",
+    "group": "Data Structure Foundations",
+    "scope": "syllabus",
+    "cue": "Separate allowed operations from their implementation.",
+    "theory": [
+      "An ADT specifies values and operations by behavior, without fixing an array, list or other representation.",
+      "A stack ADT is LIFO whether implemented by an array or linked nodes."
+    ],
+    "recall": {
+      "q": "Is a linked list the only way to implement a queue?",
+      "a": "No. A circular array can implement the same queue ADT."
+    },
+    "pitfall": "Operation complexity depends on representation, not just the ADT name.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.3",
+    "title": "Arrays and Address Calculations",
+    "subject": "Programming and Data Structures",
+    "group": "Arrays and Linked Lists",
+    "scope": "syllabus",
+    "cue": "Calculate element addresses or compare indexed access.",
+    "theory": [
+      "For element size w and lower bound L, A[i] is at base+w(i−L).",
+      "A contiguous row-major 2D array stores all columns of one row before the next; the row stride is the number of columns times w."
+    ],
+    "recall": {
+      "q": "Which index varies fastest in row-major layout?",
+      "a": "The column index."
+    },
+    "pitfall": "Use the stated lower bounds and element size; a pointer is not the array’s total storage.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.4",
+    "title": "Binary Heaps",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "Complete tree with min/max at the root.",
+    "theory": [
+      "For a zero-indexed heap, children of i are 2i+1 and 2i+2; parent is floor((i−1)/2) for i>0.",
+      "The leaves occupy indices floor(n/2) through n−1. Bottom-up build-heap is Θ(n)."
+    ],
+    "recall": {
+      "q": "How many leaves does an n-node binary heap have?",
+      "a": "⌈n/2⌉."
+    },
+    "pitfall": "Switching between 0-based and 1-based formulas changes every index.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.5",
+    "title": "Binary Search Trees",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "Maintain ordered keys or analyze a BST search path.",
+    "theory": [
+      "Inorder traversal returns sorted keys in a BST. Search/update costs O(h), with h depending on shape.",
+      "Deleting a two-child node commonly replaces it with its inorder predecessor or successor, then deletes that replacement node."
+    ],
+    "recall": {
+      "q": "Where is the inorder successor of a node with a right child?",
+      "a": "The leftmost node of its right subtree."
+    },
+    "pitfall": "A plain BST can degenerate into a chain.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.6",
+    "title": "Binary Trees",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "Count binary-tree nodes or infer shape from traversals.",
+    "theory": [
+      "At depth d there are at most 2ᵈ nodes. A height-h tree, counting edges, has at most 2ʰ⁺¹−1 nodes.",
+      "With distinct labels, inorder plus preorder or postorder determines the binary tree uniquely."
+    ],
+    "recall": {
+      "q": "For a nonempty binary tree, how are leaves and two-child nodes related?",
+      "a": "Number of leaves = number of two-child nodes + 1."
+    },
+    "pitfall": "State whether height counts edges or nodes.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.7",
+    "title": "Choosing a Data Structure",
+    "subject": "Programming and Data Structures",
+    "group": "Data Structure Foundations",
+    "scope": "syllabus",
+    "cue": "Choose a structure from the required operations.",
+    "theory": [
+      "A stack supports last-in-first-out access; a queue supports first-in-first-out access; a heap supports priority-based removal.",
+      "Choose using the mix of operations and costs, not one isolated favorable operation."
+    ],
+    "recall": {
+      "q": "Which structure naturally supports breadth-first search?",
+      "a": "A FIFO queue."
+    },
+    "pitfall": "Efficient insertion does not guarantee efficient searching.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.8",
+    "title": "Hashing",
+    "subject": "Programming and Data Structures",
+    "group": "Hashing",
+    "scope": "syllabus",
+    "cue": "Trace insertions and collisions in a table.",
+    "theory": [
+      "Separate chaining stores a collection per bucket; open addressing stores keys within the table itself.",
+      "Follow the stated probe rule exactly and record occupied positions after every insertion."
+    ],
+    "recall": {
+      "q": "Can a chaining table have load factor greater than one?",
+      "a": "Yes; each bucket can hold multiple keys."
+    },
+    "pitfall": "A probe count may include the first slot; read the question’s convention.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.9",
+    "title": "Infix Prefix and Postfix",
+    "subject": "Programming and Data Structures",
+    "group": "Stacks and Queues",
+    "scope": "syllabus",
+    "cue": "Convert or evaluate infix, prefix or postfix expressions.",
+    "theory": [
+      "In postfix evaluation, scan left to right: push operands, then pop the right operand before the left for a binary operator.",
+      "For infix conversion, an operator stack handles precedence, associativity and parentheses."
+    ],
+    "recall": {
+      "q": "For postfix “a b −”, which operand is subtracted from which?",
+      "a": "a−b: b is popped first as the right operand."
+    },
+    "pitfall": "Reversing pop order changes subtraction and division.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.10",
+    "title": "Linked Lists",
+    "subject": "Programming and Data Structures",
+    "group": "Arrays and Linked Lists",
+    "scope": "syllabus",
+    "cue": "Pointer updates, reversal or insertion/deletion costs.",
+    "theory": [
+      "A singly linked node stores data and a next pointer; indexed access requires traversal.",
+      "Insertion after a known node is O(1), while locating that node may take O(n)."
+    ],
+    "recall": {
+      "q": "What must be saved before changing current.next during reversal?",
+      "a": "The original next node, so the remaining list is not lost."
+    },
+    "pitfall": "Deleting a node in a singly linked list generally requires its predecessor.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.11",
+    "title": "Priority Queues",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "Repeatedly choose the most urgent or smallest item.",
+    "theory": [
+      "A priority queue exposes an extreme key rather than FIFO order. A binary heap implements insertion and extract-extreme in O(log n).",
+      "Peek is O(1), while finding an arbitrary key in a heap can be O(n)."
+    ],
+    "recall": {
+      "q": "Does equal arrival order determine removal order in a priority queue?",
+      "a": "Only if a tie-breaking rule explicitly preserves it."
+    },
+    "pitfall": "Priority queues and ordinary queues have different removal rules.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.12",
+    "title": "Queues",
+    "subject": "Programming and Data Structures",
+    "group": "Stacks and Queues",
+    "scope": "syllabus",
+    "cue": "FIFO operations or circular-buffer indices.",
+    "theory": [
+      "A queue inserts at the rear and removes from the front. A circular array reuses freed slots by modular indexing.",
+      "When front==rear is used for empty, full may need a count, a flag, or one deliberately unused slot."
+    ],
+    "recall": {
+      "q": "Why can a circular queue’s usable capacity be n−1?",
+      "a": "One slot may be reserved to distinguish full from empty."
+    },
+    "pitfall": "Use the implementation’s index convention, not a memorized full-condition formula.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.13",
+    "title": "Stacks",
+    "subject": "Programming and Data Structures",
+    "group": "Stacks and Queues",
+    "scope": "syllabus",
+    "cue": "Nested calls, parentheses or last-in-first-out order.",
+    "theory": [
+      "A stack supports push, pop and top; a pop removes the most recently pushed remaining element.",
+      "Trace candidate output sequences with a stack to test whether a permutation is achievable."
+    ],
+    "recall": {
+      "q": "Why is a stack suited to matching nested parentheses?",
+      "a": "The most recently opened unmatched bracket must close first."
+    },
+    "pitfall": "Underflow occurs on an empty pop; overflow depends on the storage limit.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.14",
+    "title": "Data Structure Operation Costs",
+    "subject": "Programming and Data Structures",
+    "group": "Data Structure Foundations",
+    "scope": "syllabus",
+    "cue": "Compare operation costs under a stated representation.",
+    "theory": [
+      "Separate locating an element from modifying links or indices once it is known.",
+      "Worst-case, amortized and expected costs are different claims and require different assumptions."
+    ],
+    "recall": {
+      "q": "Why is dynamic-array append amortized O(1) despite occasional O(n) resizing?",
+      "a": "The total copying over many geometrically growing capacities is linear in the number of appends."
+    },
+    "pitfall": "One costly operation does not refute an amortized bound.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.15",
+    "title": "Trees",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "General tree identities or representations.",
+    "theory": [
+      "An undirected tree with n vertices has n−1 edges and a unique simple path between every pair.",
+      "A connected graph with n−1 edges is a tree; deleting any tree edge disconnects it."
+    ],
+    "recall": {
+      "q": "Can a tree have a cycle?",
+      "a": "No; connectivity and acyclicity define an undirected tree."
+    },
+    "pitfall": "A rooted tree’s child counts are not the same as undirected degrees at nonroot nodes.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.16",
+    "title": "Tree Traversals",
+    "subject": "Programming and Data Structures",
+    "group": "Trees and Heaps",
+    "scope": "syllabus",
+    "cue": "Order nodes by preorder, inorder or postorder.",
+    "theory": [
+      "Preorder visits the root first, postorder last, and inorder between the left and right subtrees.",
+      "An explicit stack can simulate recursive traversal; level-order uses a queue."
+    ],
+    "recall": {
+      "q": "Which traversal conveniently frees children before their parent?",
+      "a": "Postorder."
+    },
+    "pitfall": "Inorder is specifically defined for an ordered binary-tree setting.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-3.17",
+    "title": "Uniform Hashing Assumptions",
+    "subject": "Programming and Data Structures",
+    "group": "Hashing",
+    "scope": "syllabus",
+    "cue": "Estimate average bucket or probe behavior.",
+    "theory": [
+      "Under simple uniform hashing, a key is equally likely to hash to any bucket; expected chaining length is α=n/m.",
+      "Expected chaining lookup takes Θ(1+α), including bucket access and scanning."
+    ],
+    "recall": {
+      "q": "What load factor keeps expected chaining operations constant?",
+      "a": "A load factor bounded by a constant, with suitable hashing assumptions."
+    },
+    "pitfall": "An average-case model does not prevent adversarial collisions.",
+    "originalNotes": {
+      "startPage": 189,
+      "endPage": 197
+    }
+  },
+  {
+    "id": "v2-4.1",
+    "title": "C String Length and Pointer Difference",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "A character pointer advances until it finds a zero terminator.",
+    "theory": [
+      "while (*b) b++ advances to the terminating zero in a valid C string. Subtracting the original pointer counts character elements traversed.",
+      "Reading a string literal is allowed. Modifying its characters is not; the source question’s function only reads and advances a local pointer."
+    ],
+    "recall": {
+      "q": "If b scans from the start of \"abcd\" to its terminator, what is b−a?",
+      "a": "4, the number of characters before the terminator."
+    },
+    "pitfall": "The function requires a valid zero-terminated string; otherwise it may read outside the array.",
+    "originalNotes": {
+      "startPage": 255,
+      "endPage": 265
+    }
+  },
+  {
+    "id": "v2-5.1",
+    "title": "Aliasing",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "Different expressions may refer to one storage object.",
+    "theory": [
+      "Aliasing means two references or pointers can access the same object; a write through one can affect reads through the other.",
+      "Trace object locations separately from pointer-variable values."
+    ],
+    "recall": {
+      "q": "If p and q point to the same int, what does *p=7 change?",
+      "a": "The shared int, so reading *q yields 7 while both pointers remain valid."
+    },
+    "pitfall": "Do not confuse changing p with changing *p.",
+    "originalNotes": {
+      "startPage": 270,
+      "endPage": 271
+    }
+  },
+  {
+    "id": "v2-5.2",
+    "title": "Arrays in C",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "Array-to-pointer conversion or multidimensional indexing.",
+    "theory": [
+      "In most expressions, an array converts to a pointer to its first element; exceptions include sizeof and unary & on an array.",
+      "For int a[R][C], a+1 advances by one whole row, C integers."
+    ],
+    "recall": {
+      "q": "Why is sizeof(a) different from sizeof(p) when a is an array and p a pointer?",
+      "a": "The former measures the whole array object; the latter measures the pointer object."
+    },
+    "pitfall": "An array parameter declaration is adjusted to a pointer parameter.",
+    "originalNotes": {
+      "startPage": 268,
+      "endPage": 269
+    }
+  },
+  {
+    "id": "v2-5.3",
+    "title": "Functions in C",
+    "subject": "Programming and Data Structures",
+    "group": "Functions Recursion and Scope",
+    "scope": "syllabus",
+    "cue": "Calls, return values and parameter binding.",
+    "theory": [
+      "C arguments are passed by value. A pointer value can be copied to let a function modify the pointed-to object.",
+      "Function arguments are not required to be evaluated left to right; precedence does not impose that order."
+    ],
+    "recall": {
+      "q": "Can assigning a new address to a local pointer parameter redirect the caller’s pointer?",
+      "a": "No. Pass a pointer to that pointer if the caller’s pointer object must change."
+    },
+    "pitfall": "Distinguish updating a parameter from updating the object it points to.",
+    "originalNotes": {
+      "startPage": 270,
+      "endPage": 271
+    }
+  },
+  {
+    "id": "v2-5.4",
+    "title": "goto and Control Flow",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Execution jumps to a named label.",
+    "theory": [
+      "C goto transfers control to a label in the same function; follow the target when tracing.",
+      "Unrestricted jumps make control-flow proofs and maintenance harder; they do not inherently imply slower code."
+    ],
+    "recall": {
+      "q": "Can goto jump to a label in a different function?",
+      "a": "No."
+    },
+    "pitfall": "A jump can bypass an initialization; verify an object has a valid value before using it.",
+    "originalNotes": {
+      "startPage": 273,
+      "endPage": 274
+    }
+  },
+  {
+    "id": "v2-5.5",
+    "title": "Identify C Code Behavior",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Infer a routine’s result or side effects.",
+    "theory": [
+      "Trace small inputs and give variables meaning: accumulated sum, scan position, count, or partial result.",
+      "Use a loop invariant or recurrence to extend the observed pattern to all permitted inputs."
+    ],
+    "recall": {
+      "q": "Why are return value and side effect separate?",
+      "a": "A function may return one value while modifying objects through pointers or globals."
+    },
+    "pitfall": "A plausible pattern from examples still needs reasoning about all iterations.",
+    "originalNotes": {
+      "startPage": 273,
+      "endPage": 274
+    }
+  },
+  {
+    "id": "v2-5.6",
+    "title": "Loop Invariants",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Prove a loop computes the required result.",
+    "theory": [
+      "An invariant holds at the chosen loop point before and after every completed iteration.",
+      "Combine the invariant with the exit condition to derive the postcondition, and separately justify termination."
+    ],
+    "recall": {
+      "q": "What are the invariant proof’s three checkpoints?",
+      "a": "Initialization, preservation and the conclusion at termination."
+    },
+    "pitfall": "An invariant alone can hold forever in a nonterminating loop.",
+    "originalNotes": {
+      "startPage": 273,
+      "endPage": 274
+    }
+  },
+  {
+    "id": "v2-5.7",
+    "title": "C Output and Defined Behavior",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Find output or determine whether output is defined.",
+    "theory": [
+      "First check types, lifetime, bounds and sequencing; only then calculate a numeric output.",
+      "In C11, unsequenced modifications of the same scalar object, or an unsequenced modification and conflicting read, can cause undefined behavior."
+    ],
+    "recall": {
+      "q": "Does operator precedence determine the order of all side effects?",
+      "a": "No; precedence determines grouping, while sequencing rules determine ordering."
+    },
+    "pitfall": "A program’s observed output on one compiler is not proof that the language defines it.",
+    "originalNotes": {
+      "startPage": 268,
+      "endPage": 269
+    },
+    "sources": [
+      "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf#page=94"
+    ]
+  },
+  {
+    "id": "v2-5.8",
+    "title": "Parameter Passing in C",
+    "subject": "Programming and Data Structures",
+    "group": "Functions Recursion and Scope",
+    "scope": "syllabus",
+    "cue": "Caller variables change after function calls.",
+    "theory": [
+      "C uses call by value, including when the value is a pointer.",
+      "Changing *p changes the pointed-to object; assigning p changes only the function’s local pointer copy."
+    ],
+    "recall": {
+      "q": "How can a C function swap two caller integers?",
+      "a": "Receive pointers to them and swap the pointed-to values."
+    },
+    "pitfall": "Saying C “passes pointers by reference” is misleading; the pointer itself is passed by value.",
+    "originalNotes": {
+      "startPage": 271,
+      "endPage": 272
+    }
+  },
+  {
+    "id": "v2-5.9",
+    "title": "Pointers",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "Pointer arithmetic, dereferencing or declarations.",
+    "theory": [
+      "p+k advances k elements of the pointed-to type, not k bytes unless p points to a one-byte character type.",
+      "Pointer arithmetic is valid within an array and one position past it; the one-past pointer must not be dereferenced."
+    ],
+    "recall": {
+      "q": "What is p[i] defined as?",
+      "a": "*(p+i)."
+    },
+    "pitfall": "Pointer subtraction and ordering require the appropriate related-object conditions.",
+    "originalNotes": {
+      "startPage": 269,
+      "endPage": 270
+    }
+  },
+  {
+    "id": "v2-5.10",
+    "title": "Programming Constructs",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Trace loops, conditionals and short-circuit operators.",
+    "theory": [
+      "&& and || evaluate left to right and skip the second operand when the result is already determined.",
+      "break exits the nearest enclosing loop or switch; continue proceeds to the next iteration of the nearest loop."
+    ],
+    "recall": {
+      "q": "For a for-loop, where does continue send control?",
+      "a": "To the loop’s iteration/update expression, then the condition check."
+    },
+    "pitfall": "break inside a switch nested in a loop exits the switch, not the loop.",
+    "originalNotes": {
+      "startPage": 266,
+      "endPage": 267
+    }
+  },
+  {
+    "id": "v2-5.11",
+    "title": "Core C Semantics",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Mixed C rules involving arithmetic, control flow and storage.",
+    "theory": [
+      "Track integer promotions and usual arithmetic conversions before performing mixed-type operations.",
+      "Integer division truncates toward zero in modern C; unsigned arithmetic wraps modulo one more than the type’s maximum value."
+    ],
+    "recall": {
+      "q": "Is signed integer overflow defined to wrap?",
+      "a": "No. Signed overflow is undefined behavior under ordinary C rules."
+    },
+    "pitfall": "Do not assume a particular integer size unless the problem states it.",
+    "originalNotes": {
+      "startPage": 266,
+      "endPage": 267
+    }
+  },
+  {
+    "id": "v2-5.12",
+    "title": "Programming Paradigms",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "extra",
+    "cue": "Compare how languages organize computation.",
+    "theory": [
+      "Imperative programs describe state-changing steps; functional programming emphasizes function evaluation; declarative styles describe required relationships.",
+      "A language can support multiple paradigms, and a programming paradigm is not an execution-speed guarantee."
+    ],
+    "recall": {
+      "q": "Is recursion exclusive to functional languages?",
+      "a": "No; imperative languages including C support it."
+    },
+    "pitfall": "A label such as “structured” does not mean a program contains no loops.",
+    "originalNotes": {
+      "startPage": 267,
+      "endPage": 268
+    }
+  },
+  {
+    "id": "v2-5.13",
+    "title": "Recursion",
+    "subject": "Programming and Data Structures",
+    "group": "Functions Recursion and Scope",
+    "scope": "syllabus",
+    "cue": "Nested calls, static locals or recursive output order.",
+    "theory": [
+      "Each call has its own automatic local variables, while a static local has storage shared across calls.",
+      "Statements before the recursive call act on descent; statements after it act while calls return."
+    ],
+    "recall": {
+      "q": "Why do post-call prints often appear in reverse order?",
+      "a": "They execute as the call stack unwinds from deepest call to earliest caller."
+    },
+    "pitfall": "A static variable is not reset for each recursive call.",
+    "originalNotes": {
+      "startPage": 271,
+      "endPage": 272
+    }
+  },
+  {
+    "id": "v2-5.14",
+    "title": "Object Lifetime and Runtime Storage",
+    "subject": "Programming and Data Structures",
+    "group": "Functions Recursion and Scope",
+    "scope": "syllabus",
+    "cue": "Lifetime of automatic, static or dynamically allocated objects.",
+    "theory": [
+      "Automatic objects normally live for their block activation; static-storage objects live for the program’s execution.",
+      "Allocated storage persists until freed, but all pointers to it become unusable for access after deallocation."
+    ],
+    "recall": {
+      "q": "Why is returning &local from a function unsafe?",
+      "a": "The automatic local object ends its lifetime when the function returns."
+    },
+    "pitfall": "A pointer variable can survive even though the object it points to has expired.",
+    "originalNotes": {
+      "startPage": 274,
+      "endPage": 275
+    }
+  },
+  {
+    "id": "v2-5.15",
+    "title": "Strings",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "Null termination, character arrays or string operations.",
+    "theory": [
+      "A C string is a character sequence terminated by a zero character. strlen excludes that terminator.",
+      "A character array needs space for its contents plus the terminating zero; sizeof(array) measures the allocated array."
+    ],
+    "recall": {
+      "q": "Why can strlen(s) be smaller than sizeof(s)?",
+      "a": "The string may use only part of the array, and strlen stops at the first terminator."
+    },
+    "pitfall": "Modifying a string literal has undefined behavior.",
+    "originalNotes": {
+      "startPage": 269,
+      "endPage": 270
+    }
+  },
+  {
+    "id": "v2-5.16",
+    "title": "Structures",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "Member layout, padding or structure pointers.",
+    "theory": [
+      "A struct stores all its members; padding may appear between members and at the end to satisfy alignment.",
+      "Use . for an object and -> for a pointer; p->x is equivalent to (*p).x."
+    ],
+    "recall": {
+      "q": "Is sizeof(struct) necessarily the sum of member sizes?",
+      "a": "No; alignment padding can increase it."
+    },
+    "pitfall": "Do not infer exact padding without the stated platform/layout rules.",
+    "originalNotes": {
+      "startPage": 272,
+      "endPage": 273
+    }
+  },
+  {
+    "id": "v2-5.17",
+    "title": "switch and Fall-Through",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "A switch enters one label then may fall through.",
+    "theory": [
+      "A switch transfers control to the matching case or default; without a match and without default, its body is skipped.",
+      "After entry, execution continues through later labels until break, return or the end; labels themselves do not stop fall-through."
+    ],
+    "recall": {
+      "q": "Do ordinary statements before the first case run on normal switch entry?",
+      "a": "No; dispatch jumps to a matching case/default label."
+    },
+    "pitfall": "Source notes claiming such statements “always execute” are incorrect.",
+    "originalNotes": {
+      "startPage": 272,
+      "endPage": 273
+    },
+    "correction": {
+      "sourcePage": 273,
+      "original": "Statements before the first case label “will always execute.”",
+      "corrected": "On normal switch entry, control jumps to the matching case/default; ordinary statements before the first reached label are skipped.",
+      "reason": "C switch dispatch transfers control to a case/default label; see C11 draft §6.8.4.2, including its example."
+    },
+    "sources": [
+      "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf#page=167"
+    ]
+  },
+  {
+    "id": "v2-5.18",
+    "title": "Type Checking and Conversions",
+    "subject": "Programming and Data Structures",
+    "group": "C Programming and Expressions",
+    "scope": "syllabus",
+    "cue": "Decide whether operands, assignments or calls have compatible types.",
+    "theory": [
+      "Static type checking verifies type constraints before execution, but cannot establish every runtime property.",
+      "C permits some implicit conversions; a cast requests a conversion but does not make an invalid memory access safe."
+    ],
+    "recall": {
+      "q": "Does a successful compilation prove array accesses stay in bounds?",
+      "a": "No. Many bounds and lifetime errors are runtime semantic issues."
+    },
+    "pitfall": "A warning-free compilation is not a proof of defined behavior.",
+    "originalNotes": {
+      "startPage": 268,
+      "endPage": 269
+    }
+  },
+  {
+    "id": "v2-5.19",
+    "title": "Unions",
+    "subject": "Programming and Data Structures",
+    "group": "Pointers Arrays and Memory",
+    "scope": "syllabus",
+    "cue": "Several members share one storage region.",
+    "theory": [
+      "A union’s members overlap; its size must accommodate its largest member and required alignment.",
+      "Writing one member affects the shared representation, so reading another requires attention to C’s representation and type rules."
+    ],
+    "recall": {
+      "q": "How is a union different from a struct in storage?",
+      "a": "A union overlaps members; a struct reserves separate member regions."
+    },
+    "pitfall": "Do not add member sizes to compute a union size.",
+    "originalNotes": {
+      "startPage": 272,
+      "endPage": 273
+    }
+  },
+  {
+    "id": "v2-5.20",
+    "title": "Variable Binding and Scope",
+    "subject": "Programming and Data Structures",
+    "group": "Functions Recursion and Scope",
+    "scope": "syllabus",
+    "cue": "Resolve a name to a declaration or object.",
+    "theory": [
+      "C uses lexical scope; an inner declaration can hide an outer declaration with the same spelling.",
+      "Binding a name and allocating an object are distinct: scope, linkage and storage duration answer different questions."
+    ],
+    "recall": {
+      "q": "What happens to an outer variable when a same-named inner variable is declared?",
+      "a": "The outer object still exists, but its name is hidden in the inner scope."
+    },
+    "pitfall": "A static local’s long lifetime does not make its name visible everywhere.",
+    "originalNotes": {
+      "startPage": 267,
+      "endPage": 268
+    }
+  },
+  {
+    "id": "v2-6.1",
+    "title": "Closure Properties",
+    "subject": "Theory of Computation",
+    "group": "Language Classes and Closure",
+    "scope": "syllabus",
+    "cue": "Combine languages using union, intersection or complement.",
+    "theory": [
+      "Regular languages are closed under union, intersection, complement, concatenation and star.",
+      "CFLs are closed under union, concatenation, star and intersection with a regular language, but not general intersection or complement."
+    ],
+    "recall": {
+      "q": "If L is CFL and R is regular, what can you conclude about L∩R?",
+      "a": "It is context-free."
+    },
+    "pitfall": "Closure under union means finite/binary union here, not arbitrary infinite union. Nonclosure requires a counterexample, not failure for every pair.",
+    "originalNotes": {
+      "startPage": 324,
+      "endPage": 325
+    }
+  },
+  {
+    "id": "v2-6.2",
+    "title": "Context-Free Grammars",
+    "subject": "Theory of Computation",
+    "group": "Context-Free Grammars and Pushdown Automata",
+    "scope": "syllabus",
+    "cue": "Generate nested or recursively structured strings.",
+    "theory": [
+      "In a CFG, each production has one nonterminal on the left and any string of symbols on the right.",
+      "A derivation replaces nonterminals until only terminals remain; a parse tree records the hierarchical replacements."
+    ],
+    "recall": {
+      "q": "What does S→aSb | ε generate?",
+      "a": "Exactly aⁿbⁿ for n≥0."
+    },
+    "pitfall": "A CFG may have many derivations of one tree; ambiguity requires distinct parse trees.",
+    "originalNotes": {
+      "startPage": 324,
+      "endPage": 325
+    }
+  },
+  {
+    "id": "v2-6.3",
+    "title": "Context-Free Languages",
+    "subject": "Theory of Computation",
+    "group": "Context-Free Grammars and Pushdown Automata",
+    "scope": "syllabus",
+    "cue": "One stack or a grammar may express the required dependency.",
+    "theory": [
+      "CFLs are exactly the languages recognized by nondeterministic pushdown automata.",
+      "A single matched count such as aⁿbⁿ is context-free; aⁿbⁿcⁿ is not context-free."
+    ],
+    "recall": {
+      "q": "Are all regular languages also context-free?",
+      "a": "Yes. A PDA can simulate a finite automaton without using its stack."
+    },
+    "pitfall": "Two independent equal-count requirements may exceed one stack’s capability.",
+    "originalNotes": {
+      "startPage": 325,
+      "endPage": 326
+    }
+  },
+  {
+    "id": "v2-6.4",
+    "title": "Countability and Diagonalization",
+    "subject": "Theory of Computation",
+    "group": "Turing Machines and Undecidability",
+    "scope": "syllabus",
+    "cue": "Compare the number of strings, machines and languages.",
+    "theory": [
+      "Over a finite nonempty alphabet, finite strings are countable; finite machine descriptions are therefore countable.",
+      "The set of all languages is the power set of the countably infinite string set, so it is uncountable."
+    ],
+    "recall": {
+      "q": "Why must some languages have no recognizing Turing machine?",
+      "a": "There are uncountably many languages but only countably many machine descriptions."
+    },
+    "pitfall": "A language can itself be a countable set of strings while belonging to an uncountable collection of languages.",
+    "originalNotes": {
+      "startPage": 328,
+      "endPage": 329
+    }
+  },
+  {
+    "id": "v2-6.5",
+    "title": "Decidability",
+    "subject": "Theory of Computation",
+    "group": "Turing Machines and Undecidability",
+    "scope": "syllabus",
+    "cue": "Ask whether an algorithm can always answer yes or no.",
+    "theory": [
+      "A decider halts on every input. A recognizer must halt and accept members but may loop on nonmembers.",
+      "Rice’s theorem concerns nontrivial semantic properties of the recognized language, not every syntactic property of machine descriptions."
+    ],
+    "recall": {
+      "q": "Does undecidable mean no input instance can ever be solved?",
+      "a": "No; it means no algorithm correctly decides every instance while always halting."
+    },
+    "pitfall": "A finite simulation cannot generally prove that a machine will never halt.",
+    "originalNotes": {
+      "startPage": 327,
+      "endPage": 328
+    }
+  },
+  {
+    "id": "v2-6.6",
+    "title": "Deterministic Pushdown Automata",
+    "subject": "Theory of Computation",
+    "group": "Context-Free Grammars and Pushdown Automata",
+    "scope": "syllabus",
+    "cue": "A PDA must choose a unique next move.",
+    "theory": [
+      "A DPDA has no competing enabled moves; an available ε-move must not compete with an input-consuming move for the same state and stack top.",
+      "Deterministic context-free languages form a proper subset of CFLs; nondeterminism increases PDA language power."
+    ],
+    "recall": {
+      "q": "Are DPDA and NPDA equally powerful?",
+      "a": "No. Some CFLs require nondeterministic pushdown recognition."
+    },
+    "pitfall": "Acceptance by final state and empty stack need special care for deterministic PDAs.",
+    "originalNotes": {
+      "startPage": 325,
+      "endPage": 326
+    }
+  },
+  {
+    "id": "v2-6.7",
+    "title": "Finite Automata",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Recognition needs only finite remembered information.",
+    "theory": [
+      "A DFA has exactly one next state per state–symbol pair; an NFA may allow several or no moves and may use ε-transitions.",
+      "DFA and NFA recognize the same class: regular languages. A subset construction turns an NFA into a DFA."
+    ],
+    "recall": {
+      "q": "How does an NFA accept a string?",
+      "a": "At least one complete computation path consumes the string and ends in an accepting state."
+    },
+    "pitfall": "Acceptance is existential over paths; it does not require every path to accept.",
+    "originalNotes": {
+      "startPage": 321,
+      "endPage": 322
+    }
+  },
+  {
+    "id": "v2-6.8",
+    "title": "Finite-State Machines with Output",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "extra",
+    "cue": "A finite-state device produces outputs as input arrives.",
+    "theory": [
+      "A Mealy machine associates output with transitions; a Moore machine associates output with states.",
+      "Trace the stated initial state and output convention, especially whether an initial output is produced before reading input.",
+      "To minimize a finite-state output machine, states may merge only when outputs agree appropriately and every input leads to equivalent successor states."
+    ],
+    "recall": {
+      "q": "Which model’s output depends directly on both current state and input symbol?",
+      "a": "Mealy."
+    },
+    "pitfall": "Output timing can differ even when two machines implement related behavior.",
+    "originalNotes": {
+      "startPage": 321,
+      "endPage": 322
+    }
+  },
+  {
+    "id": "v2-6.9",
+    "title": "Classify a Language",
+    "subject": "Theory of Computation",
+    "group": "Language Classes and Closure",
+    "scope": "syllabus",
+    "cue": "Choose the weakest language class that suffices.",
+    "theory": [
+      "Try finite memory first; use a stack for nesting or one unbounded last-in-first-out dependency.",
+      "To disprove a class, use a valid pumping argument, closure reduction, or a distinguishability argument; failed intuition is not a proof."
+    ],
+    "recall": {
+      "q": "Is every language accepted by a PDA nonregular?",
+      "a": "No. Every regular language can also be accepted by a PDA."
+    },
+    "pitfall": "An upper bound such as “context-free” does not prove the language is not regular.",
+    "originalNotes": {
+      "startPage": 328,
+      "endPage": 329
+    }
+  },
+  {
+    "id": "v2-6.10",
+    "title": "Regularity of Symbol-Count Conditions",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Compare languages defined by counts of symbols.",
+    "theory": [
+      "Finite conditions such as count modulo k can be recognized with finitely many states.",
+      "Exact equality of two unbounded counts can require unbounded memory; test the actual language rather than the appearance of a formula."
+    ],
+    "recall": {
+      "q": "Can a DFA track the number of a’s modulo 3?",
+      "a": "Yes, using three remainder states."
+    },
+    "pitfall": "The book’s “Medium” is a difficulty tag, not a theory topic.",
+    "originalNotes": {
+      "startPage": 328,
+      "endPage": 329
+    },
+    "correction": {
+      "sourcePage": 328,
+      "original": "The note interprets “Medium” as computational models.",
+      "corrected": "“Medium” is a difficulty tag. The associated question belongs to regular-language classification.",
+      "reason": "The single associated question on page 371 is GATE CSE 2006 Q29, asking which symbol-count language is not regular."
+    }
+  },
+  {
+    "id": "v2-6.11",
+    "title": "DFA Minimization",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Find the minimum DFA or merge equivalent states.",
+    "theory": [
+      "Remove unreachable states, separate accepting from rejecting states, and refine partitions by transition behavior.",
+      "Two states are distinguishable if some suffix leads to acceptance from one and rejection from the other."
+    ],
+    "recall": {
+      "q": "What does Myhill–Nerode count for a regular language?",
+      "a": "The distinct right-congruence classes, equal to the number of states in its minimal complete DFA."
+    },
+    "pitfall": "An n-state NFA may require up to 2ⁿ DFA states; it does not always require exactly 2ⁿ.",
+    "originalNotes": {
+      "startPage": 323,
+      "endPage": 324
+    }
+  },
+  {
+    "id": "v2-6.12",
+    "title": "Nondeterminism",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Several computation paths are possible.",
+    "theory": [
+      "An NFA accepts if any path succeeds; subset construction tracks the entire set of reachable NFA states after each prefix.",
+      "Nondeterminism preserves finite-automaton and Turing-machine language power, but increases pushdown-automaton power."
+    ],
+    "recall": {
+      "q": "Do you choose one arbitrary NFA branch when constructing its DFA?",
+      "a": "No. Each DFA state represents all currently possible NFA states."
+    },
+    "pitfall": "Take ε-closures when the NFA includes ε-transitions.",
+    "originalNotes": {
+      "startPage": 323,
+      "endPage": 324
+    }
+  },
+  {
+    "id": "v2-6.13",
+    "title": "Counting Automaton States",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Bound or prove an automaton’s state count.",
+    "theory": [
+      "A state summarizes information about the prefix needed for future acceptance decisions.",
+      "A lower bound follows by producing prefixes that are pairwise distinguishable using suitable suffixes."
+    ],
+    "recall": {
+      "q": "What must differ between two prefixes to require different DFA states?",
+      "a": "Some common suffix must make one resulting string accepted and the other rejected."
+    },
+    "pitfall": "A proposed construction gives an upper bound; minimality needs a lower-bound argument.",
+    "originalNotes": {
+      "startPage": 323,
+      "endPage": 324
+    }
+  },
+  {
+    "id": "v2-6.14",
+    "title": "Pumping Lemmas",
+    "subject": "Theory of Computation",
+    "group": "Language Classes and Closure",
+    "scope": "syllabus",
+    "cue": "Prove a language nonregular or not context-free.",
+    "theory": [
+      "Regular pumping: for sufficiently long w, some w=xyz has |xy|≤p, |y|>0, and xyⁱz∈L for every i≥0.",
+      "For a nonregularity proof, choose w after p is fixed, then defeat every allowed split; you may choose the pumping exponent after seeing the split.",
+      "CFL pumping uses w=uvxyz with |vxy|≤p and |vy|>0, requiring uvⁱxyⁱz∈L for every i≥0. Both pumped pieces use the same exponent."
+    ],
+    "recall": {
+      "q": "Can satisfying the pumping lemma prove regularity?",
+      "a": "No. It is necessary, not sufficient. Construct an automaton or regex to prove regularity."
+    },
+    "pitfall": "You cannot choose only one convenient split when disproving regularity.",
+    "originalNotes": {
+      "startPage": 323,
+      "endPage": 324
+    }
+  },
+  {
+    "id": "v2-6.15",
+    "title": "Pushdown Automata",
+    "subject": "Theory of Computation",
+    "group": "Context-Free Grammars and Pushdown Automata",
+    "scope": "syllabus",
+    "cue": "Use a stack for matching, nesting or reversed comparison.",
+    "theory": [
+      "A PDA reads input and updates a stack based on current state and stack top. NPDAs recognize exactly CFLs.",
+      "The stack naturally reverses stored information, making balanced nesting and aⁿbⁿ natural examples."
+    ],
+    "recall": {
+      "q": "Why can a PDA recognize aⁿbⁿ?",
+      "a": "Push for each a, then pop for each b, checking that the counts and order match."
+    },
+    "pitfall": "An unrestricted second stack would increase power to that of a Turing machine.",
+    "originalNotes": {
+      "startPage": 325,
+      "endPage": 326
+    }
+  },
+  {
+    "id": "v2-6.16",
+    "title": "Decidable and Recognizable Languages",
+    "subject": "Theory of Computation",
+    "group": "Turing Machines and Undecidability",
+    "scope": "syllabus",
+    "cue": "Distinguish recognizers from always-halting deciders.",
+    "theory": [
+      "A recursive language has a decider; a recursively enumerable language has a recognizer that may loop on nonmembers.",
+      "L is recursive exactly when both L and its complement are recursively enumerable."
+    ],
+    "recall": {
+      "q": "Why can two recognizers decide L when one recognizes L and the other its complement?",
+      "a": "Run them in interleaved steps; exactly one must eventually accept."
+    },
+    "pitfall": "Running one recognizer to completion before starting the other can hang forever.",
+    "originalNotes": {
+      "startPage": 326,
+      "endPage": 327
+    }
+  },
+  {
+    "id": "v2-6.17",
+    "title": "Reductions",
+    "subject": "Theory of Computation",
+    "group": "Turing Machines and Undecidability",
+    "scope": "syllabus",
+    "cue": "Transfer undecidability using an instance transformation.",
+    "theory": [
+      "A mapping reduction A≤mB is a total computable function f with x∈A exactly when f(x)∈B.",
+      "If A is undecidable and A≤mB, then B is undecidable: a decider for B would decide A."
+    ],
+    "recall": {
+      "q": "Which direction proves a new problem B hard?",
+      "a": "Reduce a known hard problem A to B, not B to A."
+    },
+    "pitfall": "The transformation must halt and preserve yes/no membership.",
+    "originalNotes": {
+      "startPage": 327,
+      "endPage": 328
+    }
+  },
+  {
+    "id": "v2-6.18",
+    "title": "Regular Expressions",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Describe languages using union, concatenation and repetition.",
+    "theory": [
+      "Regular expressions use union, concatenation and Kleene star; they characterize exactly regular languages.",
+      "Kleene star includes zero repetitions, so ε∈L* even if L is empty."
+    ],
+    "recall": {
+      "q": "What is ∅*?",
+      "a": "{ε}."
+    },
+    "pitfall": "∅ and {ε} are different languages.",
+    "originalNotes": {
+      "startPage": 322,
+      "endPage": 323
+    }
+  },
+  {
+    "id": "v2-6.19",
+    "title": "Regular Grammars",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Translate a one-sided linear grammar to an automaton.",
+    "theory": [
+      "A standard right-linear grammar has rules like A→aB, A→a and optionally A→ε. Such grammars generate regular languages.",
+      "Nonterminals can serve as automaton states, with terminal-labeled transitions following productions."
+    ],
+    "recall": {
+      "q": "Can right-linear and left-linear rules be mixed arbitrarily while guaranteeing regularity?",
+      "a": "No. The grammar must obey a consistent regular-grammar form."
+    },
+    "pitfall": "A CFG being linear is not enough to guarantee it is regular.",
+    "originalNotes": {
+      "startPage": 322,
+      "endPage": 323
+    }
+  },
+  {
+    "id": "v2-6.20",
+    "title": "Regular Languages",
+    "subject": "Theory of Computation",
+    "group": "Regular Languages and Finite Automata",
+    "scope": "syllabus",
+    "cue": "Check whether finite memory is sufficient.",
+    "theory": [
+      "A language is regular exactly when some DFA, NFA or regular expression describes it.",
+      "All finite languages are regular; an infinite language can also be regular, such as a*."
+    ],
+    "recall": {
+      "q": "Does infinite length range imply nonregularity?",
+      "a": "No. A loop in a finite automaton handles arbitrarily long strings."
+    },
+    "pitfall": "“Needs counting” is too vague: bounded or modular counting is finite-state.",
+    "originalNotes": {
+      "startPage": 322,
+      "endPage": 323
+    }
+  },
+  {
+    "id": "v2-6.21",
+    "title": "Turing Machines",
+    "subject": "Theory of Computation",
+    "group": "Turing Machines and Undecidability",
+    "scope": "syllabus",
+    "cue": "General computation with read/write tape memory.",
+    "theory": [
+      "A Turing machine has finite control and unbounded tape; a recognizer may not halt on every input.",
+      "Multitape and nondeterministic TMs have the same recognizable-language power as standard deterministic TMs, though efficiency can differ."
+    ],
+    "recall": {
+      "q": "Does a Turing machine’s existence for L imply L is decidable?",
+      "a": "Only if it is guaranteed to halt on every input with the correct answer."
+    },
+    "pitfall": "Computability equivalence does not imply identical running time.",
+    "originalNotes": {
+      "startPage": 326,
+      "endPage": 327
+    }
+  }
+]

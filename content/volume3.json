@@ -1,0 +1,3508 @@
+[
+  {
+    "id": "v3-1.1",
+    "title": "Addressing modes",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "syllabus",
+    "cue": "Find the operand or effective address from registers and instruction fields.",
+    "theory": [
+      "Immediate embeds the operand; direct uses the address field; indirect follows a memory pointer.",
+      "Register indirect uses a register as an address. Base/index/PC-relative add a displacement to the specified register."
+    ],
+    "recall": {
+      "q": "Does memory-indirect addressing need more memory accesses than direct addressing?",
+      "a": "Normally one additional access to fetch the effective address, excluding instruction fetch."
+    },
+    "pitfall": "Use the stated PC value and instruction length; do not assume whether PC was already advanced.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 13
+    }
+  },
+  {
+    "id": "v3-1.2",
+    "title": "Average memory access time",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "A hit ratio and several access times appear.",
+    "theory": [
+      "For serial cache lookup: AMAT = hit time + miss rate × additional miss penalty.",
+      "For multiple levels, expand the miss penalty recursively using each level's local miss rate."
+    ],
+    "recall": {
+      "q": "When is h×tcache + (1−h)×tmemory wrong?",
+      "a": "When tmemory omits the cache lookup already spent on a miss; count the complete path times."
+    },
+    "pitfall": "A miss penalty can already include lookup time; check its definition before adding it again.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 14
+    }
+  },
+  {
+    "id": "v3-1.3",
+    "title": "Bit vectors and storage overhead",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "extra",
+    "cue": "One status bit is maintained for every block or page.",
+    "theory": [
+      "One bit per N objects needs N bits, or ceil(N/8) bytes.",
+      "For memory allocation maps, number of bits = managed capacity / allocation-unit size, rounded up."
+    ],
+    "recall": {
+      "q": "How many bytes store one status bit for 1,024 blocks?",
+      "a": "128 bytes."
+    },
+    "pitfall": "Do not confuse bits of metadata with bytes of data.",
+    "originalNotes": {
+      "startPage": 14,
+      "endPage": 14
+    }
+  },
+  {
+    "id": "v3-1.4",
+    "title": "CISC and RISC",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "syllabus",
+    "cue": "Compare instruction formats, addressing and control choices.",
+    "theory": [
+      "RISC commonly emphasizes simple operations and load/store access; CISC commonly offers richer instruction forms.",
+      "These are design tendencies; performance still depends on instruction count, CPI and clock period."
+    ],
+    "recall": {
+      "q": "Is lower instruction count alone proof of faster execution?",
+      "a": "No. Compare instruction count × CPI × cycle time."
+    },
+    "pitfall": "Avoid absolute claims that every RISC instruction is one cycle or every CISC design is microprogrammed.",
+    "originalNotes": {
+      "startPage": 14,
+      "endPage": 15
+    }
+  },
+  {
+    "id": "v3-1.5",
+    "title": "Cache organization and policies",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "An address trace, block size, cache capacity or hit rate is given.",
+    "theory": [
+      "Number of lines = cache data capacity / block size; sets = lines / associativity.",
+      "For power-of-two, byte-addressed layouts: offset bits = log₂(block bytes), index bits = log₂(sets), tag bits = address bits − index − offset.",
+      "Write-through updates lower memory on each write; write-back writes dirty blocks when evicted."
+    ],
+    "recall": {
+      "q": "What part of an address selects a byte within a cache block?",
+      "a": "The block-offset bits."
+    },
+    "pitfall": "Do not include metadata in the stated data capacity unless the question explicitly does.",
+    "originalNotes": {
+      "startPage": 15,
+      "endPage": 16
+    }
+  },
+  {
+    "id": "v3-1.6",
+    "title": "Conflict misses",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "Different memory blocks repeatedly evict one another.",
+    "theory": [
+      "Conflict misses arise from placement restrictions and would disappear in a fully associative cache of the same capacity with a comparable policy.",
+      "Blocks mapping to the same set compete for its available ways."
+    ],
+    "recall": {
+      "q": "Can a fully associative cache have conflict misses under the usual 3C classification?",
+      "a": "No; compulsory and capacity misses can remain."
+    },
+    "pitfall": "A first reference to a block is compulsory, even if it also maps to a crowded set.",
+    "originalNotes": {
+      "startPage": 16,
+      "endPage": 16
+    }
+  },
+  {
+    "id": "v3-1.7",
+    "title": "Control-unit design",
+    "subject": "Computer Organization and Architecture",
+    "group": "Datapath and Control",
+    "scope": "syllabus",
+    "cue": "Determine the signals that execute a machine operation.",
+    "theory": [
+      "The control unit sequences register transfers, ALU operations and memory actions.",
+      "Hardwired control derives signals from logic; microprogrammed control reads control words from a control store."
+    ],
+    "recall": {
+      "q": "What distinguishes hardwired from microprogrammed control?",
+      "a": "Combinational/sequential logic generates signals versus stored microinstructions sequencing them."
+    },
+    "pitfall": "The control store is distinct from the program's main memory.",
+    "originalNotes": {
+      "startPage": 16,
+      "endPage": 17
+    }
+  },
+  {
+    "id": "v3-1.8",
+    "title": "Direct memory access",
+    "subject": "Computer Organization and Architecture",
+    "group": "I/O and Storage",
+    "scope": "syllabus",
+    "cue": "A device transfers a stream while stealing bus cycles.",
+    "theory": [
+      "DMA moves blocks between a device and memory with limited CPU intervention.",
+      "Stolen cycles per second = transfers per second × bus cycles per transfer; fraction of available cycles stolen is that value divided by available cycles per second."
+    ],
+    "recall": {
+      "q": "A device sends 1,200 bytes/s and one DMA transfer moves 2 bytes. How many transfers/s?",
+      "a": "600 transfers/s if bytes can be packed in pairs."
+    },
+    "pitfall": "Instructions per second are not automatically bus cycles per second; use the question's stated timing model.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 28
+    }
+  },
+  {
+    "id": "v3-1.9",
+    "title": "DRAM organization",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "Memory chips, row/column selection or refresh are described.",
+    "theory": [
+      "DRAM stores charge and requires refresh; SRAM uses bistable storage and does not require periodic refresh.",
+      "With multiplexed addresses, row and column address bits may share physical pins."
+    ],
+    "recall": {
+      "q": "Why can a DRAM chip have fewer address pins than address bits?",
+      "a": "Row and column addresses are supplied in separate phases through shared pins."
+    },
+    "pitfall": "Do not count shared address pins twice; distinguish chip width from number of locations.",
+    "originalNotes": {
+      "startPage": 13,
+      "endPage": 28
+    }
+  },
+  {
+    "id": "v3-1.10",
+    "title": "Data dependencies",
+    "subject": "Computer Organization and Architecture",
+    "group": "Pipelining and Performance",
+    "scope": "syllabus",
+    "cue": "Instructions read and write common registers.",
+    "theory": [
+      "RAW is a true dependence: a later instruction needs an earlier result.",
+      "WAR and WAW are name dependencies; renaming can remove these but cannot remove the underlying RAW value requirement."
+    ],
+    "recall": {
+      "q": "Which dependencies can register renaming remove?",
+      "a": "WAR and WAW name dependencies."
+    },
+    "pitfall": "A dependency is a program property; whether it causes a stall depends on the pipeline.",
+    "originalNotes": {
+      "startPage": 17,
+      "endPage": 18
+    }
+  },
+  {
+    "id": "v3-1.11",
+    "title": "Data hazards and forwarding",
+    "subject": "Computer Organization and Architecture",
+    "group": "Pipelining and Performance",
+    "scope": "syllabus",
+    "cue": "Find stalls between dependent instructions.",
+    "theory": [
+      "A RAW hazard occurs when a consumer needs a value before the pipeline can supply it.",
+      "Forwarding may supply a result before writeback, but a load-use pair can still need a stall depending on stages."
+    ],
+    "recall": {
+      "q": "Does forwarding guarantee zero data stalls?",
+      "a": "No. The result must exist by the consumer's required stage."
+    },
+    "pitfall": "Draw a stage timeline; do not use a fixed stall count without the given architecture.",
+    "originalNotes": {
+      "startPage": 18,
+      "endPage": 18
+    }
+  },
+  {
+    "id": "v3-1.12",
+    "title": "Datapath and ALU",
+    "subject": "Computer Organization and Architecture",
+    "group": "Datapath and Control",
+    "scope": "syllabus",
+    "cue": "Trace registers, buses, multiplexers and arithmetic operations.",
+    "theory": [
+      "A datapath moves operands between registers, ALU and memory under control signals.",
+      "On a single shared bus, transfers that compete for the bus cannot occur simultaneously; independent internal operations may overlap."
+    ],
+    "recall": {
+      "q": "What determines whether two register transfers fit in one cycle?",
+      "a": "Available buses, ports and functional units, plus control/timing constraints."
+    },
+    "pitfall": "Count actual resource conflicts, not merely the number of written micro-operations.",
+    "originalNotes": {
+      "startPage": 18,
+      "endPage": 19
+    }
+  },
+  {
+    "id": "v3-1.13",
+    "title": "Direct-mapped cache",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "Each memory block has exactly one possible cache line.",
+    "theory": [
+      "Cache line index = memory block number mod number of lines.",
+      "Tag = floor(memory block number / number of lines); byte offset identifies a byte within the block."
+    ],
+    "recall": {
+      "q": "Which blocks conflict in a direct-mapped cache with L lines?",
+      "a": "Blocks whose numbers have the same remainder modulo L."
+    },
+    "pitfall": "Compute the block number from the address before taking the modulus.",
+    "originalNotes": {
+      "startPage": 19,
+      "endPage": 19
+    }
+  },
+  {
+    "id": "v3-1.14",
+    "title": "Disk access time",
+    "subject": "Computer Organization and Architecture",
+    "group": "I/O and Storage",
+    "scope": "syllabus",
+    "cue": "Seek, RPM, sector size and transfer size are given.",
+    "theory": [
+      "Disk access time combines seek, rotational latency and transfer, plus any stated overhead.",
+      "One rotation takes 60/RPM seconds; average random rotational latency is half a rotation."
+    ],
+    "recall": {
+      "q": "At 7,200 RPM, what is the average rotational latency?",
+      "a": "About 4.167 ms."
+    },
+    "pitfall": "Transfer time is for the requested data; it is not automatically a complete rotation.",
+    "originalNotes": {
+      "startPage": 20,
+      "endPage": 20
+    }
+  },
+  {
+    "id": "v3-1.15",
+    "title": "Pipeline hazards",
+    "subject": "Computer Organization and Architecture",
+    "group": "Pipelining and Performance",
+    "scope": "syllabus",
+    "cue": "A pipeline stalls because an instruction cannot proceed.",
+    "theory": [
+      "Structural hazards are resource conflicts; data hazards involve values; control hazards involve the next instruction address.",
+      "A branch penalty affects only the branch events specified by the model."
+    ],
+    "recall": {
+      "q": "What is a structural hazard?",
+      "a": "Two overlapping instructions need a resource that cannot serve both at once."
+    },
+    "pitfall": "A register dependence and an actual timing hazard are different concepts.",
+    "originalNotes": {
+      "startPage": 20,
+      "endPage": 21
+    }
+  },
+  {
+    "id": "v3-1.16",
+    "title": "Programmed and interrupt-driven I/O",
+    "subject": "Computer Organization and Architecture",
+    "group": "I/O and Storage",
+    "scope": "syllabus",
+    "cue": "Compare busy waiting, interrupts and DMA.",
+    "theory": [
+      "Programmed I/O polls device status and transfers data through the CPU.",
+      "Interrupt-driven I/O lets the CPU do other work until notified; DMA can transfer blocks without CPU instructions for each word."
+    ],
+    "recall": {
+      "q": "Which method avoids CPU data-transfer instructions for every word?",
+      "a": "DMA."
+    },
+    "pitfall": "Interrupt overhead and CPU transfer overhead are separate quantities.",
+    "originalNotes": {
+      "startPage": 21,
+      "endPage": 21
+    }
+  },
+  {
+    "id": "v3-1.17",
+    "title": "Instruction execution and timing",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "syllabus",
+    "cue": "Find execution time from instruction classes or machine cycles.",
+    "theory": [
+      "CPU time = instruction count × average CPI × clock period.",
+      "Weighted CPI = Σ(fraction of instructions in class i × CPIᵢ)."
+    ],
+    "recall": {
+      "q": "What changes if instruction count falls but CPI rises?",
+      "a": "Recompute the product; either effect can dominate."
+    },
+    "pitfall": "Use instruction fractions for CPI, not fractions of total time.",
+    "originalNotes": {
+      "startPage": 21,
+      "endPage": 22
+    }
+  },
+  {
+    "id": "v3-1.18",
+    "title": "Instruction formats and encoding",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "syllabus",
+    "cue": "Opcode, register and address fields must fit in a word.",
+    "theory": [
+      "Selecting R registers takes ceil(log₂R) bits per register field.",
+      "The remaining instruction bits limit opcode or address possibilities; variable-length opcode schemes require prefix-compatible encodings."
+    ],
+    "recall": {
+      "q": "How many bits select one of 32 registers?",
+      "a": "5."
+    },
+    "pitfall": "Do not assume all unused bit patterns are independent opcodes in an expanding-opcode scheme.",
+    "originalNotes": {
+      "startPage": 22,
+      "endPage": 22
+    }
+  },
+  {
+    "id": "v3-1.19",
+    "title": "Instruction set architecture",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "syllabus",
+    "cue": "Separate programmer-visible behavior from implementation.",
+    "theory": [
+      "The ISA defines operations, registers, data types and addressing visible to machine-code programmers.",
+      "Different microarchitectures can implement the same ISA with different pipelines and performance."
+    ],
+    "recall": {
+      "q": "Can two CPUs share an ISA but use different pipelines?",
+      "a": "Yes."
+    },
+    "pitfall": "A cache size or pipeline depth is usually a microarchitectural detail, not an ISA requirement.",
+    "originalNotes": {
+      "startPage": 22,
+      "endPage": 22
+    }
+  },
+  {
+    "id": "v3-1.20",
+    "title": "Interrupts",
+    "subject": "Computer Organization and Architecture",
+    "group": "I/O and Storage",
+    "scope": "syllabus",
+    "cue": "A device or exception diverts control to a handler.",
+    "theory": [
+      "An interrupt saves sufficient execution state and transfers control to an appropriate handler.",
+      "Priority and masking rules determine which pending interrupt can be serviced; nesting requires suitable saved state."
+    ],
+    "recall": {
+      "q": "Why save the program counter on an interrupt?",
+      "a": "So interrupted execution can resume at the architecturally defined return point."
+    },
+    "pitfall": "Do not equate every interrupt with a process switch.",
+    "originalNotes": {
+      "startPage": 22,
+      "endPage": 23
+    }
+  },
+  {
+    "id": "v3-1.21",
+    "title": "Machine instructions and register transfers",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "syllabus",
+    "cue": "Execute a short assembly fragment or count machine operations.",
+    "theory": [
+      "Track each instruction's source values, destination, flags and next PC in order.",
+      "Distinguish instruction fetch, operand accesses and result writes when counting memory traffic."
+    ],
+    "recall": {
+      "q": "What is the safest way to trace machine code?",
+      "a": "Keep a table of PC, registers and relevant memory after each instruction."
+    },
+    "pitfall": "An instruction that references memory can cause more than one memory access.",
+    "originalNotes": {
+      "startPage": 23,
+      "endPage": 23
+    }
+  },
+  {
+    "id": "v3-1.22",
+    "title": "Memory-chip interfacing",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "Build a target memory from smaller chips.",
+    "theory": [
+      "Chips in parallel increase word width; banks increase the number of addressable words.",
+      "Total chips = (target words / chip words) × (target word width / chip width), for exact integer dimensions."
+    ],
+    "recall": {
+      "q": "How many 1K×4 chips make 2K×8 memory?",
+      "a": "4 chips: two in parallel per bank and two banks."
+    },
+    "pitfall": "Byte-addressable capacity and word-addressable capacity give different address-bit counts.",
+    "originalNotes": {
+      "startPage": 23,
+      "endPage": 24
+    }
+  },
+  {
+    "id": "v3-1.23",
+    "title": "Microprogrammed control",
+    "subject": "Computer Organization and Architecture",
+    "group": "Datapath and Control",
+    "scope": "syllabus",
+    "cue": "Control memory contains microinstructions and next-address fields.",
+    "theory": [
+      "A microinstruction selects control signals and how the next microaddress is obtained.",
+      "Horizontal encoding exposes many control bits; vertical encoding compresses signals and needs decoding."
+    ],
+    "recall": {
+      "q": "What is the usual tradeoff of vertical microcode?",
+      "a": "Fewer stored bits, with decoding and potentially less parallel control."
+    },
+    "pitfall": "Mutually exclusive signals can share an encoded field; simultaneous signals may need separate fields.",
+    "originalNotes": {
+      "startPage": 24,
+      "endPage": 24
+    }
+  },
+  {
+    "id": "v3-1.24",
+    "title": "Pipeline timing",
+    "subject": "Computer Organization and Architecture",
+    "group": "Pipelining and Performance",
+    "scope": "syllabus",
+    "cue": "Compute total time for several instructions through stages.",
+    "theory": [
+      "Ideal time for n instructions in a k-stage pipeline is (k+n−1)×cycle time.",
+      "Cycle time is usually the slowest stage plus pipeline-register overhead; add specified stall cycles."
+    ],
+    "recall": {
+      "q": "Does pipelining mainly reduce one instruction's latency or improve throughput?",
+      "a": "Throughput; individual latency may stay similar or increase."
+    },
+    "pitfall": "For a short stream, include fill and drain time instead of assuming speedup = k.",
+    "originalNotes": {
+      "startPage": 24,
+      "endPage": 25
+    }
+  },
+  {
+    "id": "v3-1.25",
+    "title": "Runtime stack and procedure calls",
+    "subject": "Computer Organization and Architecture",
+    "group": "Instructions and Addressing",
+    "scope": "extra",
+    "cue": "A call changes stack frames, return addresses and saved registers.",
+    "theory": [
+      "A stack frame holds the activation's parameters, locals and saved state according to a calling convention.",
+      "Recursion requires distinct live activation records even for the same procedure."
+    ],
+    "recall": {
+      "q": "Why does recursion need multiple activation records?",
+      "a": "Each active call has its own locals and return information."
+    },
+    "pitfall": "Do not assume stack growth direction or parameter layout unless specified.",
+    "originalNotes": {
+      "startPage": 25,
+      "endPage": 25
+    }
+  },
+  {
+    "id": "v3-1.26",
+    "title": "Speedup and Amdahl's law",
+    "subject": "Computer Organization and Architecture",
+    "group": "Pipelining and Performance",
+    "scope": "syllabus",
+    "cue": "Only a fraction of the original execution is improved.",
+    "theory": [
+      "Speedup = old time / new time.",
+      "If fraction f of original time is accelerated by factor s, overall speedup = 1 / ((1−f)+f/s)."
+    ],
+    "recall": {
+      "q": "What is the limit as s approaches infinity?",
+      "a": "1/(1−f), provided f<1."
+    },
+    "pitfall": "f is a fraction of original execution time, not necessarily an instruction-count fraction.",
+    "originalNotes": {
+      "startPage": 25,
+      "endPage": 26
+    }
+  },
+  {
+    "id": "v3-1.27",
+    "title": "Stalls and effective CPI",
+    "subject": "Computer Organization and Architecture",
+    "group": "Pipelining and Performance",
+    "scope": "syllabus",
+    "cue": "Branch frequency or hazard frequency adds cycles.",
+    "theory": [
+      "Effective CPI = base CPI + Σ(event frequency per instruction × penalty cycles).",
+      "CPU time still includes clock period; reduced CPI does not guarantee speedup if the clock slows."
+    ],
+    "recall": {
+      "q": "With base CPI 1 and 20% branches each costing 2 extra cycles, what is CPI?",
+      "a": "1.4."
+    },
+    "pitfall": "If only mispredictions stall, multiply branch frequency by misprediction probability first.",
+    "originalNotes": {
+      "startPage": 26,
+      "endPage": 26
+    }
+  },
+  {
+    "id": "v3-1.28",
+    "title": "Virtual memory and translation",
+    "subject": "Computer Organization and Architecture",
+    "group": "Memory Hierarchy",
+    "scope": "syllabus",
+    "cue": "Virtual addresses, TLBs and page walks appear in a COA problem.",
+    "theory": [
+      "Split a virtual address into page number and unchanged page offset.",
+      "A TLB caches translations; a TLB miss triggers a page-table lookup, which need not be a page fault."
+    ],
+    "recall": {
+      "q": "Is every TLB miss a page fault?",
+      "a": "No. The page may be resident and only its translation absent from the TLB."
+    },
+    "pitfall": "Count translation and data accesses according to the stated cache/TLB organization.",
+    "originalNotes": {
+      "startPage": 26,
+      "endPage": 28
+    }
+  },
+  {
+    "id": "v3-2.1",
+    "title": "Application-layer protocols",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "syllabus",
+    "cue": "Match a service to DNS, HTTP, mail or file transfer.",
+    "theory": [
+      "DNS resolves names and other resource records; HTTP defines web request/response semantics.",
+      "For classic GATE problems: SMTP transfers mail, FTP transfers files, and DNS can use UDP or TCP depending on the operation."
+    ],
+    "recall": {
+      "q": "Is DNS restricted to UDP?",
+      "a": "No; DNS uses both UDP and TCP."
+    },
+    "pitfall": "Do not infer the transport solely from the application's name when the question specifies a version or operation.",
+    "originalNotes": {
+      "startPage": 95,
+      "endPage": 95
+    }
+  },
+  {
+    "id": "v3-2.2",
+    "title": "ARP",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "A host knows an IPv4 next-hop address but needs its link-layer address.",
+    "theory": [
+      "ARP resolves an IPv4 address to a link-layer address on a local link.",
+      "For a remote destination, the host normally resolves its gateway's link-layer address, not the remote host's."
+    ],
+    "recall": {
+      "q": "Which MAC address is used when sending to an off-subnet host?",
+      "a": "The next-hop router's MAC address on the local link."
+    },
+    "pitfall": "IP destination remains the remote host while the Ethernet destination is the next hop.",
+    "originalNotes": {
+      "startPage": 95,
+      "endPage": 111
+    }
+  },
+  {
+    "id": "v3-2.3",
+    "title": "Bit stuffing",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "A frame delimiter must not appear in transmitted data.",
+    "theory": [
+      "In the usual HDLC rule, the sender inserts a 0 after five consecutive data 1s.",
+      "The receiver removes stuffed zeros; stuffing is applied to frame contents, not by altering the delimiter itself."
+    ],
+    "recall": {
+      "q": "What happens after five consecutive 1s in HDLC data?",
+      "a": "Insert a 0."
+    },
+    "pitfall": "Count consecutive bits in the transmitted stream according to the rule; restart the run after the inserted zero.",
+    "originalNotes": {
+      "startPage": 96,
+      "endPage": 96
+    }
+  },
+  {
+    "id": "v3-2.4",
+    "title": "Bridges and learning switches",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "A switch learns addresses or forwards unknown destinations.",
+    "theory": [
+      "A learning bridge records source MAC addresses with their incoming ports.",
+      "Known destinations are forwarded selectively; unknown destinations are flooded on other eligible ports."
+    ],
+    "recall": {
+      "q": "Does a switch learn from source or destination addresses?",
+      "a": "Source addresses of received frames."
+    },
+    "pitfall": "Learning and forwarding are separate steps; exclude the incoming port from flooding.",
+    "originalNotes": {
+      "startPage": 96,
+      "endPage": 96
+    }
+  },
+  {
+    "id": "v3-2.5",
+    "title": "CRC polynomial arithmetic",
+    "subject": "Computer Networks",
+    "group": "Error Detection and Reliability",
+    "scope": "syllabus",
+    "cue": "Generator polynomial or an error polynomial is given.",
+    "theory": [
+      "CRC divides M(x)xʳ by a degree-r generator using arithmetic over GF(2); the remainder supplies r check bits.",
+      "An error is undetected exactly when its error polynomial is divisible by the generator."
+    ],
+    "recall": {
+      "q": "What replaces subtraction in CRC long division?",
+      "a": "XOR."
+    },
+    "pitfall": "Ordinary integer subtraction and carrying do not apply to GF(2) polynomial division.",
+    "originalNotes": {
+      "startPage": 96,
+      "endPage": 97
+    }
+  },
+  {
+    "id": "v3-2.6",
+    "title": "CSMA/CD",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "Find minimum frame size, collision timing or cable length.",
+    "theory": [
+      "To detect a worst-case collision while still transmitting, frame transmission time must be at least the round-trip propagation time.",
+      "Thus minimum frame bits ≥ 2×one-way propagation delay×bit rate under the simple model."
+    ],
+    "recall": {
+      "q": "What timing inequality gives the minimum frame length?",
+      "a": "L/R ≥ 2d/v."
+    },
+    "pitfall": "CSMA/CD applies to shared half-duplex Ethernet, not ordinary switched full-duplex links.",
+    "originalNotes": {
+      "startPage": 104,
+      "endPage": 104
+    }
+  },
+  {
+    "id": "v3-2.7",
+    "title": "Channel utilization",
+    "subject": "Computer Networks",
+    "group": "Performance and Switching",
+    "scope": "syllabus",
+    "cue": "Frame size, link rate and round-trip waiting time are given.",
+    "theory": [
+      "For error-free stop-and-wait with negligible ACK transmission, utilization = Ttx/(Ttx+2Tprop).",
+      "Throughput = utilization × link rate under that model."
+    ],
+    "recall": {
+      "q": "Why does a fast long-distance link have poor stop-and-wait utilization?",
+      "a": "The sender waits a long propagation round trip after a short transmission."
+    },
+    "pitfall": "Convert milliseconds and bits consistently before forming the ratio.",
+    "originalNotes": {
+      "startPage": 97,
+      "endPage": 98
+    }
+  },
+  {
+    "id": "v3-2.8",
+    "title": "End-to-end communication delay",
+    "subject": "Computer Networks",
+    "group": "Performance and Switching",
+    "scope": "syllabus",
+    "cue": "A message crosses one or several links.",
+    "theory": [
+      "Transmission delay = bits / link rate; propagation delay = distance / signal speed.",
+      "Store-and-forward switches receive a whole packet before forwarding; multiple packets may then pipeline across links."
+    ],
+    "recall": {
+      "q": "Which delay increases with message size on a fixed link?",
+      "a": "Transmission delay."
+    },
+    "pitfall": "Do not multiply the complete file's transmission time by every hop when packets are pipelined.",
+    "originalNotes": {
+      "startPage": 98,
+      "endPage": 98
+    }
+  },
+  {
+    "id": "v3-2.9",
+    "title": "TCP congestion control",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "syllabus",
+    "cue": "A congestion window changes after ACKs or losses.",
+    "theory": [
+      "Classic slow start grows the window approximately exponentially by RTT; congestion avoidance grows approximately linearly.",
+      "Loss response depends on the stated TCP variant and whether loss is detected by timeout or duplicate ACKs."
+    ],
+    "recall": {
+      "q": "Which two limits constrain outstanding TCP data?",
+      "a": "Congestion window and receiver-advertised window."
+    },
+    "pitfall": "Do not use Tahoe, Reno and newer variant rules interchangeably.",
+    "originalNotes": {
+      "startPage": 98,
+      "endPage": 98
+    }
+  },
+  {
+    "id": "v3-2.10",
+    "title": "Data communication and link capacity",
+    "subject": "Computer Networks",
+    "group": "Performance and Switching",
+    "scope": "syllabus",
+    "cue": "Distinguish bit rate, symbol rate and delivery time.",
+    "theory": [
+      "Bit rate measures transmitted bits per second; symbol rate measures signalling events per second.",
+      "With M distinct symbols carrying fixed-length labels, each symbol represents log₂M bits when M is a power of two."
+    ],
+    "recall": {
+      "q": "Is 1,000 baud necessarily 1,000 bit/s?",
+      "a": "No; multiple bits may be encoded in one symbol."
+    },
+    "pitfall": "Bandwidth in hertz and data rate in bits/s are different quantities.",
+    "originalNotes": {
+      "startPage": 98,
+      "endPage": 99
+    }
+  },
+  {
+    "id": "v3-2.11",
+    "title": "Distance-vector routing",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "Routers exchange distance tables with neighbors.",
+    "theory": [
+      "Bellman-Ford update: Dₓ(y) = minᵥ[c(x,v)+Dᵥ(y)] over neighbors v.",
+      "Each router combines its direct link costs with neighbors' advertised costs."
+    ],
+    "recall": {
+      "q": "What local information does a distance-vector router use?",
+      "a": "Its neighbor link costs and neighbors' distance estimates."
+    },
+    "pitfall": "Updates can propagate over several rounds; do not instantly give every router global information.",
+    "originalNotes": {
+      "startPage": 99,
+      "endPage": 99
+    }
+  },
+  {
+    "id": "v3-2.12",
+    "title": "Error detection",
+    "subject": "Computer Networks",
+    "group": "Error Detection and Reliability",
+    "scope": "syllabus",
+    "cue": "Parity, checksum, CRC or minimum distance is specified.",
+    "theory": [
+      "A code with minimum Hamming distance d detects every error pattern of up to d−1 bits.",
+      "It can correct every pattern of up to floor((d−1)/2) bit errors."
+    ],
+    "recall": {
+      "q": "What minimum distance guarantees detection of every two-bit error?",
+      "a": "3."
+    },
+    "pitfall": "Detecting an error and locating it for correction require different redundancy.",
+    "originalNotes": {
+      "startPage": 99,
+      "endPage": 99
+    }
+  },
+  {
+    "id": "v3-2.13",
+    "title": "Ethernet",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "Frames, MAC addresses, collision domains or switching appear.",
+    "theory": [
+      "Ethernet is a link-layer frame technology using MAC addresses.",
+      "A switch separates collision domains; routers separate IP subnets and usually broadcast domains."
+    ],
+    "recall": {
+      "q": "Does a router forward an Ethernet frame unchanged across different links?",
+      "a": "No; it forwards the IP packet using a new link-layer encapsulation."
+    },
+    "pitfall": "Do not apply shared-medium collisions to a full-duplex point-to-point Ethernet link.",
+    "originalNotes": {
+      "startPage": 99,
+      "endPage": 100
+    }
+  },
+  {
+    "id": "v3-2.14",
+    "title": "IPv4 fragmentation",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "An IP packet exceeds an outgoing link's MTU.",
+    "theory": [
+      "Maximum nonfinal fragment payload is 8×floor((MTU−header bytes)/8).",
+      "Fragment offsets are in units of 8 bytes relative to the original IP payload; each fragment carries its own IP header."
+    ],
+    "recall": {
+      "q": "Why round most fragment payloads down to a multiple of eight?",
+      "a": "The next fragment's offset must be expressed in 8-byte units."
+    },
+    "pitfall": "MTU includes the IP header; the final fragment need not have an 8-byte-multiple payload.",
+    "originalNotes": {
+      "startPage": 100,
+      "endPage": 100
+    }
+  },
+  {
+    "id": "v3-2.15",
+    "title": "Hamming code and syndrome",
+    "subject": "Computer Networks",
+    "group": "Error Detection and Reliability",
+    "scope": "extra",
+    "cue": "Parity checks identify a flipped bit.",
+    "theory": [
+      "Place parity bits at positions 1,2,4,8,…; parity bit 2ᵏ checks positions whose binary index has bit k set.",
+      "For standard single-error-correcting Hamming code, a nonzero syndrome gives the erroneous position, including a parity-bit position."
+    ],
+    "recall": {
+      "q": "What if the syndrome equals 4?",
+      "a": "Flip bit position 4 under the single-bit-error assumption; it is a parity bit."
+    },
+    "pitfall": "Ordinary Hamming code cannot safely correct arbitrary double-bit errors; extended parity changes the detection capability.",
+    "originalNotes": {
+      "startPage": 100,
+      "endPage": 101
+    }
+  },
+  {
+    "id": "v3-2.16",
+    "title": "IPv4 addressing and CIDR",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "A prefix length identifies a network block.",
+    "theory": [
+      "An IPv4 /p prefix contains 2^(32−p) addresses; network address is IP bitwise-AND mask.",
+      "Classless routing uses the prefix length, not an assumed address class.",
+      "NAT rewrites IP addresses at a boundary; port translation can also rewrite transport ports so several internal hosts share an external address. Keep internal and external address/port mappings distinct."
+    ],
+    "recall": {
+      "q": "How many total addresses are in a /26 block?",
+      "a": "64."
+    },
+    "pitfall": "The familiar hosts = addresses−2 rule has exceptions, notably /31 point-to-point and /32 routes.",
+    "originalNotes": {
+      "startPage": 101,
+      "endPage": 101
+    }
+  },
+  {
+    "id": "v3-2.17",
+    "title": "IPv4 packet fields",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "TTL, header length, total length or checksum changes.",
+    "theory": [
+      "IPv4 total length includes header and payload; IHL counts 32-bit words.",
+      "TTL is decremented by routers; the IPv4 header checksum covers the header, not the payload."
+    ],
+    "recall": {
+      "q": "An IHL of 5 means how many header bytes?",
+      "a": "20 bytes."
+    },
+    "pitfall": "TCP/UDP payload sizes differ from IP total length because protocol headers must be removed.",
+    "originalNotes": {
+      "startPage": 101,
+      "endPage": 102
+    }
+  },
+  {
+    "id": "v3-2.18",
+    "title": "ICMP",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "extra",
+    "cue": "A network reports unreachable destinations or expired packets.",
+    "theory": [
+      "ICMP carries control and error reports for IP, including destination unreachable and time exceeded.",
+      "Ping commonly uses ICMP echo messages; ICMP is carried in IP."
+    ],
+    "recall": {
+      "q": "What normally reports a TTL expiration?",
+      "a": "ICMP Time Exceeded."
+    },
+    "pitfall": "ICMP is not a reliable application-data transport protocol.",
+    "originalNotes": {
+      "startPage": 95,
+      "endPage": 111
+    }
+  },
+  {
+    "id": "v3-2.19",
+    "title": "LAN technologies",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "Compare LAN topology, access method and forwarding devices.",
+    "theory": [
+      "A hub repeats physical signals, a bridge switches link-layer frames, and a router forwards network-layer packets.",
+      "The shared or switched topology determines contention and forwarding behavior."
+    ],
+    "recall": {
+      "q": "Which device normally uses IP prefixes to forward packets?",
+      "a": "A router."
+    },
+    "pitfall": "A physical star topology can still represent a logically shared medium when a hub is used.",
+    "originalNotes": {
+      "startPage": 102,
+      "endPage": 102
+    }
+  },
+  {
+    "id": "v3-2.20",
+    "title": "Medium-access protocols",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "Several senders contend or take assigned slots.",
+    "theory": [
+      "Random access resolves competing transmissions probabilistically; TDMA assigns time slots and token schemes grant turns.",
+      "For n independent senders each transmitting with probability p in a slot, success probability = np(1−p)^(n−1)."
+    ],
+    "recall": {
+      "q": "What is one station's probability of a successful transmission in that slot?",
+      "a": "p(1−p)^(n−1)."
+    },
+    "pitfall": "Separate one station's throughput from aggregate network throughput.",
+    "originalNotes": {
+      "startPage": 103,
+      "endPage": 103
+    }
+  },
+  {
+    "id": "v3-2.21",
+    "title": "Packet transfer and network overhead",
+    "subject": "Computer Networks",
+    "group": "Performance and Switching",
+    "scope": "syllabus",
+    "cue": "The source label “Network Flow” contains delay, handshaking and packet-overhead questions.",
+    "theory": [
+      "For a link, serialization time is L/R and propagation time is d/v.",
+      "Compute header overhead per resulting packet or fragment, then sum; acknowledgements provide feedback about delivery."
+    ],
+    "recall": {
+      "q": "Does the source label here mean maximum-flow/min-cut algorithms?",
+      "a": "No. These PYQs concern communication delay, reliability and packetization."
+    },
+    "pitfall": "Inspect the actual packet sizes and header definitions rather than applying graph maximum-flow formulas.",
+    "originalNotes": {
+      "startPage": 103,
+      "endPage": 103
+    },
+    "correction": {
+      "sourcePage": 137,
+      "original": "The PYQ topic label is Network Flow.",
+      "corrected": "Use Packet transfer and network overhead for these PYQs.",
+      "reason": "The displayed questions concern handshake reliability, propagation/transmission time and fragmentation overhead, not maximum-flow algorithms."
+    }
+  },
+  {
+    "id": "v3-2.22",
+    "title": "Network-layer forwarding",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "Route packets between networks with logical addresses.",
+    "theory": [
+      "IP forwarding chooses a next hop from a routing table; CIDR forwarding uses the longest matching prefix.",
+      "Routing computes or learns routes; forwarding applies them to individual packets."
+    ],
+    "recall": {
+      "q": "Which route wins when both /16 and /24 match?",
+      "a": "The /24 route."
+    },
+    "pitfall": "Longest prefix is evaluated before considering a less-specific route's metric.",
+    "originalNotes": {
+      "startPage": 103,
+      "endPage": 103
+    }
+  },
+  {
+    "id": "v3-2.23",
+    "title": "Protocol roles and encapsulation",
+    "subject": "Computer Networks",
+    "group": "Layering and Protocols",
+    "scope": "syllabus",
+    "cue": "Match protocols to layers or trace a protocol stack.",
+    "theory": [
+      "Each layer supplies a service while communicating logically with peer-layer entities.",
+      "Encapsulation adds headers, and sometimes trailers, as data descends the stack."
+    ],
+    "recall": {
+      "q": "Do TCP acknowledgements acknowledge Ethernet frames?",
+      "a": "No; TCP acknowledges bytes in its transport-level sequence space."
+    },
+    "pitfall": "Different layers can each implement addressing, reliability or flow control for different scopes.",
+    "originalNotes": {
+      "startPage": 103,
+      "endPage": 103
+    }
+  },
+  {
+    "id": "v3-2.24",
+    "title": "Circuit, packet and virtual-circuit switching",
+    "subject": "Computer Networks",
+    "group": "Performance and Switching",
+    "scope": "syllabus",
+    "cue": "Compare reserved paths with per-packet sharing.",
+    "theory": [
+      "Circuit switching reserves communication resources for a session; packet switching statistically shares links.",
+      "Datagram forwarding treats packets independently; virtual circuits establish forwarding state before data transfer."
+    ],
+    "recall": {
+      "q": "Can packet switching be connection-oriented?",
+      "a": "Yes; virtual-circuit packet networks establish a logical connection."
+    },
+    "pitfall": "Do not equate all packet switching with independent datagram routing.",
+    "originalNotes": {
+      "startPage": 103,
+      "endPage": 104
+    }
+  },
+  {
+    "id": "v3-2.25",
+    "title": "OSI model",
+    "subject": "Computer Networks",
+    "group": "Layering and Protocols",
+    "scope": "syllabus",
+    "cue": "Match layer names with responsibilities.",
+    "theory": [
+      "OSI layers are physical, data link, network, transport, session, presentation and application.",
+      "Physical sends signals, link delivers frames over a link, network routes packets, and transport serves application endpoints."
+    ],
+    "recall": {
+      "q": "Which OSI layer handles routing between networks?",
+      "a": "Network layer."
+    },
+    "pitfall": "OSI is a reference model; real protocol stacks do not always implement seven separate components.",
+    "originalNotes": {
+      "startPage": 104,
+      "endPage": 104
+    }
+  },
+  {
+    "id": "v3-2.26",
+    "title": "Independent bit-error probability",
+    "subject": "Computer Networks",
+    "group": "Error Detection and Reliability",
+    "scope": "syllabus",
+    "cue": "Each of n bits flips independently with probability p.",
+    "theory": [
+      "Probability of an error-free n-bit message is (1−p)ⁿ.",
+      "Probability of at least one flipped bit is 1−(1−p)ⁿ."
+    ],
+    "recall": {
+      "q": "Why multiply the per-bit success probabilities?",
+      "a": "The bit errors are explicitly independent."
+    },
+    "pitfall": "np is only an approximation for rare errors, not the exact probability of any error.",
+    "originalNotes": {
+      "startPage": 104,
+      "endPage": 105
+    }
+  },
+  {
+    "id": "v3-2.27",
+    "title": "Pure ALOHA",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "Unslotted frame attempts follow a Poisson model.",
+    "theory": [
+      "With normalized offered load G attempts per frame time, pure ALOHA throughput is S=G e^(−2G).",
+      "The vulnerable period is two frame times; maximum normalized throughput is 1/(2e) at G=1/2."
+    ],
+    "recall": {
+      "q": "How do you convert attempts/s into G?",
+      "a": "Multiply the attempt rate by one frame's transmission time."
+    },
+    "pitfall": "G includes retransmissions, not just newly generated frames.",
+    "originalNotes": {
+      "startPage": 105,
+      "endPage": 105
+    }
+  },
+  {
+    "id": "v3-2.28",
+    "title": "Routing algorithms",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "A topology and costs determine next hops or paths.",
+    "theory": [
+      "Link-state routing distributes topology information and computes shortest paths; distance-vector routing exchanges neighbor estimates.",
+      "A spanning tree in bridged LANs prevents forwarding loops, rather than finding every shortest route."
+    ],
+    "recall": {
+      "q": "Why do bridges use a spanning-tree protocol?",
+      "a": "To remove forwarding loops while retaining connectivity."
+    },
+    "pitfall": "A minimum spanning tree and a shortest-path tree solve different optimization problems.",
+    "originalNotes": {
+      "startPage": 105,
+      "endPage": 105
+    }
+  },
+  {
+    "id": "v3-2.29",
+    "title": "Routing protocol behavior",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "Classify exchanges or reason about updates.",
+    "theory": [
+      "Routing protocols specify how routers learn, advertise and update reachability information.",
+      "Link-state and distance-vector approaches differ in the information shared and computation performed."
+    ],
+    "recall": {
+      "q": "What does a link-state router need to compute routes?",
+      "a": "A view of the topology and link costs for its routing scope."
+    },
+    "pitfall": "A route advertisement is control-plane information, not the application packet itself.",
+    "originalNotes": {
+      "startPage": 105,
+      "endPage": 106
+    }
+  },
+  {
+    "id": "v3-2.30",
+    "title": "Sliding-window protocols",
+    "subject": "Computer Networks",
+    "group": "Error Detection and Reliability",
+    "scope": "syllabus",
+    "cue": "Sequence bits, window size and retransmission policy are given.",
+    "theory": [
+      "For m-bit sequence numbers, conventional Go-Back-N permits sender window at most 2ᵐ−1 with receiver window 1.",
+      "Selective Repeat with equal send/receive windows requires window at most 2^(m−1) to avoid ambiguity."
+    ],
+    "recall": {
+      "q": "Why must Selective Repeat leave enough sequence space outside its current window?",
+      "a": "So delayed old frames cannot be mistaken for a new cycle's frames."
+    },
+    "pitfall": "Window bounds depend on receiver behavior; do not apply Go-Back-N's bound to Selective Repeat.",
+    "originalNotes": {
+      "startPage": 106,
+      "endPage": 106
+    }
+  },
+  {
+    "id": "v3-2.31",
+    "title": "Slotted ALOHA",
+    "subject": "Computer Networks",
+    "group": "Link Layer and Medium Access",
+    "scope": "syllabus",
+    "cue": "Transmissions begin only at aligned slot boundaries.",
+    "theory": [
+      "With Poisson attempts and normalized load G, throughput is S=G e^(−G).",
+      "Maximum throughput is 1/e at G=1, because the vulnerable interval is one frame time."
+    ],
+    "recall": {
+      "q": "Why does slotting improve ALOHA's maximum throughput?",
+      "a": "It halves the vulnerable period compared with pure ALOHA."
+    },
+    "pitfall": "Time synchronization is required for the slotted model.",
+    "originalNotes": {
+      "startPage": 106,
+      "endPage": 107
+    }
+  },
+  {
+    "id": "v3-2.32",
+    "title": "Socket API",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "syllabus",
+    "cue": "Client/server calls create, bind, listen or accept endpoints.",
+    "theory": [
+      "A TCP server normally uses socket, bind, listen and accept; a client uses socket and connect.",
+      "accept returns a socket for the accepted connection while the listening socket remains available."
+    ],
+    "recall": {
+      "q": "Does listen itself return a connected client socket?",
+      "a": "No; accept does."
+    },
+    "pitfall": "A UDP connect call sets a peer association; it does not create TCP-style reliability or a handshake.",
+    "originalNotes": {
+      "startPage": 107,
+      "endPage": 107
+    }
+  },
+  {
+    "id": "v3-2.33",
+    "title": "Stop-and-wait ARQ",
+    "subject": "Computer Networks",
+    "group": "Error Detection and Reliability",
+    "scope": "syllabus",
+    "cue": "The sender must receive an ACK before sending the next frame.",
+    "theory": [
+      "Only one data frame is outstanding; timeout and retransmission recover loss.",
+      "With no loss and negligible ACK size, cycle time is frame-transmission time plus round-trip propagation."
+    ],
+    "recall": {
+      "q": "What limits stop-and-wait throughput on a long link?",
+      "a": "Waiting for the acknowledgement while no new data frame can be sent."
+    },
+    "pitfall": "Include ACK transmission or processing when the question says it is non-negligible.",
+    "originalNotes": {
+      "startPage": 107,
+      "endPage": 108
+    }
+  },
+  {
+    "id": "v3-2.34",
+    "title": "Subnetting and longest-prefix match",
+    "subject": "Computer Networks",
+    "group": "Routing and Internet Layer",
+    "scope": "syllabus",
+    "cue": "Allocate address blocks or choose a route.",
+    "theory": [
+      "A /p IPv4 block has 2^(32−p) addresses and must be aligned to that block size.",
+      "For route lookup, choose the most specific matching prefix."
+    ],
+    "recall": {
+      "q": "Can any arbitrary group of 64 consecutive addresses be one /26 block?",
+      "a": "No; its start must be aligned to a 64-address boundary."
+    },
+    "pitfall": "Distinguish total address count from usable host count and state subnet assumptions.",
+    "originalNotes": {
+      "startPage": 108,
+      "endPage": 108
+    }
+  },
+  {
+    "id": "v3-2.35",
+    "title": "TCP reliability and flow control",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "syllabus",
+    "cue": "Sequence numbers, ACKs, receive windows and data rates appear.",
+    "theory": [
+      "TCP sequence numbers count bytes; a cumulative ACK normally names the next byte expected.",
+      "Outstanding data is constrained by min(receiver window, congestion window); rough window-limited rate is usable window/RTT."
+    ],
+    "recall": {
+      "q": "A segment starts at byte 100 and carries 50 bytes. What ACK follows in order?",
+      "a": "150, assuming no missing earlier bytes."
+    },
+    "pitfall": "SYN and FIN consume sequence numbers; pure ACKs normally do not.",
+    "originalNotes": {
+      "startPage": 95,
+      "endPage": 111
+    }
+  },
+  {
+    "id": "v3-2.36",
+    "title": "Token-bucket traffic shaping",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "extra",
+    "cue": "A rate limit allows a bounded burst.",
+    "theory": [
+      "Tokens accumulate at rate r up to bucket capacity B; transmission consumes tokens proportional to data size.",
+      "Over interval t, traffic is bounded by B+rt when starting with a full bucket, subject to any link-rate limit."
+    ],
+    "recall": {
+      "q": "What allows a token bucket to send faster than r briefly?",
+      "a": "Previously accumulated tokens."
+    },
+    "pitfall": "Average token rate and physical peak transmission rate are different limits.",
+    "originalNotes": {
+      "startPage": 108,
+      "endPage": 109
+    }
+  },
+  {
+    "id": "v3-2.37",
+    "title": "UDP",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "syllabus",
+    "cue": "Datagrams, ports, checksums or connected UDP sockets are discussed.",
+    "theory": [
+      "UDP preserves datagram boundaries and adds ports with minimal transport machinery; it does not itself ensure delivery or ordering.",
+      "Its checksum can be omitted in IPv4; in IPv6 it is required by default, with narrowly specified exceptions."
+    ],
+    "recall": {
+      "q": "Does using UDP prevent IP packets from taking different routes?",
+      "a": "No. Routing is performed by IP independently of that transport choice."
+    },
+    "pitfall": "A connected UDP socket still does not provide TCP's handshake, retransmission or byte stream.",
+    "originalNotes": {
+      "startPage": 95,
+      "endPage": 111
+    },
+    "correction": {
+      "sourcePage": 109,
+      "original": "UDP header checksum is described simply as optional.",
+      "corrected": "It is optional for IPv4; IPv6 requires it by default, apart from explicitly specified exceptions.",
+      "reason": "The IP version matters. RFC 8200 section 8.1 states the IPv6 default requirement."
+    },
+    "sources": [
+      "https://www.rfc-editor.org/rfc/rfc8200.html#section-8.1"
+    ]
+  },
+  {
+    "id": "v3-2.38",
+    "title": "Sequence-number wraparound",
+    "subject": "Computer Networks",
+    "group": "Application and Transport",
+    "scope": "syllabus",
+    "cue": "A finite counter is consumed at a known rate.",
+    "theory": [
+      "A b-bit sequence space has 2ᵇ distinct values; wrap time = 2ᵇ / values consumed per second.",
+      "For TCP, count bytes per second rather than bits per second."
+    ],
+    "recall": {
+      "q": "At R bits/s, how long to consume a b-bit TCP byte-sequence space?",
+      "a": "2ᵇ×8/R seconds under continuous full-rate data transfer."
+    },
+    "pitfall": "For generated identifiers, deduct host and per-tick counter bits before calculating the clock wrap period.",
+    "originalNotes": {
+      "startPage": 109,
+      "endPage": 111
+    }
+  },
+  {
+    "id": "v3-3.1",
+    "title": "Armstrong's axioms",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "Derive a functional dependency from a given set.",
+    "theory": [
+      "Reflexivity: if Y⊆X then X→Y. Augmentation: X→Y implies XZ→YZ. Transitivity: X→Y and Y→Z imply X→Z.",
+      "These rules are sound and complete for functional-dependency implication."
+    ],
+    "recall": {
+      "q": "How can you test whether X→Y follows from F?",
+      "a": "Compute X⁺ using F and check whether Y⊆X⁺."
+    },
+    "pitfall": "Do not reverse an FD; X→Y does not imply Y→X.",
+    "originalNotes": {
+      "startPage": 167,
+      "endPage": 167
+    }
+  },
+  {
+    "id": "v3-3.2",
+    "title": "B-trees and B+ trees",
+    "subject": "Databases",
+    "group": "File Organization and Indexing",
+    "scope": "syllabus",
+    "cue": "Find fanout, height, splits or block accesses.",
+    "theory": [
+      "A balanced search tree keeps leaves at the same depth; high fanout reduces disk accesses.",
+      "In a B+ tree, data entries are at leaves and internal nodes guide search; leaf links support range scans.",
+      "If order means maximum m children, a nonroot internal node usually has at least ceil(m/2) children; confirm the question's convention."
+    ],
+    "recall": {
+      "q": "Why are B+ trees effective for range queries?",
+      "a": "Linked ordered leaves allow sequential scanning after one search."
+    },
+    "pitfall": "“Order” and “degree” conventions vary; do not import a formula without matching definitions.",
+    "originalNotes": {
+      "startPage": 167,
+      "endPage": 168
+    }
+  },
+  {
+    "id": "v3-3.3",
+    "title": "Candidate keys",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "Find minimal attribute sets that determine the whole relation.",
+    "theory": [
+      "X is a superkey if its closure X⁺ contains all attributes.",
+      "It is a candidate key if no proper subset is a superkey."
+    ],
+    "recall": {
+      "q": "How do you test a proposed candidate key?",
+      "a": "Check that its closure is all attributes, then check minimality."
+    },
+    "pitfall": "A key with fewer attributes is not necessarily the only candidate key.",
+    "originalNotes": {
+      "startPage": 168,
+      "endPage": 168
+    }
+  },
+  {
+    "id": "v3-3.4",
+    "title": "Conflict serializability",
+    "subject": "Databases",
+    "group": "Transactions and Concurrency",
+    "scope": "syllabus",
+    "cue": "Interleaved reads and writes must match a serial order.",
+    "theory": [
+      "Operations conflict if they belong to different transactions, access the same item and at least one writes.",
+      "Add Ti→Tj when Ti's conflicting operation comes first; the schedule is conflict serializable exactly when the graph is acyclic.",
+      "Every conflict-serializable schedule is view serializable, but the converse need not hold."
+    ],
+    "recall": {
+      "q": "What does a cycle in the precedence graph prove?",
+      "a": "The schedule is not conflict serializable."
+    },
+    "pitfall": "A cycle does not by itself disprove view serializability.",
+    "originalNotes": {
+      "startPage": 168,
+      "endPage": 169
+    },
+    "correction": {
+      "sourcePage": 169,
+      "original": "Conflict serializability is called a weaker condition than view serializability.",
+      "corrected": "Conflict serializability is stronger: every conflict-serializable schedule is view serializable; the converse need not hold.",
+      "reason": "The source reverses the set inclusion between the two schedule classes."
+    },
+    "sources": [
+      "https://www.db-book.com/slides-dir/PDF-dir/ch17.pdf"
+    ]
+  },
+  {
+    "id": "v3-3.5",
+    "title": "Database design",
+    "subject": "Databases",
+    "group": "Relational and ER Models",
+    "scope": "syllabus",
+    "cue": "Identify entities, dependencies and redundancy.",
+    "theory": [
+      "Start from the facts to represent, their identifiers and relationships.",
+      "Translate requirements into schemas and constraints, then check dependency-based redundancy and decomposition properties."
+    ],
+    "recall": {
+      "q": "Why is choosing a primary key alone insufficient for schema design?",
+      "a": "Other functional dependencies can still create redundancy and update anomalies."
+    },
+    "pitfall": "A current data sample can disprove an FD but cannot prove it holds for every valid future instance.",
+    "originalNotes": {
+      "startPage": 169,
+      "endPage": 169
+    }
+  },
+  {
+    "id": "v3-3.6",
+    "title": "Normalization",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "Given FDs and keys, decide the highest normal form.",
+    "theory": [
+      "In 3NF, every nontrivial FD X→A must have X a superkey or A prime; BCNF requires X to be a superkey.",
+      "A prime attribute belongs to at least one candidate key. Check all candidate keys, not only a chosen primary key.",
+      "A suitable 3NF synthesis can preserve dependencies and be lossless; those properties do not follow from arbitrary 3NF component schemas alone."
+    ],
+    "recall": {
+      "q": "How does BCNF strengthen 3NF?",
+      "a": "It removes the allowance for a nonkey determinant when the dependent attribute is prime."
+    },
+    "pitfall": "Do not assume a decomposition is lossless merely because every component is in 3NF or BCNF.",
+    "originalNotes": {
+      "startPage": 169,
+      "endPage": 170
+    },
+    "correction": {
+      "sourcePage": 170,
+      "original": "3NF decomposition is stated to be always lossless and dependency preserving.",
+      "corrected": "A suitable synthesis algorithm guarantees a lossless, dependency-preserving 3NF decomposition; an arbitrary decomposition into 3NF relations need not have these properties.",
+      "reason": "Existence of a decomposition with guarantees does not make those guarantees automatic for every decomposition."
+    },
+    "sources": [
+      "https://www.db-book.com/slides-dir/PDF-dir/ch7.pdf"
+    ]
+  },
+  {
+    "id": "v3-3.7",
+    "title": "Database schema and instance",
+    "subject": "Databases",
+    "group": "Relational and ER Models",
+    "scope": "syllabus",
+    "cue": "Distinguish structure from current stored data.",
+    "theory": [
+      "A schema defines relation names, attributes, domains and constraints.",
+      "An instance is the collection of tuples at a particular time."
+    ],
+    "recall": {
+      "q": "Does adding a row normally change the schema?",
+      "a": "No; it changes the instance."
+    },
+    "pitfall": "Properties of one instance are not automatically constraints of the schema.",
+    "originalNotes": {
+      "startPage": 170,
+      "endPage": 170
+    }
+  },
+  {
+    "id": "v3-3.8",
+    "title": "Lossless and dependency-preserving decomposition",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "A relation is split into smaller schemas.",
+    "theory": [
+      "For a binary decomposition R into R1 and R2, losslessness under FDs holds when their intersection functionally determines R1 or R2.",
+      "Dependency preservation means the projected dependencies together imply the original FDs."
+    ],
+    "recall": {
+      "q": "What must the shared attributes determine for a binary lossless join?",
+      "a": "All attributes of at least one component."
+    },
+    "pitfall": "The binary intersection test cannot be applied unchanged to an arbitrary multiway decomposition.",
+    "originalNotes": {
+      "startPage": 170,
+      "endPage": 171
+    },
+    "correction": {
+      "sourcePage": 171,
+      "original": "BCNF decomposition is stated to be always lossless.",
+      "corrected": "The standard decomposition algorithm using a violating dependency is lossless. Arbitrary BCNF components do not themselves guarantee a lossless join.",
+      "reason": "Losslessness is a property of the decomposition, separate from each component’s normal form."
+    },
+    "sources": [
+      "https://www.db-book.com/slides-dir/PDF-dir/ch7.pdf"
+    ]
+  },
+  {
+    "id": "v3-3.9",
+    "title": "ER diagrams and relational mapping",
+    "subject": "Databases",
+    "group": "Relational and ER Models",
+    "scope": "syllabus",
+    "cue": "Map entities, relationships, participation and cardinality.",
+    "theory": [
+      "Entity sets generally become relations; relationship mapping depends on 1:1, 1:N or M:N cardinality.",
+      "An M:N relationship usually needs a separate relation containing participating keys and relationship attributes."
+    ],
+    "recall": {
+      "q": "Where is the foreign key commonly placed for a 1:N relationship?",
+      "a": "On the N side, referring to the 1-side entity."
+    },
+    "pitfall": "Total participation and maximum cardinality express different constraints.",
+    "originalNotes": {
+      "startPage": 171,
+      "endPage": 171
+    }
+  },
+  {
+    "id": "v3-3.10",
+    "title": "Functional dependencies",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "Equal determinant values force equal dependent values.",
+    "theory": [
+      "X→Y means any two valid tuples agreeing on X must also agree on Y.",
+      "To compute X⁺, repeatedly add RHS attributes whose LHS is already in the closure."
+    ],
+    "recall": {
+      "q": "What does X⁺ contain?",
+      "a": "All attributes functionally determined by X under the given dependencies."
+    },
+    "pitfall": "An FD is a rule across tuples, not a function from each row position to another.",
+    "originalNotes": {
+      "startPage": 171,
+      "endPage": 172
+    }
+  },
+  {
+    "id": "v3-3.11",
+    "title": "Indexing and file organization",
+    "subject": "Databases",
+    "group": "File Organization and Indexing",
+    "scope": "syllabus",
+    "cue": "Estimate lookup I/O or classify dense, sparse and secondary indexes.",
+    "theory": [
+      "A dense index has entries for every search-key value or record as defined; a sparse index omits some entries and normally relies on ordered data.",
+      "Multilevel indexing reduces lookup depth by indexing the index."
+    ],
+    "recall": {
+      "q": "Why does sparse indexing usually require the data file to be ordered on the search key?",
+      "a": "An index entry identifies where to begin a local ordered scan."
+    },
+    "pitfall": "Index height, data-page access and cached root access may be counted separately.",
+    "originalNotes": {
+      "startPage": 172,
+      "endPage": 172
+    }
+  },
+  {
+    "id": "v3-3.12",
+    "title": "Joins and join cardinality",
+    "subject": "Databases",
+    "group": "Relational Algebra and SQL",
+    "scope": "syllabus",
+    "cue": "Combine matching rows from two relations.",
+    "theory": [
+      "An inner theta join keeps pairs satisfying its predicate; an outer join also preserves unmatched rows from the specified side with NULL padding.",
+      "For a particular matching key value, a rows on one side and b on the other produce a×b matching pairs."
+    ],
+    "recall": {
+      "q": "If three rows and four rows share one join key, how many pairs result?",
+      "a": "12."
+    },
+    "pitfall": "Matching key values can repeat; do not assume one output tuple per input tuple without a uniqueness constraint.",
+    "originalNotes": {
+      "startPage": 172,
+      "endPage": 173
+    }
+  },
+  {
+    "id": "v3-3.13",
+    "title": "Multivalued dependencies and 4NF",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "extra",
+    "cue": "Two independent sets of values depend on the same determinant.",
+    "theory": [
+      "X↠Y expresses an independent multivalued fact for fixed X.",
+      "4NF requires every nontrivial multivalued dependency to have a superkey determinant."
+    ],
+    "recall": {
+      "q": "Why can a BCNF relation still have redundancy?",
+      "a": "Independent multivalued facts may cause repeated combinations even without a violating FD."
+    },
+    "pitfall": "An MVD is not merely an FD with several attributes on its RHS.",
+    "originalNotes": {
+      "startPage": 173,
+      "endPage": 174
+    }
+  },
+  {
+    "id": "v3-3.14",
+    "title": "Natural join",
+    "subject": "Databases",
+    "group": "Relational Algebra and SQL",
+    "scope": "syllabus",
+    "cue": "Tables share attribute names and a join has no explicit predicate.",
+    "theory": [
+      "Natural join equates all equally named attributes and includes one copy of each shared attribute.",
+      "With no shared attributes, natural join becomes a Cartesian product under the usual relational definition."
+    ],
+    "recall": {
+      "q": "Which columns does natural join match?",
+      "a": "Every attribute name common to both input schemas."
+    },
+    "pitfall": "An unintended shared column name changes the join condition.",
+    "originalNotes": {
+      "startPage": 174,
+      "endPage": 174
+    }
+  },
+  {
+    "id": "v3-3.15",
+    "title": "Normal-form tests",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "Check 1NF, 2NF, 3NF and BCNF conditions.",
+    "theory": [
+      "2NF disallows partial dependence of a nonprime attribute on a proper subset of a candidate key.",
+      "3NF and BCNF are checked against nontrivial implied FDs, using prime attributes and superkeys."
+    ],
+    "recall": {
+      "q": "Can a relation with a single-attribute candidate key still violate 3NF?",
+      "a": "Yes; a nonkey determinant can create a violating dependency."
+    },
+    "pitfall": "No partial dependency does not mean there are no transitive-dependency problems.",
+    "originalNotes": {
+      "startPage": 174,
+      "endPage": 175
+    }
+  },
+  {
+    "id": "v3-3.16",
+    "title": "Query interpretation",
+    "subject": "Databases",
+    "group": "Relational Algebra and SQL",
+    "scope": "syllabus",
+    "cue": "Translate an English condition into relational operations.",
+    "theory": [
+      "Selection filters rows, projection selects attributes, and joins combine facts.",
+      "“For every” often suggests division or a NOT EXISTS counterexample pattern."
+    ],
+    "recall": {
+      "q": "How can “all required items are present” be expressed logically?",
+      "a": "There does not exist a required item that is missing."
+    },
+    "pitfall": "“Some” and “every” lead to different queries; test a tiny counterexample dataset.",
+    "originalNotes": {
+      "startPage": 175,
+      "endPage": 175
+    }
+  },
+  {
+    "id": "v3-3.17",
+    "title": "Referential integrity",
+    "subject": "Databases",
+    "group": "Relational and ER Models",
+    "scope": "syllabus",
+    "cue": "Foreign-key changes must preserve valid references.",
+    "theory": [
+      "A non-NULL foreign-key value must match a referenced key, subject to the schema's declared matching rules.",
+      "Deletes and updates may be rejected, cascaded or set to NULL according to the declared action."
+    ],
+    "recall": {
+      "q": "Must a foreign-key column itself be unique?",
+      "a": "No, unless an additional uniqueness constraint says so."
+    },
+    "pitfall": "Foreign keys can be nullable; do not assume NOT NULL without a declaration.",
+    "originalNotes": {
+      "startPage": 175,
+      "endPage": 175
+    }
+  },
+  {
+    "id": "v3-3.18",
+    "title": "Relational algebra",
+    "subject": "Databases",
+    "group": "Relational Algebra and SQL",
+    "scope": "syllabus",
+    "cue": "Trace selection, projection, union, difference and division.",
+    "theory": [
+      "Classical relational algebra uses sets, so projection eliminates duplicate tuples.",
+      "Union and difference require compatible schemas; selection and projection have different roles."
+    ],
+    "recall": {
+      "q": "What is the difference between σ and π?",
+      "a": "σ filters tuples by a predicate; π keeps chosen attributes."
+    },
+    "pitfall": "SQL normally uses bag semantics, so direct translation may require DISTINCT.",
+    "originalNotes": {
+      "startPage": 175,
+      "endPage": 176
+    }
+  },
+  {
+    "id": "v3-3.19",
+    "title": "Relational calculus",
+    "subject": "Databases",
+    "group": "Relational Calculus",
+    "scope": "syllabus",
+    "cue": "A logical formula describes the desired result.",
+    "theory": [
+      "Relational calculus is declarative: it states which tuples satisfy a condition.",
+      "Tuple calculus variables denote tuples; domain calculus variables denote individual attribute values."
+    ],
+    "recall": {
+      "q": "What does calculus specify that algebra expresses operationally?",
+      "a": "The property of the answer, rather than a sequence of relational operators."
+    },
+    "pitfall": "Unrestricted negation can describe values outside the stored database domain.",
+    "originalNotes": {
+      "startPage": 176,
+      "endPage": 177
+    }
+  },
+  {
+    "id": "v3-3.20",
+    "title": "Relational model",
+    "subject": "Databases",
+    "group": "Relational and ER Models",
+    "scope": "syllabus",
+    "cue": "Reason about attributes, tuples, domains and keys.",
+    "theory": [
+      "A relation is a set of tuples over named attributes and domains in the mathematical model.",
+      "Tuple order and attribute-display order do not define relation meaning."
+    ],
+    "recall": {
+      "q": "Does the relational model assign a meaningful first row?",
+      "a": "No."
+    },
+    "pitfall": "Database tables may permit duplicates unless constrained; distinguish SQL behavior from the mathematical model.",
+    "originalNotes": {
+      "startPage": 177,
+      "endPage": 177
+    }
+  },
+  {
+    "id": "v3-3.21",
+    "title": "SQL and NULL semantics",
+    "subject": "Databases",
+    "group": "Relational Algebra and SQL",
+    "scope": "syllabus",
+    "cue": "Evaluate SELECT, GROUP BY, aggregates or subqueries.",
+    "theory": [
+      "WHERE filters rows before grouping; HAVING filters groups after aggregation.",
+      "COUNT(*) counts rows, while COUNT(expression) ignores NULL expressions; ordinary comparisons with NULL yield UNKNOWN.",
+      "SELECT keeps duplicates unless DISTINCT is requested."
+    ],
+    "recall": {
+      "q": "Why can NOT IN behave unexpectedly if its subquery contains NULL?",
+      "a": "A comparison may become UNKNOWN, so the row fails the WHERE filter."
+    },
+    "pitfall": "Use IS NULL for NULL tests; x = NULL is not the intended test.",
+    "originalNotes": {
+      "startPage": 177,
+      "endPage": 177
+    }
+  },
+  {
+    "id": "v3-3.22",
+    "title": "Safe and domain-independent queries",
+    "subject": "Databases",
+    "group": "Relational Calculus",
+    "scope": "syllabus",
+    "cue": "A calculus expression might produce infinitely many outside values.",
+    "theory": [
+      "A safe query restricts answers to a finite, database-relevant domain using appropriate range restrictions.",
+      "Unrestricted “all values not in R” can range beyond values appearing in the database."
+    ],
+    "recall": {
+      "q": "Why is {x : x is not in R} unsafe over an unbounded domain?",
+      "a": "It can return infinitely many unrelated values."
+    },
+    "pitfall": "Finite output on one particular instance does not alone establish general safety.",
+    "originalNotes": {
+      "startPage": 177,
+      "endPage": 178
+    }
+  },
+  {
+    "id": "v3-3.23",
+    "title": "Superkeys",
+    "subject": "Databases",
+    "group": "Dependencies and Normalization",
+    "scope": "syllabus",
+    "cue": "An attribute set determines every attribute.",
+    "theory": [
+      "A superkey may contain unnecessary attributes; a candidate key is a minimal superkey.",
+      "Any superset of a superkey is also a superkey."
+    ],
+    "recall": {
+      "q": "Is every superkey a candidate key?",
+      "a": "No; it may fail minimality."
+    },
+    "pitfall": "Minimal means no proper subset works, not globally smallest cardinality.",
+    "originalNotes": {
+      "startPage": 178,
+      "endPage": 178
+    }
+  },
+  {
+    "id": "v3-3.24",
+    "title": "Timestamp ordering",
+    "subject": "Databases",
+    "group": "Transactions and Concurrency",
+    "scope": "syllabus",
+    "cue": "Operations are checked against read/write timestamps.",
+    "theory": [
+      "Basic timestamp ordering enforces an order based on transaction timestamps.",
+      "A write by T is rejected if TS(T) is older than a conflicting recorded read or write timestamp; Thomas's write rule changes treatment of obsolete writes."
+    ],
+    "recall": {
+      "q": "Can you use Thomas's write rule in every timestamp-ordering question?",
+      "a": "No; use it only when specified."
+    },
+    "pitfall": "Basic timestamp ordering and Thomas's write rule accept different schedules.",
+    "originalNotes": {
+      "startPage": 178,
+      "endPage": 179
+    }
+  },
+  {
+    "id": "v3-3.25",
+    "title": "Transactions, recovery and schedules",
+    "subject": "Databases",
+    "group": "Transactions and Concurrency",
+    "scope": "syllabus",
+    "cue": "Analyze commits, dirty reads and concurrent operations.",
+    "theory": [
+      "ACID denotes atomicity, consistency, isolation and durability.",
+      "Recoverable schedules commit a reader only after the writer it read from commits; cascadeless schedules read only committed data; strict schedules also avoid overwriting uncommitted writes."
+    ],
+    "recall": {
+      "q": "Does conflict serializability alone guarantee recoverability?",
+      "a": "No; commit/read dependencies must also be checked."
+    },
+    "pitfall": "Serialization order and commit order are different constraints.",
+    "originalNotes": {
+      "startPage": 179,
+      "endPage": 179
+    }
+  },
+  {
+    "id": "v3-3.26",
+    "title": "Tuple relational calculus",
+    "subject": "Databases",
+    "group": "Relational Calculus",
+    "scope": "syllabus",
+    "cue": "Tuple variables and existential or universal quantifiers appear.",
+    "theory": [
+      "TRC binds variables to tuples and checks their attributes against predicates.",
+      "An existential condition needs one witness; a universal condition needs every allowed witness to satisfy it."
+    ],
+    "recall": {
+      "q": "How can ∀x P(x) be rewritten using existential quantification?",
+      "a": "¬∃x ¬P(x)."
+    },
+    "pitfall": "Keep variable scopes explicit; a quantifier only binds occurrences inside its scope.",
+    "originalNotes": {
+      "startPage": 179,
+      "endPage": 180
+    }
+  },
+  {
+    "id": "v3-3.27",
+    "title": "Two-phase locking",
+    "subject": "Databases",
+    "group": "Transactions and Concurrency",
+    "scope": "syllabus",
+    "cue": "A schedule acquires and releases locks.",
+    "theory": [
+      "In 2PL, a growing phase acquires locks and a shrinking phase releases them; after the first unlock, no new lock is acquired.",
+      "2PL guarantees conflict serializability but may deadlock. Strict 2PL holds exclusive locks until commit or abort."
+    ],
+    "recall": {
+      "q": "Does basic 2PL prevent deadlock?",
+      "a": "No."
+    },
+    "pitfall": "Strict 2PL and rigorous 2PL differ: rigorous holds both shared and exclusive locks to the end.",
+    "originalNotes": {
+      "startPage": 180,
+      "endPage": 181
+    }
+  },
+  {
+    "id": "v3-4.1",
+    "title": "Adders",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "Find sum, carry or delay of an adder circuit.",
+    "theory": [
+      "A half adder gives S=A⊕B and C=AB.",
+      "A full adder gives S=A⊕B⊕Cin and Cout=AB+ACin+BCin, where + means OR."
+    ],
+    "recall": {
+      "q": "How many input bits does a full adder combine?",
+      "a": "Three: A, B and carry-in."
+    },
+    "pitfall": "Boolean OR in a logic equation is not ordinary arithmetic addition.",
+    "originalNotes": {
+      "startPage": 275,
+      "endPage": 276
+    }
+  },
+  {
+    "id": "v3-4.2",
+    "title": "Array multipliers",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Partial products are arranged in an arithmetic circuit.",
+    "theory": [
+      "Unsigned multiplication forms shifted partial products using AND gates, then adds them.",
+      "Two n-bit unsigned operands can require a 2n-bit product."
+    ],
+    "recall": {
+      "q": "Why do partial-product rows shift left?",
+      "a": "Each multiplier bit has a different power-of-two weight."
+    },
+    "pitfall": "Signed multiplication needs sign handling; an unsigned array cannot be used blindly for two's-complement inputs.",
+    "originalNotes": {
+      "startPage": 276,
+      "endPage": 276
+    }
+  },
+  {
+    "id": "v3-4.3",
+    "title": "Binary codes",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Convert between binary, BCD and Gray-code representations.",
+    "theory": [
+      "BCD encodes each decimal digit separately with four bits.",
+      "Reflected binary Gray code changes only one bit between consecutive code words; binary-to-Gray is b XOR (b shifted right by 1)."
+    ],
+    "recall": {
+      "q": "Is decimal 12 in BCD the same bit pattern as ordinary binary 12?",
+      "a": "No: BCD is 0001 0010; ordinary binary is 1100."
+    },
+    "pitfall": "Not all 4-bit patterns represent valid BCD digits.",
+    "originalNotes": {
+      "startPage": 276,
+      "endPage": 276
+    }
+  },
+  {
+    "id": "v3-4.4",
+    "title": "Boolean algebra",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Simplify expressions without enumerating every input.",
+    "theory": [
+      "Useful identities include X+XY=X, X(X+Y)=X and De Morgan: ¬(XY)=¬X+¬Y.",
+      "Use the consensus identity XY+¬XZ+YZ=XY+¬XZ when simplifying a functional expression."
+    ],
+    "recall": {
+      "q": "What is X+X̅Y equivalent to?",
+      "a": "X+Y."
+    },
+    "pitfall": "Removing a logically redundant term can change a circuit's hazard behavior.",
+    "originalNotes": {
+      "startPage": 276,
+      "endPage": 277
+    }
+  },
+  {
+    "id": "v3-4.5",
+    "title": "Booth's multiplication",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Signed binary multiplication inspects neighboring multiplier bits.",
+    "theory": [
+      "In radix-2 Booth recoding, multiplier pairs 01 and 10 trigger opposite add/subtract actions; 00 and 11 trigger neither, followed by arithmetic shifting.",
+      "A run of ones can be represented as the difference of two powers of two."
+    ],
+    "recall": {
+      "q": "Why can Booth recoding reduce work for a long run of 1s?",
+      "a": "It replaces repeated additions with an add and a subtract at run boundaries."
+    },
+    "pitfall": "Pair order and the add/subtract convention must match the algorithm given in the question.",
+    "originalNotes": {
+      "startPage": 277,
+      "endPage": 277
+    }
+  },
+  {
+    "id": "v3-4.6",
+    "title": "Canonical SOP and POS",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "A function is specified by minterm or maxterm indices.",
+    "theory": [
+      "Canonical SOP is the OR of minterms where F=1; canonical POS is the AND of maxterms where F=0.",
+      "Each canonical term contains every variable once, complemented or uncomplemented."
+    ],
+    "recall": {
+      "q": "Which truth-table rows determine the maxterm indices in canonical POS?",
+      "a": "Rows where the function equals 0."
+    },
+    "pitfall": "The maxterm bit-to-literal convention is opposite to the minterm convention.",
+    "originalNotes": {
+      "startPage": 277,
+      "endPage": 277
+    }
+  },
+  {
+    "id": "v3-4.7",
+    "title": "Carry generation and lookahead",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "A carry chain determines adder delay.",
+    "theory": [
+      "With Gi=AiBi and Pi=Ai⊕Bi, Ci+1=Gi+PiCi.",
+      "Expanding the recurrence lets carry-lookahead logic compute later carries without waiting for every intermediate full adder."
+    ],
+    "recall": {
+      "q": "What does Gi=1 mean?",
+      "a": "Bit position i generates a carry regardless of its incoming carry."
+    },
+    "pitfall": "Some texts define propagate using OR instead of XOR; use one convention consistently.",
+    "originalNotes": {
+      "startPage": 277,
+      "endPage": 278
+    }
+  },
+  {
+    "id": "v3-4.8",
+    "title": "Circuit output tracing",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "A network of gates must be evaluated or identified.",
+    "theory": [
+      "Label intermediate wires and write their Boolean functions before simplifying.",
+      "For multi-level circuits, preserve every inversion bubble and signal connection."
+    ],
+    "recall": {
+      "q": "How should you begin a tangled logic-circuit question?",
+      "a": "Assign names to internal nodes and derive their functions in signal-flow order."
+    },
+    "pitfall": "Crossing wires are connected only when the diagram marks a junction.",
+    "originalNotes": {
+      "startPage": 278,
+      "endPage": 278
+    }
+  },
+  {
+    "id": "v3-4.9",
+    "title": "Combinational circuit design",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "Current inputs alone determine an output.",
+    "theory": [
+      "Build a truth table, simplify each output and implement it with available components.",
+      "Multiplexers, decoders, comparators and adders are common combinational building blocks."
+    ],
+    "recall": {
+      "q": "What distinguishes a combinational circuit from a sequential one?",
+      "a": "Its output does not depend on stored past state."
+    },
+    "pitfall": "Propagation delay does not by itself make a circuit sequential.",
+    "originalNotes": {
+      "startPage": 278,
+      "endPage": 278
+    }
+  },
+  {
+    "id": "v3-4.10",
+    "title": "Conjunctive normal form",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "A Boolean expression is an AND of OR-clauses.",
+    "theory": [
+      "CNF is a product of sums; clauses need not contain every variable.",
+      "Canonical POS is the special form in which each clause is a maxterm containing every variable."
+    ],
+    "recall": {
+      "q": "Is every CNF expression canonical POS?",
+      "a": "No."
+    },
+    "pitfall": "Do not expand all missing variables unless a canonical representation is required.",
+    "originalNotes": {
+      "startPage": 278,
+      "endPage": 278
+    }
+  },
+  {
+    "id": "v3-4.11",
+    "title": "Decoders",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "n select bits choose one of up to 2ⁿ outputs.",
+    "theory": [
+      "An n-to-2ⁿ decoder activates the output indexed by the input, subject to enables and output polarity.",
+      "Combining decoder outputs realizes Boolean functions from their minterms."
+    ],
+    "recall": {
+      "q": "How many select inputs does a 3-to-8 decoder have?",
+      "a": "3, plus any separate enable inputs."
+    },
+    "pitfall": "Active-low outputs require different combining gates from active-high outputs.",
+    "originalNotes": {
+      "startPage": 278,
+      "endPage": 279
+    }
+  },
+  {
+    "id": "v3-4.12",
+    "title": "Digital-circuit analysis",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "Interpret gates, logic levels and component connections.",
+    "theory": [
+      "Separate Boolean functionality from timing constraints.",
+      "Check whether outputs are active-high or active-low and whether feedback creates stored state."
+    ],
+    "recall": {
+      "q": "Can two circuits have the same truth table but different delay?",
+      "a": "Yes."
+    },
+    "pitfall": "A functionally correct expression does not establish the timing behavior of its physical implementation.",
+    "originalNotes": {
+      "startPage": 279,
+      "endPage": 279
+    }
+  },
+  {
+    "id": "v3-4.13",
+    "title": "Counters and modulo sequences",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "Flip-flops cycle through a prescribed count sequence.",
+    "theory": [
+      "A modulo-N counter requires at least ceil(log₂N) state bits.",
+      "Derive next states for valid and unused states; reset or feedback determines the actual cycle."
+    ],
+    "recall": {
+      "q": "How many flip-flops are needed at minimum for a modulo-10 counter?",
+      "a": "4."
+    },
+    "pitfall": "Four flip-flops allow 16 states but do not guarantee a modulo-16 count sequence.",
+    "originalNotes": {
+      "startPage": 279,
+      "endPage": 279
+    }
+  },
+  {
+    "id": "v3-4.14",
+    "title": "Duality",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Construct a dual expression or use a dual identity.",
+    "theory": [
+      "The Boolean dual swaps AND with OR and 0 with 1, while leaving literals unchanged.",
+      "Every valid Boolean identity has a valid dual identity."
+    ],
+    "recall": {
+      "q": "Is duality the same as complementing a function?",
+      "a": "No."
+    },
+    "pitfall": "Do not complement variables while forming the dual unless another operation asks for it.",
+    "originalNotes": {
+      "startPage": 279,
+      "endPage": 279
+    }
+  },
+  {
+    "id": "v3-4.15",
+    "title": "Mealy and Moore machines",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "Outputs depend on state and possibly current inputs.",
+    "theory": [
+      "Moore output is a function of current state; Mealy output can depend on both state and current input.",
+      "State transitions follow the next-state function on the specified clock event."
+    ],
+    "recall": {
+      "q": "Which machine may change output when input changes without a state transition?",
+      "a": "A Mealy machine."
+    },
+    "pitfall": "Count reachable distinguishable states, not merely the number of drawn output labels.",
+    "originalNotes": {
+      "startPage": 279,
+      "endPage": 280
+    }
+  },
+  {
+    "id": "v3-4.16",
+    "title": "Fixed-point representation",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "A binary word has a fixed binary-point location.",
+    "theory": [
+      "With f fractional bits, resolution is 2^(−f); interpret the stored integer and multiply by that scale.",
+      "The range depends on total bits and whether the format is unsigned or signed."
+    ],
+    "recall": {
+      "q": "What is the spacing between adjacent values with 4 fractional bits?",
+      "a": "1/16."
+    },
+    "pitfall": "Adding fractional bits improves resolution but reduces integer range for fixed total width.",
+    "originalNotes": {
+      "startPage": 280,
+      "endPage": 280
+    }
+  },
+  {
+    "id": "v3-4.17",
+    "title": "Flip-flops and excitation",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "Given inputs or desired transitions, find the next stored bit.",
+    "theory": [
+      "D flip-flop: Qnext=D. T flip-flop: Qnext=Q⊕T.",
+      "JK uses hold, reset, set and toggle for inputs 00,01,10,11 respectively."
+    ],
+    "recall": {
+      "q": "What input makes a T flip-flop toggle?",
+      "a": "T=1."
+    },
+    "pitfall": "A characteristic table gives next state from inputs; an excitation table gives inputs needed for a transition.",
+    "originalNotes": {
+      "startPage": 280,
+      "endPage": 281
+    }
+  },
+  {
+    "id": "v3-4.18",
+    "title": "Floating-point representation",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Numbers have a sign, exponent and significand.",
+    "theory": [
+      "A floating-point value uses a scaled significand; normalized binary values usually have an implicit leading 1.",
+      "Spacing grows as the exponent grows, so precision is relative rather than uniform over the full range."
+    ],
+    "recall": {
+      "q": "Are all consecutive representable floating-point values equally spaced?",
+      "a": "No; spacing depends on magnitude/exponent."
+    },
+    "pitfall": "A larger range is not the same as greater precision.",
+    "originalNotes": {
+      "startPage": 281,
+      "endPage": 281
+    }
+  },
+  {
+    "id": "v3-4.19",
+    "title": "Functional completeness",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Determine whether a gate set can express every Boolean function.",
+    "theory": [
+      "NAND alone and NOR alone are functionally complete; each can implement NOT and a complete combination of AND/OR.",
+      "To show completeness, construct a known complete set from the available gates."
+    ],
+    "recall": {
+      "q": "How can NAND implement NOT?",
+      "a": "Tie its two inputs together: ¬(X·X)=¬X."
+    },
+    "pitfall": "An associative or symmetric gate is not automatically functionally complete.",
+    "originalNotes": {
+      "startPage": 281,
+      "endPage": 281
+    }
+  },
+  {
+    "id": "v3-4.20",
+    "title": "IEEE binary floating point",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Decode sign, biased exponent and fraction fields.",
+    "theory": [
+      "For a normal IEEE binary value, value=(−1)ˢ×(1.f)₂×2^(E−bias).",
+      "All-zero exponent encodes zero/subnormal cases; all-one exponent encodes infinity or NaN depending on the fraction."
+    ],
+    "recall": {
+      "q": "Is the leading significand bit 1 for a subnormal number?",
+      "a": "No; subnormals use a leading 0 with the special minimum exponent scale."
+    },
+    "pitfall": "Do not apply the normal-number formula to every exponent pattern.",
+    "originalNotes": {
+      "startPage": 281,
+      "endPage": 282
+    }
+  },
+  {
+    "id": "v3-4.21",
+    "title": "Karnaugh maps",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Minimize a small Boolean function with neighboring cells.",
+    "theory": [
+      "For SOP, group 1s with optional don't-cares in power-of-two rectangular groups; retain only variables constant within a group.",
+      "Rows and columns use Gray order, and opposite edges are adjacent."
+    ],
+    "recall": {
+      "q": "Can a K-map group wrap around an edge?",
+      "a": "Yes."
+    },
+    "pitfall": "Diagonal cells are not adjacent; groups may overlap when useful.",
+    "originalNotes": {
+      "startPage": 282,
+      "endPage": 282
+    }
+  },
+  {
+    "id": "v3-4.22",
+    "title": "Little-endian and big-endian storage",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "extra",
+    "cue": "A multibyte word is placed in byte-addressed memory.",
+    "theory": [
+      "Little-endian stores the least-significant byte at the lowest address; big-endian stores the most-significant byte first.",
+      "Endianness changes byte order, not the bit order within each byte."
+    ],
+    "recall": {
+      "q": "In little-endian storage, which byte of 0x12345678 is at the lowest address?",
+      "a": "0x78."
+    },
+    "pitfall": "Do not reverse every bit or every hexadecimal digit.",
+    "originalNotes": {
+      "startPage": 282,
+      "endPage": 282
+    }
+  },
+  {
+    "id": "v3-4.23",
+    "title": "Memory decoding and interfacing",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "extra",
+    "cue": "Address bits select chips, banks and locations.",
+    "theory": [
+      "Low-order address bits commonly select a location within a chip; higher bits can feed chip-select decoding.",
+      "Parallel chips widen a word, whereas additional banks expand the addressable depth."
+    ],
+    "recall": {
+      "q": "What does adding chips in parallel normally increase?",
+      "a": "Data width."
+    },
+    "pitfall": "Address decoding and data-bus width are separate dimensions.",
+    "originalNotes": {
+      "startPage": 282,
+      "endPage": 283
+    }
+  },
+  {
+    "id": "v3-4.24",
+    "title": "Gate-count minimization",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Implement a function with a constrained gate library.",
+    "theory": [
+      "Simplify the function and exploit shared terms, available complements and gate fan-in.",
+      "Translate to the allowed gate types before counting physical gates."
+    ],
+    "recall": {
+      "q": "Why can two equivalent expressions use different numbers of gates?",
+      "a": "The target gate library, fan-in and shared intermediates differ."
+    },
+    "pitfall": "A minimum literal count is not automatically a minimum gate count.",
+    "originalNotes": {
+      "startPage": 283,
+      "endPage": 283
+    }
+  },
+  {
+    "id": "v3-4.25",
+    "title": "Minimum product of sums",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Find a compact AND of OR-terms.",
+    "theory": [
+      "Minimize POS by grouping 0 cells on a K-map; a variable fixed at 0 appears uncomplemented in the corresponding sum term.",
+      "Choose enough prime implicates to cover all required zeros."
+    ],
+    "recall": {
+      "q": "Which K-map values are grouped for POS minimization?",
+      "a": "Zeros, using don't-cares when helpful."
+    },
+    "pitfall": "The literal polarity differs from the SOP grouping rule.",
+    "originalNotes": {
+      "startPage": 283,
+      "endPage": 283
+    }
+  },
+  {
+    "id": "v3-4.26",
+    "title": "Minimum sum of products",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Cover all true minterms with few product terms.",
+    "theory": [
+      "SOP is an OR of AND-terms; group 1s to remove changing variables.",
+      "Prime implicants are maximal valid groups; select a cover that meets the question's cost criterion."
+    ],
+    "recall": {
+      "q": "Must every prime implicant appear in a minimum SOP?",
+      "a": "No; only essential ones are mandatory, and others are selected as needed."
+    },
+    "pitfall": "Fewest terms and fewest literals are not always the same optimization target.",
+    "originalNotes": {
+      "startPage": 283,
+      "endPage": 283
+    }
+  },
+  {
+    "id": "v3-4.27",
+    "title": "Multiplexers",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "Select lines choose one data input or implement a Boolean function.",
+    "theory": [
+      "A 2ⁿ-to-1 MUX has n select inputs; assign selected variables to these lines.",
+      "For each select combination, simplify the function in the remaining variables to determine the data input."
+    ],
+    "recall": {
+      "q": "How many select lines does an 8-to-1 MUX need?",
+      "a": "3."
+    },
+    "pitfall": "Follow the specified select-bit order; swapping it permutes the data inputs.",
+    "originalNotes": {
+      "startPage": 283,
+      "endPage": 284
+    }
+  },
+  {
+    "id": "v3-4.28",
+    "title": "Integer representation and overflow",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Interpret bit patterns or perform signed arithmetic.",
+    "theory": [
+      "An n-bit unsigned value ranges from 0 to 2ⁿ−1; two's complement ranges from −2^(n−1) to 2^(n−1)−1.",
+      "Two's-complement negation inverts bits and adds 1; sign extension preserves its signed value.",
+      "Signed addition overflows when equal-sign operands produce an opposite-sign result."
+    ],
+    "recall": {
+      "q": "Does a carry-out always mean signed overflow?",
+      "a": "No; carry-out tests unsigned overflow, while signed overflow uses the sign rule."
+    },
+    "pitfall": "The same bits represent different numbers under unsigned, sign-magnitude and two's-complement interpretations.",
+    "originalNotes": {
+      "startPage": 284,
+      "endPage": 284
+    }
+  },
+  {
+    "id": "v3-4.29",
+    "title": "Positional number systems",
+    "subject": "Digital Logic",
+    "group": "Number Representation and Arithmetic",
+    "scope": "syllabus",
+    "cue": "Convert bases or interpret fractional digits.",
+    "theory": [
+      "A digit at position i has weight baseⁱ; positions right of the point have negative powers.",
+      "Repeated division converts integer parts, while repeated multiplication converts fractional parts."
+    ],
+    "recall": {
+      "q": "What is the weight of the first binary digit after the point?",
+      "a": "2⁻¹ = 1/2."
+    },
+    "pitfall": "A fraction terminating in decimal need not terminate in binary.",
+    "originalNotes": {
+      "startPage": 284,
+      "endPage": 284
+    }
+  },
+  {
+    "id": "v3-4.30",
+    "title": "Prime implicants and tabular minimization",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Choose which implicants are required in a minimal cover.",
+    "theory": [
+      "A prime implicant cannot be enlarged while remaining an implicant.",
+      "It is essential if it covers at least one required minterm covered by no other prime implicant.",
+      "Quine–McCluskey (tabular method): combine minterms differing in one bit repeatedly, collect uncombined prime implicants, then use a prime-implicant chart to cover every required minterm. Include don’t-cares while combining, but do not require them to be covered."
+    ],
+    "recall": {
+      "q": "Must all essential prime implicants be selected?",
+      "a": "Yes."
+    },
+    "pitfall": "An implicant can be large without being essential.",
+    "originalNotes": {
+      "startPage": 284,
+      "endPage": 285
+    }
+  },
+  {
+    "id": "v3-4.31",
+    "title": "ROM as a logic implementation",
+    "subject": "Digital Logic",
+    "group": "Combinational Circuits",
+    "scope": "syllabus",
+    "cue": "A memory truth table realizes multiple output functions.",
+    "theory": [
+      "For n address inputs and m output bits, a full ROM stores 2ⁿ words of m bits.",
+      "Each address stores the output pattern for that input combination."
+    ],
+    "recall": {
+      "q": "How many stored bits implement 4 inputs and 3 outputs in a full ROM?",
+      "a": "2⁴×3=48 bits."
+    },
+    "pitfall": "Address pins count input combinations; data pins count output functions.",
+    "originalNotes": {
+      "startPage": 275,
+      "endPage": 287
+    }
+  },
+  {
+    "id": "v3-4.32",
+    "title": "Boolean reduction",
+    "subject": "Digital Logic",
+    "group": "Boolean Algebra and Minimization",
+    "scope": "syllabus",
+    "cue": "Reduce expressions using identities or truth-table equivalence.",
+    "theory": [
+      "Apply absorption, complementation and De Morgan transformations to remove redundancy.",
+      "Check an uncertain reduction on discriminating input assignments before accepting it."
+    ],
+    "recall": {
+      "q": "How can you quickly disprove a proposed Boolean equivalence?",
+      "a": "Find one input assignment where the outputs differ."
+    },
+    "pitfall": "Canceling terms as if they were ordinary arithmetic can invalidate Boolean reasoning.",
+    "originalNotes": {
+      "startPage": 285,
+      "endPage": 285
+    }
+  },
+  {
+    "id": "v3-4.33",
+    "title": "Ripple-counter timing",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "A clock transition propagates through several flip-flops.",
+    "theory": [
+      "In a ripple counter, later flip-flops are clocked by earlier outputs, so transitions ripple rather than occur together.",
+      "Worst-case settling time accumulates along the longest toggling chain."
+    ],
+    "recall": {
+      "q": "Why can intermediate counter outputs briefly show the wrong count?",
+      "a": "Flip-flops have nonzero propagation delays."
+    },
+    "pitfall": "Read the stable output after settling unless the question asks about transient states.",
+    "originalNotes": {
+      "startPage": 285,
+      "endPage": 285
+    }
+  },
+  {
+    "id": "v3-4.34",
+    "title": "Shift registers",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "Stored bits move left or right on clock edges.",
+    "theory": [
+      "A shift register transfers each stored bit to an adjacent position and accepts serial or parallel input according to its mode.",
+      "Track the exact shift direction and which end receives the new bit."
+    ],
+    "recall": {
+      "q": "What distinguishes serial-in from parallel-in loading?",
+      "a": "One bit enters per shift versus multiple bits loaded simultaneously."
+    },
+    "pitfall": "A diagram's visual left/right direction may differ from numeric significance; label bit positions.",
+    "originalNotes": {
+      "startPage": 285,
+      "endPage": 286
+    }
+  },
+  {
+    "id": "v3-4.35",
+    "title": "Static hazards",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "A function should remain constant while one input changes, but a glitch occurs.",
+    "theory": [
+      "A static-1 hazard is a brief 1→0→1 glitch; a static-0 hazard is a brief 0→1→0 glitch.",
+      "In two-level SOP, overlapping adjacent 1 regions with a consensus term can remove a static-1 hazard."
+    ],
+    "recall": {
+      "q": "Can adding a redundant term improve circuit behavior?",
+      "a": "Yes; it can cover an unequal-delay transition and remove a hazard."
+    },
+    "pitfall": "Boolean equivalence alone does not imply hazard-free timing.",
+    "originalNotes": {
+      "startPage": 286,
+      "endPage": 286
+    }
+  },
+  {
+    "id": "v3-4.36",
+    "title": "Synchronous and asynchronous circuits",
+    "subject": "Digital Logic",
+    "group": "Sequential Circuits",
+    "scope": "syllabus",
+    "cue": "Determine when state updates occur.",
+    "theory": [
+      "Synchronous circuits coordinate state changes with a clock event; asynchronous circuits respond through signal timing without a single global clock discipline.",
+      "Even synchronous circuits must meet setup, hold and propagation-delay constraints."
+    ],
+    "recall": {
+      "q": "Does a common clock eliminate all timing constraints?",
+      "a": "No; setup, hold and combinational-path timing still matter."
+    },
+    "pitfall": "Synchronous state updates are logically coordinated, not physically instantaneous.",
+    "originalNotes": {
+      "startPage": 286,
+      "endPage": 287
+    }
+  },
+  {
+    "id": "v3-5.1",
+    "title": "Banker's algorithm",
+    "subject": "Operating System",
+    "group": "Deadlock and Resource Allocation",
+    "scope": "syllabus",
+    "cue": "Given Available, Allocation and Maximum, test safety or a new request.",
+    "theory": [
+      "Need = Maximum − Allocation, computed separately for every resource type.",
+      "Set Work = Available. Repeatedly choose an unfinished process with Need ≤ Work componentwise, then add its Allocation back to Work. Finishing all processes proves safety.",
+      "For a request, check Request ≤ Need and Request ≤ Available; tentatively grant it, then run the safety test."
+    ],
+    "recall": {
+      "q": "When a process finishes in the safety test, what gets added to Work?",
+      "a": "Its current Allocation—not its Maximum or remaining Need. The resources notionally borrowed from Work are returned too, so the net increase is Allocation."
+    },
+    "pitfall": "An unsafe state is not necessarily already deadlocked; it lacks a guarantee for all declared maximum demands.",
+    "originalNotes": {
+      "startPage": 364,
+      "endPage": 364
+    }
+  },
+  {
+    "id": "v3-5.2",
+    "title": "Best-fit allocation",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "Place successive requests into unequal free memory holes.",
+    "theory": [
+      "Choose the smallest available hole whose size is at least the request size.",
+      "When splitting is allowed, replace that hole with its unused remainder. Free adjacent holes may be coalesced only when their addresses are adjacent.",
+      "External fragmentation means sufficient total free space exists but no single contiguous hole is large enough."
+    ],
+    "recall": {
+      "q": "Holes are 100, 250 and 180 KB; a 160 KB request arrives. Which hole and remainder?",
+      "a": "Choose 180 KB, leaving a 20 KB free hole when splitting is allowed."
+    },
+    "pitfall": "The name “best fit” describes a local selection rule, not globally optimal future memory utilization.",
+    "originalNotes": {
+      "startPage": 364,
+      "endPage": 365
+    },
+    "correction": {
+      "sourcePage": 364,
+      "original": "Best Fit is described as minimizing internal fragmentation in a dynamic-hole allocation discussion.",
+      "corrected": "With exact splitting, the remainder stays outside the allocation as a free hole; the characteristic problem is external fragmentation. Internal waste may arise from alignment or an unsplit allocation.",
+      "reason": "A free remainder outside an allocated block and unused bytes inside it are different kinds of fragmentation."
+    },
+    "sources": [
+      "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf"
+    ]
+  },
+  {
+    "id": "v3-5.3",
+    "title": "Context switches",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Count saved execution states or CPU time lost when execution changes.",
+    "theory": [
+      "A context switch saves the current execution state, such as registers, program counter and stack pointer, and restores another process or thread.",
+      "A user-to-kernel mode switch can occur without changing the running process.",
+      "If each useful CPU slice lasts q and each following switch costs s, the repeating-slice useful fraction is q/(q+s). Check whether initial/final overhead is counted."
+    ],
+    "recall": {
+      "q": "Does every system call require a process context switch?",
+      "a": "No. The same process can enter the kernel, receive service, and return without another process running."
+    },
+    "pitfall": "Do not count a change in privilege mode as a process switch unless the question says execution changes.",
+    "originalNotes": {
+      "startPage": 365,
+      "endPage": 365
+    }
+  },
+  {
+    "id": "v3-5.4",
+    "title": "DMA and CPU interference",
+    "subject": "Operating System",
+    "group": "I/O and File Systems",
+    "scope": "syllabus",
+    "cue": "A controller transfers data directly to memory, with burst or cycle-stealing timing.",
+    "theory": [
+      "The CPU sets up a DMA operation; the controller performs data movement and commonly notifies the CPU when finished.",
+      "Cycle stealing takes individual bus cycles; burst transfer holds the bus for a block. Their interference with CPU memory access differs.",
+      "If f transfers occur per second and each steals t seconds of an otherwise required CPU resource, the occupied fraction is f×t under that model."
+    ],
+    "recall": {
+      "q": "Does DMA mean the CPU never participates in I/O?",
+      "a": "No. Setup, completion handling and possible bus contention still involve or affect the CPU."
+    },
+    "pitfall": "Convert bytes, words, bits and transfer cycles before computing CPU slowdown; bus occupancy need not equal instruction slowdown without an explicit model.",
+    "originalNotes": {
+      "startPage": 365,
+      "endPage": 365
+    }
+  },
+  {
+    "id": "v3-5.5",
+    "title": "Deadlock strategies",
+    "subject": "Operating System",
+    "group": "Deadlock and Resource Allocation",
+    "scope": "syllabus",
+    "cue": "Identify prevention, avoidance, or detection from a resource policy.",
+    "theory": [
+      "Deadlock requires mutual exclusion, hold-and-wait, no preemption and circular wait in the usual reusable-resource model.",
+      "Prevention rules out a necessary condition; avoidance checks whether a tentative allocation remains safe; detection finds an existing deadlock and requires recovery.",
+      "A global resource order breaks circular wait. Requesting everything before holding anything breaks hold-and-wait."
+    ],
+    "recall": {
+      "q": "Which condition does requesting resources in increasing resource-number order break?",
+      "a": "Circular wait: a cycle would require the resource order to increase and eventually return to its starting point."
+    },
+    "pitfall": "A detector uses current outstanding requests; a safety test uses possible remaining maximum needs.",
+    "originalNotes": {
+      "startPage": 365,
+      "endPage": 366
+    }
+  },
+  {
+    "id": "v3-5.6",
+    "title": "Demand paging",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "A page fault probability is combined with much larger disk service time.",
+    "theory": [
+      "With demand paging, a referenced nonresident page must be brought into memory before the access can complete.",
+      "If t_fault is the entire faulting-access time, EAT = (1−p)t_hit + p t_fault. If F is only extra fault overhead, EAT = t_hit + pF.",
+      "Include a dirty victim’s write-back cost when specified; even a small fault rate can dominate the average."
+    ],
+    "recall": {
+      "q": "Why can a tiny page-fault rate cause a large slowdown?",
+      "a": "The fault-service time can be many orders of magnitude larger than a normal memory access."
+    },
+    "pitfall": "Use one definition of fault time throughout; do not count the retried memory access twice.",
+    "originalNotes": {
+      "startPage": 366,
+      "endPage": 366
+    }
+  },
+  {
+    "id": "v3-5.7",
+    "title": "Disk geometry and access time",
+    "subject": "Operating System",
+    "group": "I/O and File Systems",
+    "scope": "syllabus",
+    "cue": "Convert RPM, sector layout and transfer size into access time.",
+    "theory": [
+      "One revolution takes 60/RPM seconds. With a uniformly random rotational position, average rotational latency is 30/RPM seconds.",
+      "Access time = seek time + rotational latency + transfer time, plus any stated controller or queueing overhead.",
+      "Transfer time = data size / transfer rate. Tracks at the same radius across recording surfaces form a cylinder."
+    ],
+    "recall": {
+      "q": "At 6000 RPM, what are revolution time and average rotational latency?",
+      "a": "6000/60 = 100 revolutions/s; one revolution is 10 ms, so average rotational latency is 5 ms."
+    },
+    "pitfall": "Average latency is half a revolution only under the random-position assumption; a known sector position needs its actual angular distance.",
+    "originalNotes": {
+      "startPage": 366,
+      "endPage": 367
+    }
+  },
+  {
+    "id": "v3-5.8",
+    "title": "Disk scheduling",
+    "subject": "Operating System",
+    "group": "I/O and File Systems",
+    "scope": "syllabus",
+    "cue": "Trace head movement from an initial track and direction.",
+    "theory": [
+      "Total movement is the sum of absolute differences between consecutive head positions, including the initial position.",
+      "SSTF picks the currently nearest request. SCAN goes to a physical end before reversing; LOOK reverses at the last pending request.",
+      "C-SCAN and C-LOOK service in one direction. Count their return movement if the question’s cost model includes it."
+    ],
+    "recall": {
+      "q": "What distinguishes LOOK from SCAN?",
+      "a": "LOOK reverses at the furthest pending request in the current direction; SCAN continues to the physical end."
+    },
+    "pitfall": "SSTF is greedy, can starve distant requests, and does not guarantee the minimum total movement for every request set.",
+    "originalNotes": {
+      "startPage": 367,
+      "endPage": 367
+    },
+    "correction": {
+      "sourcePage": 367,
+      "original": "The source says SSTF is optimal for average seek time.",
+      "corrected": "SSTF minimizes the next seek, not necessarily total or average seek distance over all requests.",
+      "reason": "Counterexample with distance-proportional seek cost: from track 50, requests {49,52,1} give SSTF path 50→49→52→1, distance 55; path 50→52→49→1 has distance 53."
+    },
+    "sources": [
+      "https://pages.cs.wisc.edu/~remzi/OSTEP/file-disks.pdf"
+    ]
+  },
+  {
+    "id": "v3-5.9",
+    "title": "File systems and block addressing",
+    "subject": "Operating System",
+    "group": "I/O and File Systems",
+    "scope": "syllabus",
+    "cue": "Count disk blocks, inode pointers, or levels of indirect addressing.",
+    "theory": [
+      "Contiguous allocation supports direct access but complicates growth; linked allocation follows block pointers; indexed allocation locates blocks through an index.",
+      "If a block holds B bytes and each pointer takes p bytes, one index block holds floor(B/p) pointers.",
+      "With d direct pointers and one each of single, double and triple indirect pointers, addressable file data is B(d+k+k²+k³), where k=floor(B/p), subject to any other file-size limits."
+    ],
+    "recall": {
+      "q": "Does an indirect index block store file data in the standard inode model?",
+      "a": "No. It stores pointers; include it in metadata/storage or I/O counts when asked, but not in the file’s data capacity."
+    },
+    "pitfall": "Distinguish maximum addressable file bytes from total allocated space including index blocks.",
+    "originalNotes": {
+      "startPage": 367,
+      "endPage": 367
+    }
+  },
+  {
+    "id": "v3-5.10",
+    "title": "fork() and process counting",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Trace parent/child branches or count output after fork calls.",
+    "theory": [
+      "A successful fork returns 0 in the child and the child PID in the parent; failure returns −1 in the parent without creating a child.",
+      "For n unconditional sequential successful forks executed by every live process, total processes = 2ⁿ and newly created children = 2ⁿ−1.",
+      "Parent and child normally have separate address spaces. Inherited file descriptors may refer to the same open-file description, so file offsets can be shared."
+    ],
+    "recall": {
+      "q": "Three unconditional successful fork calls give how many total and newly created processes?",
+      "a": "8 total processes and 7 newly created children, if every process reaches all three calls."
+    },
+    "pitfall": "Conditional branches, short-circuit operators, exits and failures invalidate blindly applying 2ⁿ.",
+    "originalNotes": {
+      "startPage": 367,
+      "endPage": 368
+    },
+    "sources": [
+      "https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf"
+    ]
+  },
+  {
+    "id": "v3-5.11",
+    "title": "I/O handling mechanisms",
+    "subject": "Operating System",
+    "group": "I/O and File Systems",
+    "scope": "syllabus",
+    "cue": "Compare polling, interrupts, DMA, buffering or interrupt-event order.",
+    "theory": [
+      "Polling repeatedly reads device status; interrupt-driven I/O lets the device signal an event; DMA moves data without the CPU copying each item.",
+      "A typical interrupt sequence completes the current instruction, saves required state, selects the handler, services the event, and restores state.",
+      "Buffering absorbs producer/consumer rate differences; spooling queues jobs for a shared device."
+    ],
+    "recall": {
+      "q": "Why does interrupt-driven I/O reduce busy waiting?",
+      "a": "The CPU can do other work instead of repeatedly checking whether the device is ready."
+    },
+    "pitfall": "Follow the specified hardware model: vectored interrupt selection and DMA transfer modes have different overheads.",
+    "originalNotes": {
+      "startPage": 368,
+      "endPage": 368
+    }
+  },
+  {
+    "id": "v3-5.12",
+    "title": "I/O and process-state transitions",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Count ready-queue entries caused by blocking I/O.",
+    "theory": [
+      "A blocking I/O request normally changes a process from running to blocked. Completion changes it from blocked to ready.",
+      "The scheduler later changes ready to running; I/O completion does not itself guarantee immediate CPU execution.",
+      "Count actual I/O operations and the transitions specified by the question; do not count the initial admission if explicitly excluded."
+    ],
+    "recall": {
+      "q": "A process makes one blocking read followed by 20 blocking writes; how many I/O-completion entries to ready occur?",
+      "a": "21, assuming every operation blocks and each completion makes the process ready once."
+    },
+    "pitfall": "Running→blocked is not an entry into the ready queue.",
+    "originalNotes": {
+      "startPage": 368,
+      "endPage": 368
+    }
+  },
+  {
+    "id": "v3-5.13",
+    "title": "IPC, pipes and I/O redirection",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Identify how processes exchange data or redirect standard streams.",
+    "theory": [
+      "Shared-memory IPC exchanges data through a mapped region and still needs synchronization for shared updates.",
+      "Message passing exchanges explicit messages; pipes carry streams between file descriptors; sockets can connect local or remote processes.",
+      "I/O redirection changes the source/destination associated with a program’s input/output descriptor; it does not require renaming a file."
+    ],
+    "recall": {
+      "q": "What does using an existing file as a program’s standard input require conceptually?",
+      "a": "Redirect its standard-input descriptor to that file; the program can keep reading from standard input."
+    },
+    "pitfall": "Communication and synchronization are related but different: a shared buffer alone does not prevent races.",
+    "originalNotes": {
+      "startPage": 368,
+      "endPage": 369
+    }
+  },
+  {
+    "id": "v3-5.14",
+    "title": "Interrupts and traps",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Decide what an interrupt changes or compute handler overhead.",
+    "theory": [
+      "Hardware interrupts are triggered by events outside the current instruction; synchronous exceptions/traps arise from instruction execution.",
+      "The processor preserves the required state before handling an event. The OS may resume the interrupted process or schedule another.",
+      "If r nonoverlapping interrupts occur per second and each costs t seconds, handler-time fraction = rt in that model."
+    ],
+    "recall": {
+      "q": "Must an interrupt cause a different process to run?",
+      "a": "No. After handling it, execution may return to the same process; a scheduling decision depends on the event and OS state."
+    },
+    "pitfall": "Do not equate interrupt entry with a mandatory process context switch.",
+    "originalNotes": {
+      "startPage": 369,
+      "endPage": 369
+    }
+  },
+  {
+    "id": "v3-5.15",
+    "title": "LRU and reference locality",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "An array traversal or reference string asks for LRU page faults.",
+    "theory": [
+      "LRU evicts the resident page whose most recent use is furthest in the past; every hit updates recency.",
+      "For C row-major arrays, linear element index of A[i][j] is i×columns+j. Convert byte addresses to page numbers before tracing references.",
+      "With f frames, a previously used page misses if at least f distinct other pages have been referenced since its last use."
+    ],
+    "recall": {
+      "q": "Does a hit change an LRU queue?",
+      "a": "Yes. The referenced page becomes most recently used even though no page is loaded."
+    },
+    "pitfall": "Traversing columns of a row-major array can defeat locality; count distinct pages, not just loop iterations.",
+    "originalNotes": {
+      "startPage": 369,
+      "endPage": 369
+    }
+  },
+  {
+    "id": "v3-5.16",
+    "title": "Linked file allocation",
+    "subject": "Operating System",
+    "group": "I/O and File Systems",
+    "scope": "syllabus",
+    "cue": "Each file block reserves bytes for a next-block pointer.",
+    "theory": [
+      "For block size B and pointer size p, payload per block is B−p when the pointer is stored inside every block.",
+      "A file of F bytes needs ceil(F/(B−p)) blocks. Unused payload in the final block is n(B−p)−F.",
+      "Pointer overhead is np bytes and is separate from unused payload; traversing links makes random access expensive."
+    ],
+    "recall": {
+      "q": "B=1024 bytes, p=4, F=2041: how many blocks are required?",
+      "a": "Payload is 1020 bytes per block; ceil(2041/1020)=3 blocks. Unused payload is 3060−2041=1019 bytes."
+    },
+    "pitfall": "The last block may still reserve a NULL-pointer field; do not silently give it B usable data bytes.",
+    "originalNotes": {
+      "startPage": 369,
+      "endPage": 369
+    }
+  },
+  {
+    "id": "v3-5.17",
+    "title": "Memory allocation and working sets",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "Compare paging/segmentation, fit strategies, or recently used page sets.",
+    "theory": [
+      "Paging maps fixed-size virtual pages to frames; segmentation maps variable-size logical regions and needs bounds checks.",
+      "Fixed-size allocation may leave unused space inside an allocation; variable-size contiguous allocation can leave separated external holes.",
+      "The working set for a reference window is the set of distinct pages referenced inside that window; update it as old references leave."
+    ],
+    "recall": {
+      "q": "Can a process fail to obtain 100 KB when total free memory is 150 KB?",
+      "a": "Yes, with contiguous allocation if no single free hole is at least 100 KB."
+    },
+    "pitfall": "A working-set window counts recent references or time as specified; it is not simply a fixed number of resident frames.",
+    "originalNotes": {
+      "startPage": 369,
+      "endPage": 370
+    }
+  },
+  {
+    "id": "v3-5.18",
+    "title": "Multilevel page tables",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "Split a virtual address into page-table indices and a page offset.",
+    "theory": [
+      "For byte-addressable memory and page size B=2ᵇ bytes, the low b virtual-address bits are the page offset.",
+      "If one table page holds B/p entries of p bytes, an index into that page needs log₂(B/p) bits when that count is a power of two.",
+      "Without a TLB or other caching, an L-level page-table walk plus the data access takes L+1 memory accesses, assuming all pages are resident."
+    ],
+    "recall": {
+      "q": "A 4 KB page-table page with 8-byte entries holds how many entries and index bits?",
+      "a": "4096/8=512 entries, requiring 9 index bits."
+    },
+    "pitfall": "Use virtual address bits to size the table hierarchy; frame-number bits are determined by physical memory.",
+    "originalNotes": {
+      "startPage": 370,
+      "endPage": 370
+    }
+  },
+  {
+    "id": "v3-5.19",
+    "title": "Protection and privileged execution",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Separate user-mode operations from kernel-controlled resource access.",
+    "theory": [
+      "Hardware privilege levels and memory-access checks keep user code from directly performing protected operations.",
+      "A system-call instruction transfers control through a controlled kernel entry point; the kernel validates requested operations.",
+      "An access-control matrix associates subjects/domains with objects and rights; ACLs organize rights by object, capabilities by holder/domain."
+    ],
+    "recall": {
+      "q": "Why is merely hiding an OS function name insufficient protection?",
+      "a": "A user could still attempt the underlying operation; hardware-enforced privilege and access checks must prevent it."
+    },
+    "pitfall": "A mode bit alone is useful only when privileged instructions and memory accesses actually enforce it.",
+    "originalNotes": {
+      "startPage": 370,
+      "endPage": 370
+    }
+  },
+  {
+    "id": "v3-5.20",
+    "title": "Page-replacement algorithms",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "Trace FIFO, LRU, OPT or Clock on a page-reference sequence.",
+    "theory": [
+      "FIFO evicts the page loaded earliest; a hit does not change its load order. LRU uses last-reference order, updated on hits.",
+      "OPT evicts the page used furthest in the future and gives a minimum fault count for the specified trace and frame count.",
+      "Count compulsory first loads as faults. FIFO can show Belady’s anomaly; LRU and OPT have the stack property and do not."
+    ],
+    "recall": {
+      "q": "If adding a frame increases page faults, can the policy be exact LRU?",
+      "a": "No. Exact LRU is a stack algorithm, so more frames cannot increase its faults on the same trace."
+    },
+    "pitfall": "Convert addresses to page numbers first; several consecutive addresses may belong to the same page.",
+    "originalNotes": {
+      "startPage": 370,
+      "endPage": 371
+    }
+  },
+  {
+    "id": "v3-5.21",
+    "title": "Task precedence and parallelism",
+    "subject": "Operating System",
+    "group": "Concurrency and Synchronization",
+    "scope": "syllabus",
+    "cue": "A DAG specifies tasks that must finish before other tasks begin.",
+    "theory": [
+      "An edge A→B means A must finish before B starts. A topological ordering gives a valid serial execution order.",
+      "Tasks with no dependency path between them may overlap if resources allow.",
+      "With unlimited processors and stated task durations, minimum completion time is the longest weighted path through the dependency DAG."
+    ],
+    "recall": {
+      "q": "How do you enforce that C starts only after both A and B finish?",
+      "a": "Make C wait for completion signals from both A and B, or join both tasks before starting C."
+    },
+    "pitfall": "The FORK/JOIN constructs in a precedence-graph question need not have the same meaning as Unix fork().",
+    "originalNotes": {
+      "startPage": 371,
+      "endPage": 371
+    }
+  },
+  {
+    "id": "v3-5.22",
+    "title": "Processes and states",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Identify ready, running, blocked and their transitions.",
+    "theory": [
+      "A process is an executing program with an address space, execution state and OS-managed resources.",
+      "Ready means eligible to run but waiting for CPU time; blocked means waiting for an event or resource.",
+      "Preemption changes running→ready; a blocking request changes running→blocked; event completion changes blocked→ready."
+    ],
+    "recall": {
+      "q": "What is the difference between ready and blocked?",
+      "a": "A ready process could execute if assigned a CPU; a blocked process must first wait for its event or resource."
+    },
+    "pitfall": "Having a program loaded does not mean it is running or even ready.",
+    "originalNotes": {
+      "startPage": 371,
+      "endPage": 372
+    }
+  },
+  {
+    "id": "v3-5.23",
+    "title": "CPU scheduling and metrics",
+    "subject": "Operating System",
+    "group": "CPU Scheduling",
+    "scope": "syllabus",
+    "cue": "Given arrival and burst times, construct a Gantt chart and averages.",
+    "theory": [
+      "Turnaround = completion−arrival. Response = first CPU start−arrival.",
+      "For the standard single-CPU-burst model with no I/O, waiting = turnaround−burst. With I/O, exclude blocked time as well when computing ready-queue waiting.",
+      "FCFS chooses arrival order; nonpreemptive SJF chooses the shortest ready job at dispatch; priority scheduling follows the stated priority convention."
+    ],
+    "recall": {
+      "q": "A job arrives at 2, first runs at 5, finishes at 12, and uses 4 CPU units with no I/O. Its response, turnaround and waiting?",
+      "a": "Response 3, turnaround 10, waiting 6."
+    },
+    "pitfall": "Do not schedule a short job before it has arrived; “smaller priority number” is not universally higher priority.",
+    "originalNotes": {
+      "startPage": 372,
+      "endPage": 372
+    }
+  },
+  {
+    "id": "v3-5.24",
+    "title": "Critical sections and synchronization",
+    "subject": "Operating System",
+    "group": "Concurrency and Synchronization",
+    "scope": "syllabus",
+    "cue": "Check interleavings, mutual exclusion, progress or bounded waiting.",
+    "theory": [
+      "A race condition occurs when an uncoordinated interleaving of shared operations changes the result; x++ usually includes a read and a write.",
+      "A critical-section solution is assessed for mutual exclusion, progress and bounded waiting, not just one property.",
+      "Atomic primitives protect synchronization state. Blocking while holding a lock needed by the waker can cause deadlock."
+    ],
+    "recall": {
+      "q": "Can a solution satisfy mutual exclusion yet still be incorrect?",
+      "a": "Yes. It may deadlock, violate progress, or starve a process and violate bounded waiting."
+    },
+    "pitfall": "A final value from one convenient execution is not proof; examine all relevant interleavings or establish an invariant.",
+    "originalNotes": {
+      "startPage": 372,
+      "endPage": 373
+    }
+  },
+  {
+    "id": "v3-5.25",
+    "title": "Resource-allocation bounds",
+    "subject": "Operating System",
+    "group": "Deadlock and Resource Allocation",
+    "scope": "syllabus",
+    "cue": "Find a safe order or minimum count of identical resources to prevent deadlock.",
+    "theory": [
+      "Track held resources, outstanding requests and available instances separately.",
+      "If n processes each need at most k identical units, acquire them one at a time, and release all upon completion, n(k−1)+1 units guarantee that some process can finish.",
+      "The bound comes from the worst stalled arrangement: every process holds k−1 units; one additional unit lets one finish and release its resources."
+    ],
+    "recall": {
+      "q": "Under that model, three processes each need at most four identical units. What count guarantees freedom from deadlock?",
+      "a": "3×(4−1)+1=10 units."
+    },
+    "pitfall": "The formula is not a substitute for Banker’s algorithm with multiple resource types, different policies or different release assumptions.",
+    "originalNotes": {
+      "startPage": 373,
+      "endPage": 373
+    }
+  },
+  {
+    "id": "v3-5.26",
+    "title": "Resource-allocation graphs",
+    "subject": "Operating System",
+    "group": "Deadlock and Resource Allocation",
+    "scope": "syllabus",
+    "cue": "A graph contains process/resource nodes and directed request/assignment edges.",
+    "theory": [
+      "A request edge runs process→resource type; an assignment edge runs resource instance→process.",
+      "With one instance of every resource type, a cycle is sufficient and necessary for deadlock in the usual resource model.",
+      "With multiple instances, a cycle is necessary but not sufficient: another available instance or a finishing process may break the wait."
+    ],
+    "recall": {
+      "q": "A multi-instance resource graph has a cycle. What can you conclude?",
+      "a": "Deadlock is possible, but the cycle alone does not prove it; inspect available instances and possible completions."
+    },
+    "pitfall": "Reverse request and assignment arrows and the interpretation of the entire graph changes.",
+    "originalNotes": {
+      "startPage": 373,
+      "endPage": 373
+    }
+  },
+  {
+    "id": "v3-5.27",
+    "title": "Round-robin scheduling",
+    "subject": "Operating System",
+    "group": "CPU Scheduling",
+    "scope": "syllabus",
+    "cue": "Each ready process runs for at most a fixed time quantum.",
+    "theory": [
+      "Run the front ready process for min(quantum, remaining burst); if unfinished, append it to the queue after handling arrivals as specified.",
+      "A very large quantum approaches FCFS in the standard single-burst model; a very small quantum increases switch overhead.",
+      "Compute response from the first slice only, and waiting from all intervals spent ready."
+    ],
+    "recall": {
+      "q": "If a job has 2 units left and quantum is 5, how long is its next slice?",
+      "a": "2 units; it completes without consuming a full 5-unit quantum."
+    },
+    "pitfall": "Resolve simultaneous arrivals and quantum expiry using the question’s stated queue convention, not an unstated assumption.",
+    "originalNotes": {
+      "startPage": 373,
+      "endPage": 374
+    }
+  },
+  {
+    "id": "v3-5.28",
+    "title": "Semaphores and ordering",
+    "subject": "Operating System",
+    "group": "Concurrency and Synchronization",
+    "scope": "syllabus",
+    "cue": "Choose initial semaphore values and locations of wait/signal.",
+    "theory": [
+      "wait acquires a permit or waits; signal releases a permit. The checking and state change must be atomic with respect to competing operations.",
+      "A semaphore initialized to 1 can guard a critical section. Initialized to 0, it can make one activity wait for another’s completion signal.",
+      "For a bounded buffer of size N, empty=N, full=0 and a mutex=1 are typical initial values; obtain availability before holding the buffer mutex."
+    ],
+    "recall": {
+      "q": "To force B after A, how should a completion semaphore start and be used?",
+      "a": "Start S=0. A performs its work then signal(S); B does wait(S) before its work."
+    },
+    "pitfall": "Do not treat the source’s while-test and decrement pseudocode as ordinary independently interleavable C statements; the semaphore operation must be correctly synchronized.",
+    "originalNotes": {
+      "startPage": 374,
+      "endPage": 374
+    }
+  },
+  {
+    "id": "v3-5.29",
+    "title": "Shortest remaining time first",
+    "subject": "Operating System",
+    "group": "CPU Scheduling",
+    "scope": "syllabus",
+    "cue": "New jobs may preempt a running job based on remaining CPU time.",
+    "theory": [
+      "SRTF selects the ready job with the least remaining processing time and reevaluates when arrivals or completions change the ready set.",
+      "Before comparing at a new arrival, subtract the CPU time already consumed by the current job.",
+      "Its ideal optimality assumes known processing times, permitted preemption and no preemption cost; repeated short arrivals can starve a long job."
+    ],
+    "recall": {
+      "q": "A job started with burst 8 and has run for 5; a burst-4 job arrives. Must it preempt?",
+      "a": "No. The current job has 3 left, which is shorter than 4."
+    },
+    "pitfall": "Compare remaining time, not the current job’s original burst.",
+    "originalNotes": {
+      "startPage": 374,
+      "endPage": 375
+    }
+  },
+  {
+    "id": "v3-5.30",
+    "title": "System calls and kernel entry",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Distinguish library functions, traps and OS services.",
+    "theory": [
+      "A system call requests a kernel service through a controlled user-to-kernel transition.",
+      "A library routine may make zero, one or multiple system calls; its name alone does not imply a kernel entry on every use.",
+      "exec replaces the calling process’s program image; fork creates a new process; wait waits for a child-state event."
+    ],
+    "recall": {
+      "q": "Does a successful exec create a second process?",
+      "a": "No. It replaces the current process’s program image; process creation is a separate operation such as fork."
+    },
+    "pitfall": "Do not assume a successful exec returns to the old program’s next instruction.",
+    "originalNotes": {
+      "startPage": 375,
+      "endPage": 375
+    }
+  },
+  {
+    "id": "v3-5.31",
+    "title": "Threads and execution models",
+    "subject": "Operating System",
+    "group": "Processes, Threads and System Calls",
+    "scope": "syllabus",
+    "cue": "Decide which state is shared and how user threads map to kernel threads.",
+    "theory": [
+      "Threads in one process normally share code, global data, heap and open-file resources; each has its own registers, program counter and stack.",
+      "In a many-to-one user-thread model, a blocking kernel call can block the single kernel scheduling entity, preventing the other user threads from running.",
+      "With multiple kernel threads, another runnable thread may continue. Shared data still needs synchronization."
+    ],
+    "recall": {
+      "q": "Which is private to each thread: heap, global variables, registers or open files?",
+      "a": "Registers, including the program counter; the thread also has its own stack. The other listed resources are normally shared within a process."
+    },
+    "pitfall": "The “one blocked thread blocks them all” claim depends on the user-to-kernel thread mapping, not simply on the phrase user-level thread.",
+    "originalNotes": {
+      "startPage": 375,
+      "endPage": 375
+    }
+  },
+  {
+    "id": "v3-5.32",
+    "title": "TLB and effective access time",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "Combine translation-cache hit ratio with page-table walk costs.",
+    "theory": [
+      "A TLB caches virtual-page translations; a miss normally requires a page-table walk, not necessarily a page fault.",
+      "For a serial TLB lookup time t, memory time m, hit ratio h and resident L-level tables: EAT = h(t+m)+(1−h)(t+(L+1)m), ignoring other caches.",
+      "Page offset bits are unchanged during translation; replace the virtual page number with the physical frame number."
+    ],
+    "recall": {
+      "q": "Does a TLB miss imply that the requested page is absent from RAM?",
+      "a": "No. The translation may be absent from the TLB while the page is resident; a page-table walk can find it."
+    },
+    "pitfall": "Use the timing model given: parallel lookup, cached page-table entries or page faults change the simple serial formula.",
+    "originalNotes": {
+      "startPage": 375,
+      "endPage": 376
+    }
+  },
+  {
+    "id": "v3-5.33",
+    "title": "Virtual addresses and paging",
+    "subject": "Operating System",
+    "group": "Memory Management",
+    "scope": "syllabus",
+    "cue": "Find page numbers, offsets, frame numbers or page-table sizes.",
+    "theory": [
+      "For byte address A and page size B: virtual page number = floor(A/B), offset = A mod B.",
+      "If the page maps to frame f, physical address = fB+offset. A v-bit virtual address and 2ᵇ-byte pages give 2ᵛ⁻ᵇ virtual pages.",
+      "A flat page table has one entry per virtual page in the modeled address space; physical frame count instead determines frame-number width."
+    ],
+    "recall": {
+      "q": "Address 9000 with 4096-byte pages: what are page number and offset?",
+      "a": "Page number 2 and offset 808, because 9000=2×4096+808."
+    },
+    "pitfall": "Page-table size depends on virtual address space and entry size, not simply the amount of physical RAM.",
+    "originalNotes": {
+      "startPage": 376,
+      "endPage": 376
+    }
+  }
+]

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+inputs/
+output/
+*.zip
+*.tar.gz
+.DS_Store
+dist/books/
+dist/questions/
+dist/notes/
+dist/data/
+dist/icon-192.png
+dist/icon-512.png
+content/extracted*.json
