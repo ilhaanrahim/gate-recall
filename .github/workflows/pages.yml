@@ -1,0 +1,37 @@
+name: Publish GATE Recall
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download the fixed study pack
+        run: curl --fail --location --retry 3 --output "$RUNNER_TEMP/GATE_Recall_Offline.zip" https://github.com/ilhaanrahim/gate-recall/releases/download/v1.0.0/GATE_Recall_Offline.zip
+      - name: Restore verified media and rebuild the catalogue
+        run: |
+          python3 scripts/restore_pack.py "$RUNNER_TEMP/GATE_Recall_Offline.zip"
+          python3 scripts/build_data.py
+      - name: Check progress and offline behavior
+        run: |
+          node scripts/test_core.cjs
+          node scripts/test_offline.cjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4
