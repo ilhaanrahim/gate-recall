@@ -1,5 +1,5 @@
 'use strict';
-const CORE='gate-recall-core-v1',ASSETS='gate-recall-assets-v1';
+const CORE='gate-recall-core-v2',ASSETS='gate-recall-assets-v1';
 const CORE_FILES=['./','./index.html','./style.css','./app.js','./core.js','./icon.svg','./icon-192.png','./icon-512.png','./manifest.webmanifest','./data/catalog.js','./data/assets.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CORE).then(c=>c.addAll(CORE_FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));

@@ -1,8 +1,8 @@
 # GATE Recall
 
-The application source and editable recall notes live in this repository. The full offline edition is attached to release **v1.0.0** as `GATE_Recall_Offline.zip`.
+The application source and editable recall notes live in this repository. The latest full offline edition is attached to release **v1.1.0** as `GATE_Recall_Offline.zip`.
 
-Large source PDFs, question images and extracted metadata are restored from that fixed, checksum-verified release during deployment. The GitHub code archive alone is therefore not the complete offline app. Download the release ZIP for offline use.
+Large source PDFs, question images and extracted metadata are restored from the fixed, checksum-verified **v1.0.0** study pack during deployment. The GitHub code archive alone is therefore not the complete offline app. Download the release ZIP for offline use.
 
 A personal GATE study desk, organised as **subject → syllabus topic → PYQ subtopic → original questions**.
 
@@ -15,6 +15,7 @@ Download and extract **GATE_Recall_Offline.zip** from Releases, then open its to
 3. Open **Practise PYQs**, work on paper, and check the source answer key.
 4. Mark the result, write a memory cue, and choose Again / Hard / Good / Easy.
 5. Use **Daily review** to revisit due concepts and questions.
+6. Open the top-right profile menu to change your initials and view **My PYQ notes**, grouped by subject. The menu also contains **Offline & backup** and **Sources & corrections**.
 
 **Original notes** shows the supplied book pages. Tap a question or note image to enlarge it. Search covers concept names, authored notes and extracted question text. Paper, year, question type and progress filters narrow practice. Save topics/questions, revisit mistakes, flag suspected source errors, or reserve 2024–2026 papers for mocks.
 
@@ -53,7 +54,7 @@ Official instructions: https://docs.github.com/en/pages/getting-started-with-git
 
 ## Maintain the source
 
-Daily use requires no development tools. The release ZIP contains the complete application. For local development from a clone, first run `python3 scripts/restore_pack.py /path/to/GATE_Recall_Offline.zip`, then `python3 scripts/build_data.py`. `content/volume1.json` through `volume3.json` contain editable topic mappings and recall notes; `content/extracted*.json`, restored from the release pack, contain question metadata. After editing the content, run `python3 scripts/build_data.py`. This rebuilds the catalogue and verifies IDs and asset paths.
+Daily use requires no development tools. The release ZIP contains the complete application. For local development from a clone, first download the original v1.0.0 offline release and run `python3 scripts/restore_pack.py /path/to/v1.0.0/GATE_Recall_Offline.zip`, then `python3 scripts/build_data.py`. `content/volume1.json` through `volume3.json` contain editable topic mappings and recall notes; `content/extracted*.json`, restored from the release pack, contain question metadata. After editing the content, run `python3 scripts/build_data.py`. This rebuilds the catalogue and verifies IDs and asset paths.
 
 To regenerate source crops, place the original `filter1_volume1.pdf`, `filter1_volume2.pdf` and `filter1_volume3.pdf` in `inputs/`, install PyMuPDF and Pillow, and run `python3 scripts/extract_books.py inputs`, followed by `python3 scripts/build_data.py`. Existing rendered image paths are reused. Review extraction warnings before publishing.
 

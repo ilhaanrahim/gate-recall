@@ -4,7 +4,8 @@ GATE RECALL — START HERE
 2. Open index.html with Chrome, Edge, Firefox or Safari on a computer.
 3. Keep all files and folders together. Bookmark the page.
 4. Choose a subject, topic and subtopic. Recall, read and practise.
-5. Export progress regularly from Offline & backup.
+5. Open the top-right profile to change initials, see PYQ notes by subject, and access Offline & backup.
+6. Export progress regularly from Offline & backup.
 
 Everything needed for local study is included. No ChatGPT account, subscription or internet is needed. External reference and community solution links require internet. Progress is stored in your browser; use Export/Import to move it.
 
