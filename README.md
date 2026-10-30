@@ -1,6 +1,6 @@
 # GATE Recall
 
-The application source and editable recall notes live in this repository. The latest full offline edition is attached to release **v1.1.0** as `GATE_Recall_Offline.zip`.
+The application source and editable recall notes live in this repository. The original full offline edition is attached to release **v1.0.0** as `GATE_Recall_Offline.zip`. The hosted site has newer profile and PYQ-note features that are not in that original release.
 
 Large source PDFs, question images and extracted metadata are restored from the fixed, checksum-verified **v1.0.0** study pack during deployment. The GitHub code archive alone is therefore not the complete offline app. Download the release ZIP for offline use.
 
@@ -8,7 +8,7 @@ A personal GATE study desk, organised as **subject → syllabus topic → PYQ su
 
 ## Start studying
 
-Download and extract **GATE_Recall_Offline.zip** from Releases, then open its top-level `index.html` (or `dist/index.html`) in a desktop browser. No installation, account, API key, server, build step, or subscription is required. Keep the entire `dist` folder together. The downloadable offline edition also includes a top-level `index.html` shortcut to the same app.
+To use the original v1.0.0 desktop edition, download and extract **GATE_Recall_Offline.zip** from Releases, then open its top-level `index.html` (or `dist/index.html`) in a desktop browser. No installation, account, API key, server, build step, or subscription is required. Keep the entire `dist` folder together. The downloadable offline edition also includes a top-level `index.html` shortcut to the same app.
 
 1. Choose a subject and expand a topic.
 2. Try the recall prompt before revealing it; then read the essential idea.
@@ -21,7 +21,7 @@ Download and extract **GATE_Recall_Offline.zip** from Releases, then open its to
 
 ## Offline on a phone or tablet
 
-Open a hosted HTTPS copy. In **Offline & backup**, choose **Download all study material** and keep the page open until the readiness check succeeds. The complete pack is about 247 MiB. Downloads can be paused and resumed. Add the site to the home screen using the browser menu (Safari: Share → Add to Home Screen). Open it once in the installed app and check offline readiness there as well.
+Open the current hosted HTTPS copy. In the profile menu, select **Offline & backup**, choose **Download all study material** and keep the page open until the readiness check succeeds. The complete pack is about 247 MiB. Downloads can be paused and resumed. Add the site to the home screen using the browser menu (Safari: Share → Add to Home Screen). Open it once in the installed app and check offline readiness there as well.
 
 The extracted desktop edition already contains the study material. External community explanations and reference links need internet. Browser storage can be evicted; retain the ZIP as a durable copy.
 
